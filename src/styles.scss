@@ -1,0 +1,299 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '@checkworkrights/ui-angular/styles/utility-classes.css';
+
+* {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--color-bg-surface-canvas);
+    color: var(--color-text-surface);
+}
+
+h1 {
+    font: var(--text-style-h1);
+    color: var(--color-text-surface);
+    margin: 0 0 var(--space-sm) 0;
+}
+
+h2 {
+    font: var(--text-style-h2);
+    color: var(--color-text-surface);
+    margin: 0 0 var(--space-sm) 0;
+}
+
+h3 {
+    font: var(--text-style-h3);
+    color: var(--color-text-surface);
+    margin: 0;
+}
+
+h4 {
+    font: var(--text-style-h4);
+    color: var(--color-text-surface);
+    margin: 0;
+}
+
+p {
+    font: var(--text-style-p);
+    color: var(--color-text-surface-secondary);
+}
+
+code {
+    font: var(--text-style-caption);
+    color: var(--color-text-surface-secondary);
+}
+
+
+@font-face {
+    font-family: 'icomoon';
+    src: url('/fonts/icomoon.eot');
+    src: url('/fonts/icomoon.eot') format('embedded-opentype'),
+        url('/fonts/icomoon.ttf') format('truetype'),
+        url('/fonts/icomoon.woff') format('woff'),
+        url('/fonts/icomoon.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Galano Grotesque;
+    font-weight: 600;
+    src: url('/fonts/ReneBieder-GalanoGrotesqueSemiBold.otf') format('opentype');
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    font-size: 24px;
+    color: #4a5a6c;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-logout:before {
+    content: '\e900';
+}
+
+/* // .icon-admin:before { */
+/* //   content: "\e901"; */
+/* // } */
+/* // .icon-dashboard:before { */
+/* //   content: "\e902"; */
+/* // } */
+.icon-down-arrow-fill:before {
+    content: '\e903';
+}
+
+.icon-down-arrow:before {
+    content: '\e904';
+}
+
+/* deprecating icon under ticket cwr-1273 */
+/* .icon-employees:before { */
+/* content: "\e905"; */
+/* } */
+/* .icon-reports:before { */
+/* content: "\e906"; */
+/* } */
+.icon-search:before {
+    content: '\e907';
+}
+
+/* deprecating icon under ticket cwr-1273 */
+/* .icon-verifiers:before { */
+/* content: "\e908"; */
+/* } */
+.icon-add:before {
+    content: '\e909';
+    color: #fff;
+}
+
+.icon-hamburger:before {
+    content: '\e90a';
+    color: #fff;
+}
+
+.icon-close_big:before {
+    content: '\e90b';
+}
+
+.icon-business-unit:before {
+    content: '\e90c';
+    color: #8b8b8b;
+}
+
+.icon-state-icon:before {
+    content: '\e90d';
+    color: #8b8b8b;
+}
+
+.icon-arrow:before {
+    content: '\e90e';
+}
+
+.icon-right-arrow:before {
+    content: '\e90f';
+}
+
+.icon-documents-file-excel:before {
+    content: '\e910';
+    color: #fff;
+}
+
+.icon-filter:before {
+    content: '\e911';
+    color: #fff;
+}
+
+/* .icon-adv-filter:before {
+   content: "\e911";
+ } */
+.icon-next:before {
+    content: '\e912';
+    color: #4d4d4d;
+    font-size: 12px;
+}
+
+.icon-prev:before {
+    content: '\e913';
+    color: #4d4d4d;
+    font-size: 12px;
+}
+
+.icon-close:before {
+    content: '\e914';
+    color: #fff;
+}
+
+.icon-close-dark:before {
+    content: '\e914';
+    color: #808c9a;
+}
+
+.icon-data:before {
+    content: '\e915';
+}
+
+.icon-document:before {
+    content: '\e916';
+}
+
+.icon-group:before {
+    content: '\e917';
+}
+
+.icon-minus:before {
+    content: '\e918';
+}
+
+.icon-onboarding:before {
+    content: '\e919';
+}
+
+.icon-plus:before {
+    content: '\e91a';
+}
+
+.icon-wwc:before {
+    content: '\e91d';
+}
+
+.icon-vevo:before {
+    content: '\e91c';
+}
+
+.icon-police:before {
+    content: '\e91b';
+}
+
+.icon-short_left:before {
+    content: '\e91e';
+    color: #8b8b8b;
+}
+
+.icon-user-profile-checkmark .path1:before {
+    content: '\e91f';
+    color: #9e9e9e;
+}
+
+.icon-user-profile-checkmark .path2:before {
+    content: '\e920';
+    color: #9e9e9e;
+    margin-left: -1em;
+}
+
+.icon-user-profile-checkmark .path3:before {
+    content: '\e921';
+    color: #36b088;
+    margin-left: -1em;
+}
+
+.icon-user-profile-cross .path1:before {
+    content: '\e922';
+    color: #9e9e9e;
+}
+
+.icon-user-profile-cross .path2:before {
+    content: '\e923';
+    color: #9e9e9e;
+    margin-left: -1em;
+}
+
+.icon-user-profile-cross .path3:before {
+    content: '\e924';
+    color: #ff687a;
+    margin-left: -1em;
+}
+
+.icon-user-profile-cross .path4:before {
+    content: '\e925';
+    color: #ff687a;
+    margin-left: -1em;
+}
+
+.icon-user-profile-delete .path1:before {
+    content: '\e926';
+    color: #9e9e9e;
+}
+
+.icon-user-profile-delete .path2:before {
+    content: '\e927';
+    color: #9e9e9e;
+    margin-left: -1em;
+}
+
+.icon-user-profile-delete .path3:before {
+    content: '\e928';
+    color: #f8c538;
+    margin-left: -1em;
+}
+
+.icon-user-profile-delete .path4:before {
+    content: '\e929';
+    color: #f8c538;
+    margin-left: -1em;
+}
+
+.icon-send:before {
+    content: '\e92a';
+    color: #fff;
+}
+
+.icon-zoomPlus:before {
+    content: '\e92b';
+}
+
+.icon-Rotate:before {
+    content: '\e92c';
+}

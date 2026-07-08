@@ -1,0 +1,61 @@
+<style>
+  :host {
+    display: block;
+    height: 100vh;
+  }
+
+  .app-shell {
+    height: 100%;
+  }
+
+  .app-content {
+    height: 100%;
+    margin-left: var(--size-navbar-min-width);
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: var(--space-xl, 1.5rem);
+  }
+
+  .theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 50%;
+    background: var(--gray-900, #1a1a1a);
+    color: var(--gray-400, #b0b0b0);
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+  }
+
+  .theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  @media (max-width: 768px) {
+    .app-content {
+      margin-left: 0;
+    }
+  }
+</style>
+
+<div class="app-shell">
+  <cwr-navbar [navItems]="navItems" [whatsNewItems]="whatsNewItems" [hasNew]="true"></cwr-navbar>
+
+  <div class="app-content">
+    <router-outlet />
+  </div>
+</div>
+
+<button
+  class="theme-toggle cwr-container-border"
+  (click)="toggleTheme()"
+  [attr.aria-label]="'Toggle theme'"
+>
+  {{ isDarkMode ? '☀️' : '🌙' }}
+</button>
