@@ -103,16 +103,16 @@ export class App {
 
   whatsNewItems: WhatsNewItem[] = [
     {
-      title: 'Bulk Verification Export',
-      link: 'https://example.com/changelog/bulk-export',
+      title: 'Text Input',
+      link: 'https://ui-angular-showcase-lsqd60epk-elavarasan321s-projects.vercel.app/showcase/text-input',
     },
     {
-      title: 'Contractor Portal Updates',
-      link: 'https://example.com/changelog/contractor-portal',
+      title: 'Text Overflow',
+      link: 'https://ui-angular-showcase-lsqd60epk-elavarasan321s-projects.vercel.app/showcase/text-overflow',
     },
     {
-      title: 'Dashboard Redesign',
-      link: 'https://example.com/changelog/dashboard',
+      title: 'Tooltip',
+      link: 'https://ui-angular-showcase-lsqd60epk-elavarasan321s-projects.vercel.app/showcase/tooltip',
     },
   ];
 
