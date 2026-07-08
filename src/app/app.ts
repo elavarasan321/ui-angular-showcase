@@ -104,15 +104,15 @@ export class App {
   whatsNewItems: WhatsNewItem[] = [
     {
       title: 'Text Input',
-      link: 'https://ui-angular-showcase-lsqd60epk-elavarasan321s-projects.vercel.app/showcase/text-input',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/text-input',
     },
     {
       title: 'Text Overflow',
-      link: 'https://ui-angular-showcase-lsqd60epk-elavarasan321s-projects.vercel.app/showcase/text-overflow',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/text-overflow',
     },
     {
       title: 'Tooltip',
-      link: 'https://ui-angular-showcase-lsqd60epk-elavarasan321s-projects.vercel.app/showcase/tooltip',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/tooltip',
     },
   ];
 
