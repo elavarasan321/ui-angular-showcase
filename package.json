@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "generate:tokens": "node scripts/generate-design-tokens.mjs",
+    "prestart": "npm run generate:tokens",
+    "prebuild": "npm run generate:tokens",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",

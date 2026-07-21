@@ -28,6 +28,13 @@ export class App {
       icon: 'icon.nav.dashboard',
     },
     {
+      id: 'design-tokens',
+      label: 'Design Tokens',
+      route: 'design-tokens',
+      icon: 'icon.ui.attribute',
+      divider: true,
+    },
+    {
       id: 'showcase-button',
       label: 'Button',
       route: 'showcase/button',

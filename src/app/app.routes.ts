@@ -12,6 +12,7 @@ import { SpinnerShowcase } from './pages/showcase/spinner.showcase';
 import { TextInputShowcase } from './pages/showcase/text-input.showcase';
 import { TextOverflowShowcase } from './pages/showcase/text-overflow.showcase';
 import { TooltipShowcase } from './pages/showcase/tooltip.showcase';
+import { DesignTokensShowcase } from './pages/design-tokens/design-tokens.showcase';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'getting-started', pathMatch: 'full' },
@@ -19,6 +20,11 @@ export const routes: Routes = [
     path: 'getting-started',
     component: GettingStartedShowcase,
     data: { title: 'Getting Started' },
+  },
+  {
+    path: 'design-tokens',
+    component: DesignTokensShowcase,
+    data: { title: 'Design Tokens' },
   },
   { path: 'showcase/button', component: ButtonShowcase, data: { title: 'Button' } },
   { path: 'showcase/form-field', component: FormFieldShowcase, data: { title: 'Form Field' } },
