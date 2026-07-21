@@ -142,7 +142,7 @@ function titleFromStem(stem: string): string {
       }
 
       .token-value {
-        font-size: var(--font-size-sm, 0.75rem) !important;
+        font: var(--text-style-body) !important;
         font-family: 'SFMono-Regular', Consolas, monospace;
         color: var(--color-text-surface-secondary, currentColor);
         word-break: break-all;
@@ -155,7 +155,7 @@ function titleFromStem(stem: string): string {
         justify-content: space-between;
         gap: var(--space-3xs, 0.25rem);
         cursor: pointer;
-        font-size: var(--font-size-md, 1rem);
+        font: var(--text-style-body);
         font-family: 'SFMono-Regular', Consolas, monospace;
         color: var(--color-text-brand, currentColor);
         background: var(--color-bg-surface-nested, transparent);
