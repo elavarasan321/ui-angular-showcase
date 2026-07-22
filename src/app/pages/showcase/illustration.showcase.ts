@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { IllustrationComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
+import { IllustrationPlayground } from './illustration-playground';
 import { ShowcaseHeader } from './showcase-header';
 
 @Component({
   selector: 'app-illustration-showcase',
   standalone: true,
-  imports: [IllustrationComponent, ExampleBlock, ShowcaseHeader],
+  imports: [IllustrationComponent, ExampleBlock, ShowcaseHeader, IllustrationPlayground],
   template: `
     <app-showcase-header title="Illustration" selector="cwr-illustration"></app-showcase-header>
+
+    <app-illustration-playground></app-illustration-playground>
 
     <app-example-block title="Sizes" [code]="sizesCode">
       <cwr-illustration illustration="illustration.document.complete" size="xs"></cwr-illustration>

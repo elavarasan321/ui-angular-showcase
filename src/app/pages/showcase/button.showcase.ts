@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '@checkworkrights/ui-angular';
+import { ButtonPlayground } from './button-playground';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
 
 @Component({
   selector: 'app-button-showcase',
   standalone: true,
-  imports: [ButtonComponent, ExampleBlock, ShowcaseHeader],
+  imports: [ButtonComponent, ButtonPlayground, ExampleBlock, ShowcaseHeader],
   template: `
     <app-showcase-header title="Button" selector="cwr-button"></app-showcase-header>
+
+    <app-button-playground></app-button-playground>
 
     <app-example-block title="Variants & intents" [code]="variantsCode">
       <cwr-button variant="solid" intent="brand" label="Save employee"></cwr-button>

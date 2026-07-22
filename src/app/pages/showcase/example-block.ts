@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'app-example-block',
   standalone: true,
+  imports: [MarkdownComponent],
   template: `
     <section class="example-block">
       @if (title) {
@@ -13,7 +15,7 @@ import { Component, Input } from '@angular/core';
       </div>
       <div class="example-block__code-wrapper">
         <span class="example-block__code-label">Usage</span>
-        <pre class="example-block__code"><code>{{ code }}</code></pre>
+        <markdown class="example-block__code" clipboard [data]="fencedCode()"></markdown>
       </div>
     </section>
   `,
@@ -48,7 +50,7 @@ import { Component, Input } from '@angular/core';
         position: relative;
         padding: var(--space-md, 1rem) var(--space-md, 1rem) var(--space-lg, 1.25rem);
         border-top: 1px solid var(--color-border-neutral-subtle, #e2e2e2);
-        background: var(--color-bg-surface);
+        background: var(--color-bg-surface-lowered, #fafafa);
       }
 
       .example-block__code-label {
@@ -61,19 +63,16 @@ import { Component, Input } from '@angular/core';
       }
 
       .example-block__code {
-        margin: 0;
-        overflow-x: auto;
-        font: var(--text-style-caption);
-        line-height: 1.7;
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-      }
-      .example-block__code code {
-        color: var(--color-text-surface-secondary);
-        font: var(--text-style-input-value);
-        font-family: 'Monaco', monospace;
-        padding: 0;
-        background-color: transparent;
+        display: block;
+
+        ::ng-deep pre[class*='language-'] {
+          margin: 0;
+          overflow-x: auto;
+          background: var(--color-bg-surface-lowered, #fafafa);
+          font: var(--text-style-input-value);
+          font-family: 'Monaco', monospace;
+          line-height: 1.7;
+        }
       }
     `,
   ],
@@ -81,4 +80,9 @@ import { Component, Input } from '@angular/core';
 export class ExampleBlock {
   @Input() title = '';
   @Input() code = '';
+  @Input() language = 'html';
+
+  fencedCode(): string {
+    return '```' + this.language + '\n' + this.code + '\n```';
+  }
 }

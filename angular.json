@@ -33,7 +33,21 @@
             "styles": [
               "src/styles.scss",
               "@checkworkrights/design-tokens/dark.css",
-              "@checkworkrights/design-tokens/light.css"
+              "@checkworkrights/design-tokens/light.css",
+              "node_modules/prismjs/themes/prism-okaidia.css",
+              "src/styles/prism-light-theme.css"
+            ],
+            "scripts": [
+              "node_modules/prismjs/prism.js",
+              "node_modules/prismjs/components/prism-markup.min.js",
+              "node_modules/prismjs/components/prism-css.min.js",
+              "node_modules/prismjs/components/prism-clike.min.js",
+              "node_modules/prismjs/components/prism-javascript.min.js",
+              "node_modules/prismjs/components/prism-typescript.min.js",
+              "node_modules/prismjs/components/prism-scss.min.js",
+              "node_modules/prismjs/components/prism-json.min.js",
+              "node_modules/prismjs/components/prism-bash.min.js",
+              "node_modules/clipboard/dist/clipboard.min.js"
             ]
           },
           "configurations": {

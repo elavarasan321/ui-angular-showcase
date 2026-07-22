@@ -1,14 +1,16 @@
 import { Component, Input } from '@angular/core';
+import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'app-code-snippet',
   standalone: true,
+  imports: [MarkdownComponent],
   template: `
     <div class="code-snippet">
       @if (title) {
         <span class="code-snippet__label">{{ title }}</span>
       }
-      <pre class="code-snippet__code"><code>{{ code }}</code></pre>
+      <markdown class="code-snippet__code" clipboard [data]="fencedCode()"></markdown>
     </div>
   `,
   styles: [
@@ -18,7 +20,7 @@ import { Component, Input } from '@angular/core';
         padding: var(--space-md, 1rem);
         border: 1px solid var(--color-border-neutral-subtle, #e2e2e2);
         border-radius: var(--border-radius-md, 8px);
-        background: var(--color-bg-surface);
+        background: var(--color-bg-surface-lowered, #fafafa);
       }
 
       .code-snippet__label {
@@ -31,13 +33,14 @@ import { Component, Input } from '@angular/core';
       }
 
       .code-snippet__code {
-        margin: 0;
-        overflow-x: auto;
+        display: block;
 
-        code {
+        ::ng-deep pre[class*='language-'] {
+          margin: 0;
+          overflow-x: auto;
+          background: none;
           font: var(--text-style-input-value);
           line-height: 1.7;
-          color: var(--color-text-surface);
         }
       }
     `,
@@ -46,4 +49,9 @@ import { Component, Input } from '@angular/core';
 export class CodeSnippet {
   @Input() title = '';
   @Input() code = '';
+  @Input() language = 'typescript';
+
+  fencedCode(): string {
+    return '```' + this.language + '\n' + this.code + '\n```';
+  }
 }

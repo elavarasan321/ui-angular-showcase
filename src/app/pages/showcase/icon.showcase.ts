@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { IconComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
+import { IconPlayground } from './icon-playground';
 import { ShowcaseHeader } from './showcase-header';
 
 @Component({
   selector: 'app-icon-showcase',
   standalone: true,
-  imports: [IconComponent, ExampleBlock, ShowcaseHeader],
+  imports: [IconComponent, ExampleBlock, ShowcaseHeader, IconPlayground],
   template: `
     <app-showcase-header title="Icon" selector="cwr-icon"></app-showcase-header>
+
+    <app-icon-playground></app-icon-playground>
 
     <app-example-block title="Sizes" [code]="sizesCode">
       <cwr-icon icon="icon.ui.placeholder" size="xs"></cwr-icon>

@@ -22,6 +22,7 @@ import { CodeSnippet } from './code-snippet';
     </p>
     <app-code-snippet
       title="Terminal"
+      language="bash"
       code="npm install @checkworkrights/ui-angular @checkworkrights/design-tokens"
     ></app-code-snippet>
 
@@ -31,7 +32,7 @@ import { CodeSnippet } from './code-snippet';
       your JS. Add these entries to your app's existing <code>assets</code> and <code>styles</code> arrays
       — don't replace what's already there.
     </p>
-    <app-code-snippet title="angular.json" [code]="angularJsonCode"></app-code-snippet>
+    <app-code-snippet title="angular.json" language="json" [code]="angularJsonCode"></app-code-snippet>
     <p>
       <code>node_modules/@checkworkrights/ui-angular/public</code> (assets) lets
       <code>cwr-icon</code> / <code>cwr-illustration</code> fetch their SVGs at runtime.
@@ -48,10 +49,15 @@ import { CodeSnippet } from './code-snippet';
       container-border) that <code>Button</code>, <code>IconButton</code>, and <code>InputWrapper</code>
       depend on for their borders and focus rings. There are two equivalent ways to load it — pick one:
     </p>
-    <app-code-snippet title="Option A — angular.json styles array" [code]="utilityAngularJsonCode">
+    <app-code-snippet
+      title="Option A — angular.json styles array"
+      language="json"
+      [code]="utilityAngularJsonCode"
+    >
     </app-code-snippet>
     <app-code-snippet
       title="Option B — @import in your global stylesheet (used by this app)"
+      language="scss"
       [code]="utilityImportCode"
     ></app-code-snippet>
 

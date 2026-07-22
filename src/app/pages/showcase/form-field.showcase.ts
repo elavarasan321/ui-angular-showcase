@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FormFieldComponent, TextInputComponent, InlineButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
+import { FormFieldPlayground } from './form-field-playground';
 import { ShowcaseHeader } from './showcase-header';
 
 @Component({
@@ -13,10 +14,13 @@ import { ShowcaseHeader } from './showcase-header';
     TextInputComponent,
     InlineButtonComponent,
     ExampleBlock,
+    FormFieldPlayground,
     ShowcaseHeader,
   ],
   template: `
     <app-showcase-header title="Form Field" selector="cwr-form-field"></app-showcase-header>
+
+    <app-form-field-playground></app-form-field-playground>
 
     <app-example-block title="Basic field wrapping a text input" [code]="basicCode">
       <cwr-form-field label="Full name" [mandatory]="true" labelFor="full-name" hintText="As shown on your passport">

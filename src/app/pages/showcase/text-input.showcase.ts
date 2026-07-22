@@ -3,13 +3,16 @@ import { FormsModule } from '@angular/forms';
 import { TextInputComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { TextInputPlayground } from './text-input-playground';
 
 @Component({
   selector: 'app-text-input-showcase',
   standalone: true,
-  imports: [FormsModule, TextInputComponent, ExampleBlock, ShowcaseHeader],
+  imports: [FormsModule, TextInputComponent, ExampleBlock, ShowcaseHeader, TextInputPlayground],
   template: `
     <app-showcase-header title="Text Input" selector="cwr-text-input"></app-showcase-header>
+
+    <app-text-input-playground></app-text-input-playground>
 
     <app-example-block title="Two-way binding with ngModel" [code]="ngModelCode">
       <cwr-text-input [(ngModel)]="name" placeholder="Enter your name"></cwr-text-input>

@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { TooltipComponent, IconButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { TooltipPlayground } from './tooltip-playground';
 
 @Component({
   selector: 'app-tooltip-showcase',
   standalone: true,
-  imports: [TooltipComponent, IconButtonComponent, ExampleBlock, ShowcaseHeader],
+  imports: [TooltipComponent, IconButtonComponent, ExampleBlock, ShowcaseHeader, TooltipPlayground],
   template: `
     <app-showcase-header title="Tooltip" selector="cwr-tooltip"></app-showcase-header>
+    <app-tooltip-playground></app-tooltip-playground>
     <p>
       Like <code>cwr-hint</code>, <code>cwr-tooltip</code> has no visible markup of its own — it attaches to
       its parent element and shows on hover/focus. Wrap the trigger and the tooltip together in a positioned

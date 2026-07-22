@@ -2,13 +2,16 @@ import { Component } from '@angular/core';
 import { TextOverflowComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { TextOverflowPlayground } from './text-overflow-playground';
 
 @Component({
   selector: 'app-text-overflow-showcase',
   standalone: true,
-  imports: [TextOverflowComponent, ExampleBlock, ShowcaseHeader],
+  imports: [TextOverflowComponent, ExampleBlock, ShowcaseHeader, TextOverflowPlayground],
   template: `
     <app-showcase-header title="Text Overflow" selector="cwr-text-overflow"></app-showcase-header>
+
+    <app-text-overflow-playground></app-text-overflow-playground>
 
     <app-example-block title="Trailing truncation" [code]="trailingCode">
       <cwr-text-overflow

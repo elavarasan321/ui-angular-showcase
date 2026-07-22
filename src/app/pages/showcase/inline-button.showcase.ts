@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { InlineButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
+import { InlineButtonPlayground } from './inline-button-playground';
 import { ShowcaseHeader } from './showcase-header';
 
 @Component({
   selector: 'app-inline-button-showcase',
   standalone: true,
-  imports: [InlineButtonComponent, ExampleBlock, ShowcaseHeader],
+  imports: [InlineButtonComponent, ExampleBlock, ShowcaseHeader, InlineButtonPlayground],
   template: `
     <app-showcase-header title="Inline Button" selector="cwr-inline-button"></app-showcase-header>
+
+    <app-inline-button-playground></app-inline-button-playground>
 
     <app-example-block title="Intents" [code]="intentsCode">
       <cwr-inline-button variant="brand">Learn more</cwr-inline-button>

@@ -24,87 +24,72 @@ export class App {
     {
       id: 'getting-started',
       label: 'Getting Started',
-      route: 'getting-started',
-      icon: 'icon.nav.dashboard',
+      route: 'getting-started'
     },
     {
       id: 'design-tokens',
       label: 'Design Tokens',
       route: 'design-tokens',
-      icon: 'icon.ui.attribute',
-      divider: true,
     },
     {
       id: 'showcase-button',
       label: 'Button',
       route: 'showcase/button',
-      icon: 'icon.ui.check',
     },
     {
       id: 'showcase-form-field',
       label: 'Form Field',
       route: 'showcase/form-field',
-      icon: 'icon.ui.edit-alt',
     },
     {
       id: 'showcase-hint',
       label: 'Hint',
-      route: 'showcase/hint',
-      icon: 'icon.ui.hint',
+      route: 'showcase/hint'
     },
     {
       id: 'showcase-icon',
       label: 'Icon',
-      route: 'showcase/icon',
-      icon: 'icon.ui.placeholder',
+      route: 'showcase/icon'
     },
     {
       id: 'showcase-icons-button',
       label: 'Icon Button',
-      route: 'showcase/withicon',
-      icon: 'icon.ui.configure',
+      route: 'showcase/withicon'
     },
     {
       id: 'showcase-illustration',
       label: 'Illustration',
-      route: 'showcase/illustration',
-      icon: 'icon.ui.card-view',
+      route: 'showcase/illustration'
     },
     {
       id: 'showcase-inline-button',
       label: 'Inline Button',
-      route: 'showcase/inline-button',
-      icon: 'icon.ui.link',
+      route: 'showcase/inline-button'
     },
     {
       id: 'showcase-logo',
       label: 'Logo',
-      route: 'showcase/logo',
-      icon: 'icon.ui.business-unit',
+      route: 'showcase/logo'
     },
     {
       id: 'showcase-spinner',
       label: 'Spinner',
-      route: 'showcase/spinner',
-      icon: 'icon.ui.spinner',
+      route: 'showcase/spinner'
     },
     {
       id: 'showcase-text-input',
       label: 'Text Input',
-      route: 'showcase/text-input',
-      icon: 'icon.ui.edit',
+      route: 'showcase/text-input'
     },
     {
       id: 'showcase-text-overflow',
       label: 'Text Overflow',
-      route: 'showcase/text-overflow',
-      icon: 'icon.ui.sort',
+      route: 'showcase/text-overflow'
     },
     {
       id: 'showcase-tooltip',
       label: 'Tooltip',
-      route: 'showcase/tooltip',
-      icon: 'icon.ui.info',
+      route: 'showcase/tooltip'
     },
   ];
 

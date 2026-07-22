@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { HintComponent, ButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { HintPlayground } from './hint-playground';
 
 @Component({
   selector: 'app-hint-showcase',
   standalone: true,
-  imports: [HintComponent, ButtonComponent, ExampleBlock, ShowcaseHeader],
+  imports: [HintComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, HintPlayground],
   template: `
     <app-showcase-header title="Hint" selector="cwr-hint"></app-showcase-header>
+    <app-hint-playground></app-hint-playground>
     <p>
       <code>cwr-hint</code> has no visible markup of its own — it attaches hover/focus listeners to its
       parent element and renders a floating hint bubble on hover. Wrap the trigger element and the
