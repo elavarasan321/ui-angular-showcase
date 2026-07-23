@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "test-app": {
+    "ui-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -55,7 +55,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
+                  "maximumWarning": "1MB",
                   "maximumError": "1MB"
                 },
                 {
@@ -78,10 +78,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "test-app:build:production"
+              "buildTarget": "ui-angular:build:production"
             },
             "development": {
-              "buildTarget": "test-app:build:development"
+              "buildTarget": "ui-angular:build:development"
             }
           },
           "defaultConfiguration": "development"

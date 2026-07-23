@@ -9,7 +9,7 @@ import { NavbarNavItem, UIComponentsModule, WhatsNewItem } from '@checkworkright
   styleUrl: './app.scss',
 })
 export class App {
-  protected title = 'test-app';
+  protected title = 'UI Angular Showcase';
   isDarkMode = true;
 
   constructor(private router: Router) {}
