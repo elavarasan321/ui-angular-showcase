@@ -1,6 +1,8 @@
 import { Component, computed, signal } from '@angular/core';
 import {
+  ICON_COLOR_MAP,
   ILLUSTRATION_MAP,
+  IllustrationColorKey,
   IllustrationComponent,
   IllustrationKey,
   IllustrationSize,
@@ -12,6 +14,10 @@ import { Playground } from './playground';
 // IllustrationSize.
 const SIZES: readonly IllustrationSize[] = ['xs', 'sm', 'md', 'lg'];
 
+// IllustrationColorKey is `keyof typeof ICON_COLOR_MAP`, so the icon color map's keys double as
+// the valid primary/secondary color overrides.
+const NONE_COLOR = '__none__';
+
 @Component({
   selector: 'app-illustration-playground',
   standalone: true,
@@ -22,25 +28,71 @@ const SIZES: readonly IllustrationSize[] = ['xs', 'sm', 'md', 'lg'];
         playground-preview
         [illustration]="illustration()"
         [size]="size()"
+        [primaryColor]="resolvedPrimaryColor()"
+        [secondaryColor]="resolvedSecondaryColor()"
+        [primaryOpacity]="primaryOpacity() || undefined"
+        [secondaryOpacity]="secondaryOpacity() || undefined"
       ></cwr-illustration>
 
       <ng-container playground-controls>
         <label class="playground__field">
           <span>Illustration</span>
-          <select [value]="illustration()" (change)="illustration.set($any($event.target).value)">
+          <select (change)="illustration.set($any($event.target).value)">
             @for (i of illustrationKeys; track i) {
-              <option [value]="i">{{ i }}</option>
+              <option [value]="i" [selected]="i === illustration()">{{ i }}</option>
             }
           </select>
         </label>
 
         <label class="playground__field">
           <span>Size</span>
-          <select [value]="size()" (change)="size.set($any($event.target).value)">
+          <select (change)="size.set($any($event.target).value)">
             @for (s of sizes; track s) {
-              <option [value]="s">{{ s }}</option>
+              <option [value]="s" [selected]="s === size()">{{ s }}</option>
             }
           </select>
+        </label>
+
+        <label class="playground__field">
+          <span>Primary color</span>
+          <select
+            (change)="primaryColor.set($any($event.target).value)"
+          >
+            <option value="${NONE_COLOR}" [selected]="primaryColor() === '${NONE_COLOR}'">(default)</option>
+            @for (c of colorKeys; track c) {
+              <option [value]="c" [selected]="c === primaryColor()">{{ c }}</option>
+            }
+          </select>
+        </label>
+
+        <label class="playground__field">
+          <span>Secondary color</span>
+          <select
+            (change)="secondaryColor.set($any($event.target).value)"
+          >
+            <option value="${NONE_COLOR}" [selected]="secondaryColor() === '${NONE_COLOR}'">(default)</option>
+            @for (c of colorKeys; track c) {
+              <option [value]="c" [selected]="c === secondaryColor()">{{ c }}</option>
+            }
+          </select>
+        </label>
+
+        <label class="playground__field">
+          <span>Primary opacity</span>
+          <input
+            type="text"
+            [value]="primaryOpacity()"
+            (input)="primaryOpacity.set($any($event.target).value)"
+          />
+        </label>
+
+        <label class="playground__field">
+          <span>Secondary opacity</span>
+          <input
+            type="text"
+            [value]="secondaryOpacity()"
+            (input)="secondaryOpacity.set($any($event.target).value)"
+          />
         </label>
       </ng-container>
     </app-playground>
@@ -77,12 +129,34 @@ const SIZES: readonly IllustrationSize[] = ['xs', 'sm', 'md', 'lg'];
 })
 export class IllustrationPlayground {
   illustrationKeys = Object.keys(ILLUSTRATION_MAP) as IllustrationKey[];
+  colorKeys = Object.keys(ICON_COLOR_MAP) as IllustrationColorKey[];
   sizes = SIZES;
 
   illustration = signal<IllustrationKey>('illustration.document.complete');
   size = signal<IllustrationSize>('md');
+  primaryColor = signal<IllustrationColorKey | typeof NONE_COLOR>(NONE_COLOR);
+  secondaryColor = signal<IllustrationColorKey | typeof NONE_COLOR>(NONE_COLOR);
+  primaryOpacity = signal('');
+  secondaryOpacity = signal('');
 
-  generatedCode = computed(
-    () => `<cwr-illustration illustration="${this.illustration()}" size="${this.size()}"></cwr-illustration>`,
-  );
+  resolvedPrimaryColor = computed<IllustrationColorKey | undefined>(() => {
+    const color = this.primaryColor();
+    return color === NONE_COLOR ? undefined : color;
+  });
+
+  resolvedSecondaryColor = computed<IllustrationColorKey | undefined>(() => {
+    const color = this.secondaryColor();
+    return color === NONE_COLOR ? undefined : color;
+  });
+
+  generatedCode = computed(() => {
+    const attrs = [`illustration="${this.illustration()}"`, `size="${this.size()}"`];
+    if (this.primaryColor() !== NONE_COLOR) attrs.push(`primaryColor="${this.primaryColor()}"`);
+    if (this.secondaryColor() !== NONE_COLOR) {
+      attrs.push(`secondaryColor="${this.secondaryColor()}"`);
+    }
+    if (this.primaryOpacity()) attrs.push(`primaryOpacity="${this.primaryOpacity()}"`);
+    if (this.secondaryOpacity()) attrs.push(`secondaryOpacity="${this.secondaryOpacity()}"`);
+    return `<cwr-illustration ${attrs.join(' ')}></cwr-illustration>`;
+  });
 }

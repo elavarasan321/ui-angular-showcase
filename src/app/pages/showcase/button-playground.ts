@@ -14,7 +14,7 @@ const INTENTS: readonly ButtonIntent[] = [
   'caution',
   'negative',
 ];
-const SIZES: readonly ButtonSize[] = ['sm', 'md'];
+const SIZES: readonly ButtonSize[] = ['xs', 'sm', 'md'];
 
 @Component({
   selector: 'app-button-playground',
@@ -31,32 +31,33 @@ const SIZES: readonly ButtonSize[] = ['sm', 'md'];
         [loading]="loading()"
         [disabled]="disabled()"
         [leadingIcon]="leadingIcon() ? 'icon.ui.add' : undefined"
+        [trailingIcon]="trailingIcon() ? 'icon.ui.arrow-right' : undefined"
       ></cwr-button>
 
       <ng-container playground-controls>
         <label class="playground__field">
           <span>Variant</span>
-          <select [value]="variant()" (change)="variant.set($any($event.target).value)">
+          <select (change)="variant.set($any($event.target).value)">
             @for (v of variants; track v) {
-              <option [value]="v">{{ v }}</option>
+              <option [value]="v" [selected]="v === variant()">{{ v }}</option>
             }
           </select>
         </label>
 
         <label class="playground__field">
           <span>Intent</span>
-          <select [value]="intent()" (change)="intent.set($any($event.target).value)">
+          <select (change)="intent.set($any($event.target).value)">
             @for (i of intents; track i) {
-              <option [value]="i">{{ i }}</option>
+              <option [value]="i" [selected]="i === intent()">{{ i }}</option>
             }
           </select>
         </label>
 
         <label class="playground__field">
           <span>Size</span>
-          <select [value]="size()" (change)="size.set($any($event.target).value)">
+          <select (change)="size.set($any($event.target).value)">
             @for (s of sizes; track s) {
-              <option [value]="s">{{ s }}</option>
+              <option [value]="s" [selected]="s === size()">{{ s }}</option>
             }
           </select>
         </label>
@@ -73,6 +74,15 @@ const SIZES: readonly ButtonSize[] = ['sm', 'md'];
             (change)="leadingIcon.set($any($event.target).checked)"
           />
           Leading icon
+        </label>
+
+        <label class="playground__checkbox">
+          <input
+            type="checkbox"
+            [checked]="trailingIcon()"
+            (change)="trailingIcon.set($any($event.target).checked)"
+          />
+          Trailing icon
         </label>
 
         <label class="playground__checkbox">
@@ -135,6 +145,7 @@ export class ButtonPlayground {
   size = signal<ButtonSize>('md');
   label = signal('Save employee');
   leadingIcon = signal(false);
+  trailingIcon = signal(false);
   loading = signal(false);
   disabled = signal(false);
 
@@ -146,6 +157,7 @@ export class ButtonPlayground {
       `label="${this.label()}"`,
     ];
     if (this.leadingIcon()) attrs.push(`[leadingIcon]="'icon.ui.add'"`);
+    if (this.trailingIcon()) attrs.push(`[trailingIcon]="'icon.ui.arrow-right'"`);
     if (this.loading()) attrs.push(`[loading]="true"`);
     if (this.disabled()) attrs.push(`[disabled]="true"`);
     return `<cwr-button ${attrs.join(' ')}></cwr-button>`;

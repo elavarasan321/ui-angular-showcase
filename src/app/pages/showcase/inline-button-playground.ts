@@ -42,9 +42,9 @@ const TRAILING_ICON = 'icon.ui.external-link';
 
         <label class="playground__field">
           <span>Variant</span>
-          <select [value]="variant()" (change)="variant.set($any($event.target).value)">
+          <select (change)="variant.set($any($event.target).value)">
             @for (v of variants; track v) {
-              <option [value]="v">{{ v }}</option>
+              <option [value]="v" [selected]="v === variant()">{{ v }}</option>
             }
           </select>
         </label>

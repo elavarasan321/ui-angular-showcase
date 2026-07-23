@@ -34,18 +34,18 @@ const POSITIONS: readonly TextOverflowPosition[] = ['top', 'bottom'];
 
         <label class="playground__field">
           <span>Truncation</span>
-          <select [value]="truncation()" (change)="truncation.set($any($event.target).value)">
+          <select (change)="truncation.set($any($event.target).value)">
             @for (t of truncations; track t) {
-              <option [value]="t">{{ t }}</option>
+              <option [value]="t" [selected]="t === truncation()">{{ t }}</option>
             }
           </select>
         </label>
 
         <label class="playground__field">
           <span>Position</span>
-          <select [value]="position()" (change)="position.set($any($event.target).value)">
+          <select (change)="position.set($any($event.target).value)">
             @for (p of positions; track p) {
-              <option [value]="p">{{ p }}</option>
+              <option [value]="p" [selected]="p === position()">{{ p }}</option>
             }
           </select>
         </label>

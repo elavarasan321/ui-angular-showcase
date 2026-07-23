@@ -1,46 +1,30 @@
 import { Component, computed, signal } from '@angular/core';
-import { TextInputComponent, TextInputState } from '@checkworkrights/ui-angular';
+import { EmailInputComponent, EmailInputState } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
 
-// @checkworkrights/ui-angular@1.0.30 doesn't export a TextInputType type at all (only
-// InputState, re-exported as TextInputState); its own `type` input is typed inline as this
-// literal union, so it's reproduced locally here.
-type TextInputType = 'text' | 'password' | 'search' | 'tel' | 'url';
-
-// TextInputState (InputState) is exported as a plain string literal union, not a readonly array
-// const, so the option lists are hardcoded here to match the unions.
-const TYPES: readonly TextInputType[] = ['text', 'password', 'search', 'tel', 'url'];
-const STATES: readonly TextInputState[] = ['idle', 'error'];
+// EmailInputState (InputState) is exported as a plain string literal union, not a readonly array
+// const, so the option list is hardcoded here to match the union.
+const STATES: readonly EmailInputState[] = ['idle', 'error'];
 
 @Component({
-  selector: 'app-text-input-playground',
+  selector: 'app-email-input-playground',
   standalone: true,
-  imports: [TextInputComponent, Playground],
+  imports: [EmailInputComponent, Playground],
   template: `
     <app-playground [code]="generatedCode()">
-      <cwr-text-input
+      <cwr-email-input
         playground-preview
         [value]="value()"
         (valueChange)="value.set($event)"
-        [type]="type()"
         [placeholder]="placeholder()"
+        [leadingIcon]="leadingIcon()"
         [required]="required()"
         [disabled]="disabled()"
         [readOnly]="readOnly()"
         [state]="state()"
-        [maxlength]="maxlength()"
-      ></cwr-text-input>
+      ></cwr-email-input>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Type</span>
-          <select (change)="type.set($any($event.target).value)">
-            @for (t of types; track t) {
-              <option [value]="t" [selected]="t === type()">{{ t }}</option>
-            }
-          </select>
-        </label>
-
         <label class="playground__field">
           <span>Placeholder</span>
           <input
@@ -59,14 +43,13 @@ const STATES: readonly TextInputState[] = ['idle', 'error'];
           </select>
         </label>
 
-        <label class="playground__field">
-          <span>Max length</span>
+        <label class="playground__checkbox">
           <input
-            type="number"
-            min="0"
-            [value]="maxlength() ?? ''"
-            (input)="maxlength.set($any($event.target).value === '' ? null : +$any($event.target).value)"
+            type="checkbox"
+            [checked]="leadingIcon()"
+            (change)="leadingIcon.set($any($event.target).checked)"
           />
+          Leading icon
         </label>
 
         <label class="playground__checkbox">
@@ -128,26 +111,24 @@ const STATES: readonly TextInputState[] = ['idle', 'error'];
     `,
   ],
 })
-export class TextInputPlayground {
-  types = TYPES;
+export class EmailInputPlayground {
   states = STATES;
 
   value = signal('');
-  type = signal<TextInputType>('text');
-  placeholder = signal('Enter your name');
+  placeholder = signal('name@example.com');
+  leadingIcon = signal(false);
   required = signal(false);
   disabled = signal(false);
   readOnly = signal(false);
-  state = signal<TextInputState>('idle');
-  maxlength = signal<number | null>(null);
+  state = signal<EmailInputState>('idle');
 
   generatedCode = computed(() => {
-    const attrs = [`type="${this.type()}"`, `placeholder="${this.placeholder()}"`];
+    const attrs = [`placeholder="${this.placeholder()}"`];
     if (this.state() !== 'idle') attrs.push(`state="${this.state()}"`);
+    if (this.leadingIcon()) attrs.push(`[leadingIcon]="true"`);
     if (this.required()) attrs.push(`[required]="true"`);
     if (this.disabled()) attrs.push(`[disabled]="true"`);
     if (this.readOnly()) attrs.push(`[readOnly]="true"`);
-    if (this.maxlength() !== null) attrs.push(`[maxlength]="${this.maxlength()}"`);
-    return `<cwr-text-input ${attrs.join(' ')}></cwr-text-input>`;
+    return `<cwr-email-input ${attrs.join(' ')}></cwr-email-input>`;
   });
 }

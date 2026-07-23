@@ -1,46 +1,31 @@
 import { Component, computed, signal } from '@angular/core';
-import { TextInputComponent, TextInputState } from '@checkworkrights/ui-angular';
+import { NumericInputComponent, NumericInputState } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
 
-// @checkworkrights/ui-angular@1.0.30 doesn't export a TextInputType type at all (only
-// InputState, re-exported as TextInputState); its own `type` input is typed inline as this
-// literal union, so it's reproduced locally here.
-type TextInputType = 'text' | 'password' | 'search' | 'tel' | 'url';
-
-// TextInputState (InputState) is exported as a plain string literal union, not a readonly array
-// const, so the option lists are hardcoded here to match the unions.
-const TYPES: readonly TextInputType[] = ['text', 'password', 'search', 'tel', 'url'];
-const STATES: readonly TextInputState[] = ['idle', 'error'];
+// NumericInputState (InputState) is exported as a plain string literal union, not a readonly array
+// const, so the option list is hardcoded here to match the union.
+const STATES: readonly NumericInputState[] = ['idle', 'error'];
 
 @Component({
-  selector: 'app-text-input-playground',
+  selector: 'app-numeric-input-playground',
   standalone: true,
-  imports: [TextInputComponent, Playground],
+  imports: [NumericInputComponent, Playground],
   template: `
     <app-playground [code]="generatedCode()">
-      <cwr-text-input
+      <cwr-numeric-input
         playground-preview
         [value]="value()"
         (valueChange)="value.set($event)"
-        [type]="type()"
         [placeholder]="placeholder()"
+        [limitDecimals]="limitDecimals()"
+        [decimals]="decimals()"
         [required]="required()"
         [disabled]="disabled()"
         [readOnly]="readOnly()"
         [state]="state()"
-        [maxlength]="maxlength()"
-      ></cwr-text-input>
+      ></cwr-numeric-input>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Type</span>
-          <select (change)="type.set($any($event.target).value)">
-            @for (t of types; track t) {
-              <option [value]="t" [selected]="t === type()">{{ t }}</option>
-            }
-          </select>
-        </label>
-
         <label class="playground__field">
           <span>Placeholder</span>
           <input
@@ -59,15 +44,26 @@ const STATES: readonly TextInputState[] = ['idle', 'error'];
           </select>
         </label>
 
-        <label class="playground__field">
-          <span>Max length</span>
+        <label class="playground__checkbox">
           <input
-            type="number"
-            min="0"
-            [value]="maxlength() ?? ''"
-            (input)="maxlength.set($any($event.target).value === '' ? null : +$any($event.target).value)"
+            type="checkbox"
+            [checked]="limitDecimals()"
+            (change)="limitDecimals.set($any($event.target).checked)"
           />
+          Limit decimals
         </label>
+
+        @if (limitDecimals()) {
+          <label class="playground__field">
+            <span>Decimals</span>
+            <input
+              type="number"
+              min="0"
+              [value]="decimals()"
+              (input)="decimals.set($any($event.target).valueAsNumber || 0)"
+            />
+          </label>
+        }
 
         <label class="playground__checkbox">
           <input
@@ -109,7 +105,8 @@ const STATES: readonly TextInputState[] = ['idle', 'error'];
       }
 
       .playground__field select,
-      .playground__field input[type='text'] {
+      .playground__field input[type='text'],
+      .playground__field input[type='number'] {
         font: var(--text-style-body);
         color: var(--color-text-surface);
         background: var(--color-bg-surface);
@@ -128,26 +125,28 @@ const STATES: readonly TextInputState[] = ['idle', 'error'];
     `,
   ],
 })
-export class TextInputPlayground {
-  types = TYPES;
+export class NumericInputPlayground {
   states = STATES;
 
-  value = signal('');
-  type = signal<TextInputType>('text');
-  placeholder = signal('Enter your name');
+  value = signal<number | null>(null);
+  placeholder = signal('Enter amount');
+  limitDecimals = signal(false);
+  decimals = signal(2);
   required = signal(false);
   disabled = signal(false);
   readOnly = signal(false);
-  state = signal<TextInputState>('idle');
-  maxlength = signal<number | null>(null);
+  state = signal<NumericInputState>('idle');
 
   generatedCode = computed(() => {
-    const attrs = [`type="${this.type()}"`, `placeholder="${this.placeholder()}"`];
+    const attrs = [`placeholder="${this.placeholder()}"`];
     if (this.state() !== 'idle') attrs.push(`state="${this.state()}"`);
+    if (this.limitDecimals()) {
+      attrs.push(`[limitDecimals]="true"`);
+      attrs.push(`[decimals]="${this.decimals()}"`);
+    }
     if (this.required()) attrs.push(`[required]="true"`);
     if (this.disabled()) attrs.push(`[disabled]="true"`);
     if (this.readOnly()) attrs.push(`[readOnly]="true"`);
-    if (this.maxlength() !== null) attrs.push(`[maxlength]="${this.maxlength()}"`);
-    return `<cwr-text-input ${attrs.join(' ')}></cwr-text-input>`;
+    return `<cwr-numeric-input ${attrs.join(' ')}></cwr-numeric-input>`;
   });
 }

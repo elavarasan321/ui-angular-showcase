@@ -22,6 +22,7 @@ import { ShowcaseHeader } from './showcase-header';
     <app-example-block title="Sizes" [code]="sizesCode">
       <cwr-button size="md" label="Medium"></cwr-button>
       <cwr-button size="sm" label="Small"></cwr-button>
+      <cwr-button size="xs" label="Extra small"></cwr-button>
     </app-example-block>
 
     <app-example-block title="Icons, loading & disabled states" [code]="statesCode">
@@ -50,7 +51,8 @@ export class ButtonShowcase {
 <cwr-button variant="ghost" intent="negative" label="Delete"></cwr-button>`;
 
   sizesCode = `<cwr-button size="md" label="Medium"></cwr-button>
-<cwr-button size="sm" label="Small"></cwr-button>`;
+<cwr-button size="sm" label="Small"></cwr-button>
+<cwr-button size="xs" label="Extra small"></cwr-button>`;
 
   statesCode = `<cwr-button [leadingIcon]="'icon.ui.add'" label="Add employee"></cwr-button>
 <cwr-button [loading]="true" label="Saving..."></cwr-button>

@@ -18,9 +18,9 @@ const SIZES: readonly spinnerSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
       <ng-container playground-controls>
         <label class="playground__field">
           <span>Size</span>
-          <select [value]="size()" (change)="size.set($any($event.target).value)">
+          <select (change)="size.set($any($event.target).value)">
             @for (s of sizes; track s) {
-              <option [value]="s">{{ s }}</option>
+              <option [value]="s" [selected]="s === size()">{{ s }}</option>
             }
           </select>
         </label>

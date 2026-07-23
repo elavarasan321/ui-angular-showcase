@@ -3,6 +3,7 @@ import {
   IconButtonComponent,
   IconButtonIntent,
   IconButtonSize,
+  IconButtonTooltipPosition,
   IconButtonVariant,
   IconKey,
 } from '@checkworkrights/ui-angular';
@@ -22,6 +23,11 @@ const INTENTS: readonly IconButtonIntent[] = [
 ];
 const SIZES: readonly IconButtonSize[] = ['xs', 'sm', 'md'];
 
+// @checkworkrights/ui-angular@1.0.30 declares ICON_BUTTON_TOOLTIP_POSITIONS in its types but
+// doesn't actually export it from the compiled bundle, so the option list is hardcoded here to
+// match IconButtonTooltipPosition.
+const TOOLTIP_POSITIONS: readonly IconButtonTooltipPosition[] = ['top', 'bottom', 'left', 'right'];
+
 // ICON_MAP has 150+ keys; a small curated subset keeps the icon picker readable.
 const ICONS: readonly IconKey[] = [
   'icon.ui.add',
@@ -34,6 +40,7 @@ const ICONS: readonly IconKey[] = [
 const DEFAULT_VARIANT: IconButtonVariant = 'solid';
 const DEFAULT_INTENT: IconButtonIntent = 'brand';
 const DEFAULT_SIZE: IconButtonSize = 'md';
+const DEFAULT_TOOLTIP_POSITION: IconButtonTooltipPosition = 'bottom';
 
 @Component({
   selector: 'app-icon-button-playground',
@@ -51,14 +58,15 @@ const DEFAULT_SIZE: IconButtonSize = 'md';
         [disabled]="disabled()"
         [loading]="loading()"
         [hasHint]="hasHint()"
+        [tooltipPosition]="tooltipPosition()"
       ></cwr-icon-button>
 
       <ng-container playground-controls>
         <label class="playground__field">
           <span>Icon</span>
-          <select [value]="icon()" (change)="icon.set($any($event.target).value)">
+          <select (change)="icon.set($any($event.target).value)">
             @for (i of icons; track i) {
-              <option [value]="i">{{ i }}</option>
+              <option [value]="i" [selected]="i === icon()">{{ i }}</option>
             }
           </select>
         </label>
@@ -70,27 +78,27 @@ const DEFAULT_SIZE: IconButtonSize = 'md';
 
         <label class="playground__field">
           <span>Variant</span>
-          <select [value]="variant()" (change)="variant.set($any($event.target).value)">
+          <select (change)="variant.set($any($event.target).value)">
             @for (v of variants; track v) {
-              <option [value]="v">{{ v }}</option>
+              <option [value]="v" [selected]="v === variant()">{{ v }}</option>
             }
           </select>
         </label>
 
         <label class="playground__field">
           <span>Intent</span>
-          <select [value]="intent()" (change)="intent.set($any($event.target).value)">
+          <select (change)="intent.set($any($event.target).value)">
             @for (i of intents; track i) {
-              <option [value]="i">{{ i }}</option>
+              <option [value]="i" [selected]="i === intent()">{{ i }}</option>
             }
           </select>
         </label>
 
         <label class="playground__field">
           <span>Size</span>
-          <select [value]="size()" (change)="size.set($any($event.target).value)">
+          <select (change)="size.set($any($event.target).value)">
             @for (s of sizes; track s) {
-              <option [value]="s">{{ s }}</option>
+              <option [value]="s" [selected]="s === size()">{{ s }}</option>
             }
           </select>
         </label>
@@ -102,6 +110,17 @@ const DEFAULT_SIZE: IconButtonSize = 'md';
             (change)="hasHint.set($any($event.target).checked)"
           />
           Has hint
+        </label>
+
+        <label class="playground__field">
+          <span>Tooltip position</span>
+          <select
+            (change)="tooltipPosition.set($any($event.target).value)"
+          >
+            @for (p of tooltipPositions; track p) {
+              <option [value]="p" [selected]="p === tooltipPosition()">{{ p }}</option>
+            }
+          </select>
         </label>
 
         <label class="playground__checkbox">
@@ -159,6 +178,7 @@ export class IconButtonPlayground {
   variants = VARIANTS;
   intents = INTENTS;
   sizes = SIZES;
+  tooltipPositions = TOOLTIP_POSITIONS;
 
   icon = signal<IconKey>('icon.ui.edit');
   label = signal('Edit');
@@ -168,6 +188,7 @@ export class IconButtonPlayground {
   disabled = signal(false);
   loading = signal(false);
   hasHint = signal(false);
+  tooltipPosition = signal<IconButtonTooltipPosition>(DEFAULT_TOOLTIP_POSITION);
 
   generatedCode = computed(() => {
     const attrs = [`icon="${this.icon()}"`, `label="${this.label()}"`];
@@ -175,6 +196,9 @@ export class IconButtonPlayground {
     if (this.intent() !== DEFAULT_INTENT) attrs.push(`intent="${this.intent()}"`);
     if (this.size() !== DEFAULT_SIZE) attrs.push(`size="${this.size()}"`);
     if (this.hasHint()) attrs.push(`[hasHint]="true"`);
+    if (this.tooltipPosition() !== DEFAULT_TOOLTIP_POSITION) {
+      attrs.push(`tooltipPosition="${this.tooltipPosition()}"`);
+    }
     if (this.loading()) attrs.push(`[loading]="true"`);
     if (this.disabled()) attrs.push(`[disabled]="true"`);
     return `<cwr-icon-button ${attrs.join(' ')}></cwr-icon-button>`;

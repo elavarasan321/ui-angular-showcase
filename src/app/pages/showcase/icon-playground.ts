@@ -11,7 +11,7 @@ import { Playground } from './playground';
 
 // @checkworkrights/ui-angular@1.0.30 declares ICON_SIZES in its types but doesn't actually
 // export it from the compiled bundle, so the option list is hardcoded here to match IconSize.
-const SIZES: readonly IconSize[] = ['xs', 'sm', 'md', 'lg'];
+const SIZES: readonly IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 const NONE_COLOR = '__none__';
 
@@ -31,28 +31,28 @@ const NONE_COLOR = '__none__';
       <ng-container playground-controls>
         <label class="playground__field">
           <span>Icon</span>
-          <select [value]="icon()" (change)="icon.set($any($event.target).value)">
+          <select (change)="icon.set($any($event.target).value)">
             @for (i of iconKeys; track i) {
-              <option [value]="i">{{ i }}</option>
+              <option [value]="i" [selected]="i === icon()">{{ i }}</option>
             }
           </select>
         </label>
 
         <label class="playground__field">
           <span>Size</span>
-          <select [value]="size()" (change)="size.set($any($event.target).value)">
+          <select (change)="size.set($any($event.target).value)">
             @for (s of sizes; track s) {
-              <option [value]="s">{{ s }}</option>
+              <option [value]="s" [selected]="s === size()">{{ s }}</option>
             }
           </select>
         </label>
 
         <label class="playground__field">
           <span>Color</span>
-          <select [value]="color()" (change)="color.set($any($event.target).value)">
-            <option value="${NONE_COLOR}">(default)</option>
+          <select (change)="color.set($any($event.target).value)">
+            <option value="${NONE_COLOR}" [selected]="color() === '${NONE_COLOR}'">(default)</option>
             @for (c of colorKeys; track c) {
-              <option [value]="c">{{ c }}</option>
+              <option [value]="c" [selected]="c === color()">{{ c }}</option>
             }
           </select>
         </label>

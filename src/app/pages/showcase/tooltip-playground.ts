@@ -66,11 +66,10 @@ const ARROW_POSITIONS: readonly HintArrowPosition[] = [
         <label class="playground__field">
           <span>Arrow position</span>
           <select
-            [value]="arrowPosition()"
             (change)="arrowPosition.set($any($event.target).value)"
           >
             @for (p of arrowPositions; track p) {
-              <option [value]="p">{{ p }}</option>
+              <option [value]="p" [selected]="p === arrowPosition()">{{ p }}</option>
             }
           </select>
         </label>
