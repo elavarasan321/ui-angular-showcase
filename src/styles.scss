@@ -2,6 +2,15 @@
 
 @import '@checkworkrights/ui-angular/styles/utility-classes.css';
 
+/* Reserve space above the nav item list for the search box overlaid in
+   app.html, so it sits between the logo header and "Getting Started" instead
+   of covering either. cwr-navbar has no content-projection slot for this, so
+   it couples to its internal class name and must move if that changes. Keep
+   this offset in sync with .nav-search-wrapper's top/height in app.html. */
+.cwr-navbar .nav-wrapper {
+  padding-top: calc(var(--space-xl));
+}
+
 * {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
