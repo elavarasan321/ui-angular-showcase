@@ -92,13 +92,11 @@ export class App {
       id: 'showcase-divider',
       label: 'Divider',
       route: 'showcase/divider',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-email-input',
       label: 'Email Input',
       route: 'showcase/email-input',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-fieldset',
@@ -151,7 +149,6 @@ export class App {
       id: 'showcase-numeric-input',
       label: 'Numeric Input',
       route: 'showcase/numeric-input',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-radio-button',

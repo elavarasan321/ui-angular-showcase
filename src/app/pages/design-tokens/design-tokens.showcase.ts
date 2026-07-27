@@ -219,7 +219,6 @@ const SECTIONS: Section[] = [
         flex: 0 0 14rem;
         display: flex;
         flex-direction: column;
-        gap: var(--space-2xs, 0.5rem);
         padding: var(--space-md, 1rem);
         border: 1px solid var(--color-border-surface, #333);
         border-radius: var(--border-radius-md, 0.5rem);
