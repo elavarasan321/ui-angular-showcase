@@ -125,6 +125,18 @@ export class App {
       route: 'showcase/inline-button'
     },
     {
+      id: 'showcase-currency-input',
+      label: 'Currency Input',
+      route: 'showcase/currency-input',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-listbox',
+      label: 'Listbox',
+      route: 'showcase/listbox',
+      badge: { text: 'NEW' },
+    },
+    {
       id: 'showcase-logo',
       label: 'Logo',
       route: 'showcase/logo'
@@ -133,6 +145,12 @@ export class App {
       id: 'showcase-numeric-input',
       label: 'Numeric Input',
       route: 'showcase/numeric-input',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-percent-input',
+      label: 'Percent Input',
+      route: 'showcase/percent-input',
       badge: { text: 'NEW' },
     },
     {
@@ -154,6 +172,12 @@ export class App {
       badge: { text: 'NEW' },
     },
     {
+      id: 'showcase-segment-control',
+      label: 'Segment Control',
+      route: 'showcase/segment-control',
+      badge: { text: 'NEW' },
+    },
+    {
       id: 'showcase-spinner',
       label: 'Spinner',
       route: 'showcase/spinner'
@@ -167,6 +191,12 @@ export class App {
       id: 'showcase-text-overflow',
       label: 'Text Overflow',
       route: 'showcase/text-overflow'
+    },
+    {
+      id: 'showcase-textarea-input',
+      label: 'Textarea Input',
+      route: 'showcase/textarea-input',
+      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-toggle',
@@ -183,16 +213,24 @@ export class App {
 
   whatsNewItems: WhatsNewItem[] = [
     {
-      title: 'Callout',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/callout',
+      title: 'Listbox',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/listbox',
     },
     {
-      title: 'Toggle',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/toggle',
+      title: 'Segment Control',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/segment-control',
     },
     {
-      title: 'Date Input',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/date-input',
+      title: 'Currency Input',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/currency-input',
+    },
+    {
+      title: 'Percent Input',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/percent-input',
+    },
+    {
+      title: 'Textarea Input',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/textarea-input',
     },
   ];
 

@@ -112,6 +112,18 @@ export const routes: Routes = [
     data: { title: 'Inline Button' },
   },
   {
+    path: 'showcase/currency-input',
+    loadComponent: () =>
+      import('./pages/showcase/currency-input.showcase').then((m) => m.CurrencyInputShowcase),
+    data: { title: 'Currency Input' },
+  },
+  {
+    path: 'showcase/listbox',
+    loadComponent: () =>
+      import('./pages/showcase/listbox.showcase').then((m) => m.ListboxShowcase),
+    data: { title: 'Listbox' },
+  },
+  {
     path: 'showcase/logo',
     loadComponent: () => import('./pages/showcase/logo.showcase').then((m) => m.LogoShowcase),
     data: { title: 'Logo' },
@@ -121,6 +133,12 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/showcase/numeric-input.showcase').then((m) => m.NumericInputShowcase),
     data: { title: 'Numeric Input' },
+  },
+  {
+    path: 'showcase/percent-input',
+    loadComponent: () =>
+      import('./pages/showcase/percent-input.showcase').then((m) => m.PercentInputShowcase),
+    data: { title: 'Percent Input' },
   },
   {
     path: 'showcase/radio-button',
@@ -143,6 +161,12 @@ export const routes: Routes = [
     data: { title: 'Scrollbar' },
   },
   {
+    path: 'showcase/segment-control',
+    loadComponent: () =>
+      import('./pages/showcase/segment-control.showcase').then((m) => m.SegmentControlShowcase),
+    data: { title: 'Segment Control' },
+  },
+  {
     path: 'showcase/spinner',
     loadComponent: () =>
       import('./pages/showcase/spinner.showcase').then((m) => m.SpinnerShowcase),
@@ -159,6 +183,12 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/showcase/text-overflow.showcase').then((m) => m.TextOverflowShowcase),
     data: { title: 'Text Overflow' },
+  },
+  {
+    path: 'showcase/textarea-input',
+    loadComponent: () =>
+      import('./pages/showcase/textarea-input.showcase').then((m) => m.TextareaInputShowcase),
+    data: { title: 'Textarea Input' },
   },
   {
     path: 'showcase/toggle',
