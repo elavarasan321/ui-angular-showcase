@@ -2,6 +2,10 @@
 
 @import '@checkworkrights/ui-angular/styles/utility-classes.css';
 
+.cwr-navbar .nav-wrapper {
+  padding-top: calc(var(--space-xl));
+}
+
 * {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }

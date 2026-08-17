@@ -11,6 +11,7 @@ import { NavbarNavItem, UIComponentsModule, WhatsNewItem } from '@checkworkright
 export class App {
   protected title = 'UI Angular Showcase';
   isDarkMode = true;
+  searchTerm = '';
 
   constructor(private router: Router) {}
   isActiveRoute = (base: string): boolean => {
@@ -18,6 +19,23 @@ export class App {
     const path = `/${base}`;
     return url === path || url.startsWith(`${path}/`);
   };
+
+  get filteredNavItems(): NavbarNavItem[] {
+    const term = this.searchTerm.trim().toLowerCase();
+    if (!term) {
+      return this.navItems;
+    }
+    return this.navItems.filter((item) => item.label.toLowerCase().includes(term));
+  }
+
+  onSearchInput(event: Event): void {
+    this.searchTerm = (event.target as HTMLInputElement).value;
+  }
+
+  clearSearch(): void {
+    this.searchTerm = '';
+  }
+
   navItems: NavbarNavItem[] = [
     {
       id: 'getting-started',
@@ -74,13 +92,11 @@ export class App {
       id: 'showcase-divider',
       label: 'Divider',
       route: 'showcase/divider',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-email-input',
       label: 'Email Input',
       route: 'showcase/email-input',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-fieldset',
@@ -145,7 +161,6 @@ export class App {
       id: 'showcase-numeric-input',
       label: 'Numeric Input',
       route: 'showcase/numeric-input',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-percent-input',
