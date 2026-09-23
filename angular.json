@@ -34,6 +34,7 @@
               "src/styles.scss",
               "@checkworkrights/design-tokens/dark.css",
               "@checkworkrights/design-tokens/light.css",
+              "@checkworkrights/ui-angular/styles/utility-classes.css",
               "node_modules/prismjs/themes/prism-okaidia.css",
               "src/styles/prism-light-theme.css"
             ],
@@ -55,8 +56,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1MB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1.8MB",
+                  "maximumError": "2.5MB"
                 },
                 {
                   "type": "anyComponentStyle",

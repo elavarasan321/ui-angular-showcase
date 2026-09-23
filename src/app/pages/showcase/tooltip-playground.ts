@@ -18,7 +18,6 @@ const ARROW_POSITIONS: readonly HintArrowPosition[] = [
   'bottom right',
   'top left',
   'top right',
-  'none',
 ];
 
 @Component({
@@ -31,10 +30,8 @@ const ARROW_POSITIONS: readonly HintArrowPosition[] = [
         <cwr-icon-button icon="icon.ui.info" label="Visa status" [hasHint]="false"></cwr-icon-button>
         <cwr-tooltip
           [label]="label()"
-          [hintText]="hintText()"
-          [showHintText]="showHintText()"
-          [showLink]="showLink()"
-          [linkHref]="linkHref()"
+          [hintText]="showHintText() ? hintText() : ''"
+          [linkHref]="showLink() ? linkHref() : null"
           [arrowPosition]="arrowPosition()"
         ></cwr-tooltip>
       </span>
@@ -136,11 +133,8 @@ export class TooltipPlayground {
 
   generatedCode = computed(() => {
     const attrs = [`label="${this.label()}"`];
-    if (this.showHintText()) attrs.push(`[hintText]="'${this.hintText()}'"`);
-    if (this.showLink()) {
-      attrs.push(`[showLink]="true"`);
-      attrs.push(`linkHref="${this.linkHref()}"`);
-    }
+    if (this.showHintText()) attrs.push(`hintText="${this.hintText()}"`);
+    if (this.showLink()) attrs.push(`linkHref="${this.linkHref()}"`);
     attrs.push(`arrowPosition="${this.arrowPosition()}"`);
     return `<span style="position: relative; display: inline-flex;">
   <cwr-icon-button icon="icon.ui.info" label="${this.label()}" [hasHint]="false"></cwr-icon-button>

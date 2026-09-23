@@ -84,6 +84,14 @@ export const routes: Routes = [
     data: { title: 'Form Field' },
   },
   {
+    path: 'showcase/input-control-field',
+    loadComponent: () =>
+      import('./pages/showcase/input-control-field.showcase').then(
+        (m) => m.InputControlFieldShowcase,
+      ),
+    data: { title: 'Input Control Field' },
+  },
+  {
     path: 'showcase/hint',
     loadComponent: () => import('./pages/showcase/hint.showcase').then((m) => m.HintShowcase),
     data: { title: 'Hint' },
@@ -200,5 +208,105 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/showcase/tooltip.showcase').then((m) => m.TooltipShowcase),
     data: { title: 'Tooltip' },
+  },
+  {
+    path: 'showcase/ag-grid',
+    loadComponent: () => import('./pages/showcase/ag-grid.showcase').then((m) => m.AgGridShowcase),
+    data: { title: 'AG Grid' },
+  },
+  {
+    path: 'showcase/card',
+    loadComponent: () => import('./pages/showcase/card.showcase').then((m) => m.CardShowcase),
+    data: { title: 'Card' },
+  },
+  {
+    path: 'showcase/dialog',
+    loadComponent: () => import('./pages/showcase/dialog.showcase').then((m) => m.DialogShowcase),
+    data: { title: 'Dialog' },
+  },
+  {
+    path: 'showcase/drawer',
+    loadComponent: () => import('./pages/showcase/drawer.showcase').then((m) => m.DrawerShowcase),
+    data: { title: 'Drawer' },
+  },
+  {
+    path: 'showcase/empty-state',
+    loadComponent: () =>
+      import('./pages/showcase/empty-state-content-block.showcase').then(
+        (m) => m.EmptyStateContentBlockShowcase,
+      ),
+    data: { title: 'Empty State Content Block' },
+  },
+  {
+    path: 'showcase/menu-button',
+    loadComponent: () =>
+      import('./pages/showcase/menu-button.showcase').then((m) => m.MenuButtonShowcase),
+    data: { title: 'Menu Button' },
+  },
+  {
+    path: 'showcase/modal',
+    loadComponent: () => import('./pages/showcase/modal.showcase').then((m) => m.ModalShowcase),
+    data: { title: 'Modal' },
+  },
+  {
+    path: 'showcase/overlay-header-footer',
+    loadComponent: () =>
+      import('./pages/showcase/overlay-header-footer.showcase').then(
+        (m) => m.OverlayHeaderFooterShowcase,
+      ),
+    data: { title: 'Overlay Header & Footer' },
+  },
+  {
+    path: 'showcase/picker-input',
+    loadComponent: () =>
+      import('./pages/showcase/picker-input.showcase').then((m) => m.PickerInputShowcase),
+    data: { title: 'Picker Input' },
+  },
+  {
+    path: 'showcase/search-input',
+    loadComponent: () =>
+      import('./pages/showcase/search-input.showcase').then((m) => m.SearchInputShowcase),
+    data: { title: 'Search Input' },
+  },
+  {
+    path: 'showcase/select-input',
+    loadComponent: () =>
+      import('./pages/showcase/select-input.showcase').then((m) => m.SelectInputShowcase),
+    data: { title: 'Select Input' },
+  },
+  {
+    path: 'showcase/snackbar',
+    loadComponent: () =>
+      import('./pages/showcase/snackbar.showcase').then((m) => m.SnackbarShowcase),
+    data: { title: 'Snackbar' },
+  },
+  {
+    path: 'showcase/status-pill',
+    loadComponent: () =>
+      import('./pages/showcase/status-pill.showcase').then((m) => m.StatusPillShowcase),
+    data: { title: 'Status Pill' },
+  },
+  {
+    path: 'showcase/styled-link',
+    loadComponent: () =>
+      import('./pages/showcase/styled-link.showcase').then((m) => m.StyledLinkShowcase),
+    data: { title: 'Styled Link' },
+  },
+  {
+    path: 'showcase/tab-bar',
+    loadComponent: () => import('./pages/showcase/tab-bar.showcase').then((m) => m.TabBarShowcase),
+    data: { title: 'Tab Bar' },
+  },
+  {
+    path: 'showcase/toggle-card',
+    loadComponent: () =>
+      import('./pages/showcase/toggle-card.showcase').then((m) => m.ToggleCardShowcase),
+    data: { title: 'Toggle Card' },
+  },
+  {
+    path: 'showcase/tooltip-icon',
+    loadComponent: () =>
+      import('./pages/showcase/tooltip-icon.showcase').then((m) => m.TooltipIconShowcase),
+    data: { title: 'Tooltip Icon' },
   },
 ];

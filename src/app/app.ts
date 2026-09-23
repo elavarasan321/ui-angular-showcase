@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { NavbarNavItem, UIComponentsModule, WhatsNewItem } from '@checkworkrights/ui-angular';
+import { IconComponent, Navbar, NavbarNavItem, WhatsNewItem } from '@checkworkrights/ui-angular';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, UIComponentsModule],
+  imports: [RouterOutlet, Navbar, IconComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -51,7 +51,6 @@ export class App {
       id: 'showcase-badge',
       label: 'Badge',
       route: 'showcase/badge',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-button',
@@ -62,31 +61,26 @@ export class App {
       id: 'showcase-callout',
       label: 'Callout',
       route: 'showcase/callout',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-checkbox',
       label: 'Checkbox',
       route: 'showcase/checkbox',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-checkbox-card',
       label: 'Checkbox Card',
       route: 'showcase/card-checkbox',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-checkbox-input',
       label: 'Checkbox Input',
       route: 'showcase/input-checkbox',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-date-input',
       label: 'Date Input',
       route: 'showcase/date-input',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-divider',
@@ -102,18 +96,22 @@ export class App {
       id: 'showcase-fieldset',
       label: 'Fieldset',
       route: 'showcase/fieldset',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-form',
       label: 'Form',
       route: 'showcase/form',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-form-field',
       label: 'Form Field',
       route: 'showcase/field-form',
+    },
+    {
+      id: 'showcase-input-control-field',
+      label: 'Input Control Field',
+      route: 'showcase/input-control-field',
+      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-hint',
@@ -144,13 +142,11 @@ export class App {
       id: 'showcase-currency-input',
       label: 'Currency Input',
       route: 'showcase/currency-input',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-listbox',
       label: 'Listbox',
       route: 'showcase/listbox',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-logo',
@@ -166,31 +162,26 @@ export class App {
       id: 'showcase-percent-input',
       label: 'Percent Input',
       route: 'showcase/percent-input',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-radio-button',
       label: 'Radio Button',
       route: 'showcase/radio-button',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-radio-button-card',
       label: 'Radio Button Card',
       route: 'showcase/card-radio-button',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-scrollbar',
       label: 'Scrollbar',
       route: 'showcase/scrollbar',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-segment-control',
       label: 'Segment Control',
       route: 'showcase/segment-control',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-spinner',
@@ -211,22 +202,194 @@ export class App {
       id: 'showcase-textarea-input',
       label: 'Textarea Input',
       route: 'showcase/textarea-input',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-toggle',
       label: 'Toggle',
       route: 'showcase/toggle',
-      badge: { text: 'NEW' },
     },
     {
       id: 'showcase-tooltip',
       label: 'Tooltip',
       route: 'showcase/tooltip'
     },
+    {
+      id: 'showcase-ag-grid',
+      label: 'AG Grid',
+      route: 'showcase/ag-grid',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-card',
+      label: 'Card',
+      route: 'showcase/card',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-dialog',
+      label: 'Dialog',
+      route: 'showcase/dialog',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-drawer',
+      label: 'Drawer',
+      route: 'showcase/drawer',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-empty-state',
+      label: 'Empty State Content Block',
+      route: 'showcase/empty-state',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-menu-button',
+      label: 'Menu Button',
+      route: 'showcase/menu-button',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-modal',
+      label: 'Modal',
+      route: 'showcase/modal',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-overlay-header-footer',
+      label: 'Overlay Header & Footer',
+      route: 'showcase/overlay-header-footer',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-picker-input',
+      label: 'Picker Input',
+      route: 'showcase/picker-input',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-search-input',
+      label: 'Search Input',
+      route: 'showcase/search-input',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-select-input',
+      label: 'Select Input',
+      route: 'showcase/select-input',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-snackbar',
+      label: 'Snackbar',
+      route: 'showcase/snackbar',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-status-pill',
+      label: 'Status Pill',
+      route: 'showcase/status-pill',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-styled-link',
+      label: 'Styled Link',
+      route: 'showcase/styled-link',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-tab-bar',
+      label: 'Tab Bar',
+      route: 'showcase/tab-bar',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-toggle-card',
+      label: 'Toggle Card',
+      route: 'showcase/toggle-card',
+      badge: { text: 'NEW' },
+    },
+    {
+      id: 'showcase-tooltip-icon',
+      label: 'Tooltip Icon',
+      route: 'showcase/tooltip-icon',
+      badge: { text: 'NEW' },
+    },
   ];
 
   whatsNewItems: WhatsNewItem[] = [
+    {
+      title: 'AG Grid',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/ag-grid',
+    },
+    {
+      title: 'Modal',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/modal',
+    },
+    {
+      title: 'Dialog',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/dialog',
+    },
+    {
+      title: 'Drawer',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/drawer',
+    },
+    {
+      title: 'Snackbar',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/snackbar',
+    },
+    {
+      title: 'Menu Button',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/menu-button',
+    },
+    {
+      title: 'Card',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/card',
+    },
+    {
+      title: 'Tab Bar',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/tab-bar',
+    },
+    {
+      title: 'Select Input',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/select-input',
+    },
+    {
+      title: 'Picker Input',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/picker-input',
+    },
+    {
+      title: 'Search Input',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/search-input',
+    },
+    {
+      title: 'Status Pill',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/status-pill',
+    },
+    {
+      title: 'Toggle Card',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/toggle-card',
+    },
+    {
+      title: 'Styled Link',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/styled-link',
+    },
+    {
+      title: 'Tooltip Icon',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/tooltip-icon',
+    },
+    {
+      title: 'Empty State Content Block',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/empty-state',
+    },
+    {
+      title: 'Overlay Header & Footer',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/overlay-header-footer',
+    },
+    {
+      title: 'Input Control Field',
+      link: 'https://ui-angular-showcase.vercel.app/showcase/input-control-field',
+    },
     {
       title: 'Listbox',
       link: 'https://ui-angular-showcase.vercel.app/showcase/listbox',

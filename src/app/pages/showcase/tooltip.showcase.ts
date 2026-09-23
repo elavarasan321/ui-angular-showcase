@@ -29,9 +29,7 @@ import { TooltipPlayground } from './tooltip-playground';
         <cwr-icon-button icon="icon.ui.hint" label="Right to work" [hasHint]="false"></cwr-icon-button>
         <cwr-tooltip
           label="Right to work"
-          [hintText]="'Explains what this check verifies'"
-          [showHintText]="true"
-          [showLink]="true"
+          hintText="Explains what this check verifies"
           linkHref="https://immi.homeaffairs.gov.au/"
           arrowPosition="top"
         ></cwr-tooltip>
@@ -47,8 +45,11 @@ export class TooltipShowcase {
 
   linkCode = `<span style="position: relative; display: inline-flex;">
   <cwr-icon-button icon="icon.ui.hint" label="Right to work" [hasHint]="false"></cwr-icon-button>
-  <cwr-tooltip label="Right to work" [hintText]="'Explains what this check verifies'"
-    [showHintText]="true" [showLink]="true" linkHref="https://immi.homeaffairs.gov.au/"
-    arrowPosition="top"></cwr-tooltip>
+  <cwr-tooltip
+    label="Right to work"
+    hintText="Explains what this check verifies"
+    linkHref="https://immi.homeaffairs.gov.au/"
+    arrowPosition="top"
+  ></cwr-tooltip>
 </span>`;
 }

@@ -1,32 +1,33 @@
 import { Component, computed, signal } from '@angular/core';
-import { HintComponent, ButtonComponent, HintArrowPosition } from '@checkworkrights/ui-angular';
+import { TooltipIconComponent, TooltipArrowPosition } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
 
-// @checkworkrights/ui-angular@1.0.30 doesn't actually export a HINT_ARROW_POSITIONS-style
-// runtime const, so the option list is hardcoded here to match HintArrowPosition.
-const ARROW_POSITIONS: readonly HintArrowPosition[] = [
-  'bottom',
+const TOOLTIP_ARROW_POSITIONS: readonly TooltipArrowPosition[] = [
   'top',
+  'bottom',
   'left',
   'right',
-  'bottom left',
-  'bottom right',
-  'top left',
-  'top right',
 ];
 
 @Component({
-  selector: 'app-hint-playground',
+  selector: 'app-tooltip-icon-playground',
   standalone: true,
-  imports: [HintComponent, ButtonComponent, Playground],
+  imports: [TooltipIconComponent, Playground],
   template: `
     <app-playground [code]="generatedCode()">
-      <span playground-preview style="position: relative; display: inline-block;">
-        <cwr-button variant="outline" intent="neutral" label="Hover me"></cwr-button>
-        <cwr-hint [hintText]="hintText()" [arrowPosition]="arrowPosition()"></cwr-hint>
-      </span>
+      <cwr-tooltip-icon
+        playground-preview
+        [label]="label()"
+        [hintText]="hintText()"
+        [arrowPosition]="arrowPosition()"
+      ></cwr-tooltip-icon>
 
       <ng-container playground-controls>
+        <label class="playground__field">
+          <span>Label</span>
+          <input type="text" [value]="label()" (input)="label.set($any($event.target).value)" />
+        </label>
+
         <label class="playground__field">
           <span>Hint text</span>
           <input
@@ -38,9 +39,7 @@ const ARROW_POSITIONS: readonly HintArrowPosition[] = [
 
         <label class="playground__field">
           <span>Arrow position</span>
-          <select
-            (change)="arrowPosition.set($any($event.target).value)"
-          >
+          <select (change)="arrowPosition.set($any($event.target).value)">
             @for (p of arrowPositions; track p) {
               <option [value]="p" [selected]="p === arrowPosition()">{{ p }}</option>
             }
@@ -68,27 +67,23 @@ const ARROW_POSITIONS: readonly HintArrowPosition[] = [
         border-radius: var(--border-radius-sm, 0.25rem);
         padding: var(--space-2xs, 0.5rem);
       }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
     `,
   ],
 })
-export class HintPlayground {
-  arrowPositions = ARROW_POSITIONS;
+export class TooltipIconPlayground {
+  arrowPositions = TOOLTIP_ARROW_POSITIONS;
 
-  hintText = signal('This explains the field');
-  arrowPosition = signal<HintArrowPosition>('bottom');
+  label = signal('Annual percentage rate');
+  hintText = signal('The yearly cost of the loan, including fees, expressed as a percentage.');
+  arrowPosition = signal<TooltipArrowPosition>('bottom');
 
   generatedCode = computed(() => {
-    return `<span style="position: relative; display: inline-block;">
-  <cwr-button variant="outline" intent="neutral" label="Hover me"></cwr-button>
-  <cwr-hint hintText="${this.hintText()}" arrowPosition="${this.arrowPosition()}"></cwr-hint>
-</span>`;
+    const attrs = [
+      `label="${this.label()}"`,
+      `hintText="${this.hintText()}"`,
+      `arrowPosition="${this.arrowPosition()}"`,
+    ];
+
+    return `<cwr-tooltip-icon ${attrs.join(' ')}></cwr-tooltip-icon>`;
   });
 }
