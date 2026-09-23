@@ -298,6 +298,11 @@ export const routes: Routes = [
     data: { title: 'Tab Bar' },
   },
   {
+    path: 'showcase/navbar',
+    loadComponent: () => import('./pages/showcase/navbar.showcase').then((m) => m.NavbarShowcase),
+    data: { title: 'Navbar' },
+  },
+  {
     path: 'showcase/toggle-card',
     loadComponent: () =>
       import('./pages/showcase/toggle-card.showcase').then((m) => m.ToggleCardShowcase),
