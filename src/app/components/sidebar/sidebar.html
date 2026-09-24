@@ -4,18 +4,30 @@
       <cwr-logo size="sm" />
     </a>
 
-    <cwr-search-input
-      class="sidebar-search-input"
-      [value]="searchTerm"
-      (valueChange)="onSearchTermChange($event)"
-      placeholder="Filter components…"
-      aria-label="Filter navigation items"
-    />
+    <div class="sidebar-actions-row">
+      <cwr-icon-button
+        icon="icon.ui.search"
+        variant="outline"
+        intent="neutral"
+        size="md"
+        [tooltipPosition]="'right'"
+        label="Search everywhere (⌘K)"
+        (buttonClick)="openGlobalSearch()"
+      ></cwr-icon-button>
+      <cwr-icon-button
+        [icon]="isDarkMode ? 'icon.ui.sun' : 'icon.ui.moon'"
+        variant="solid"
+        intent="neutral"
+        size="md"
+        label="Toggle theme"
+        (buttonClick)="themeToggle.emit()"
+      ></cwr-icon-button>
+    </div>
   </div>
 
   <div class="sidebar-scroll">
     <div class="sidebar-top">
-      @for (item of filteredTopItems(); track trackByItem($index, item)) {
+      @for (item of topItems; track trackByItem($index, item)) {
         <a
           class="sidebar-link"
           [routerLink]="item.route"
@@ -28,7 +40,7 @@
               class="sidebar-link-badge"
               [value]="item.badge.text"
               intent="brand"
-              emphasis="subtle"
+              [emphasis]="isActiveRoute(item.route) ? 'inverse' : 'subtle'"
             />
           }
         </a>
@@ -37,49 +49,47 @@
 
     <div class="sidebar-groups">
       @for (group of groups; track trackByGroup($index, group)) {
-        @if (isGroupVisible(group)) {
-          <div class="sidebar-group">
-            <button
-              type="button"
-              class="sidebar-group-header"
+        <div class="sidebar-group">
+          <button
+            type="button"
+            class="sidebar-group-header"
+            [class.is-expanded]="isExpanded(group)"
+            [class.has-active]="hasActiveItem(group)"
+            (click)="toggleGroup(group)"
+            [attr.aria-expanded]="isExpanded(group)"
+            [attr.aria-controls]="group.id + '-panel'"
+          >
+            <span class="sidebar-group-label">{{ group.label }}</span>
+            <cwr-icon
+              class="sidebar-group-chevron"
               [class.is-expanded]="isExpanded(group)"
-              [class.has-active]="hasActiveItem(group)"
-              (click)="toggleGroup(group)"
-              [attr.aria-expanded]="isExpanded(group)"
-              [attr.aria-controls]="group.id + '-panel'"
-            >
-              <span class="sidebar-group-label">{{ group.label }}</span>
-              <cwr-icon
-                class="sidebar-group-chevron"
-                [class.is-expanded]="isExpanded(group)"
-                icon="icon.ui.direction-down"
-                size="sm"
-              />
-            </button>
-            @if (isExpanded(group)) {
-              <div class="sidebar-group-panel" [id]="group.id + '-panel'">
-                @for (item of filteredItems(group); track trackByItem($index, item)) {
-                  <a
-                    class="sidebar-link"
-                    [routerLink]="item.route"
-                    routerLinkActive="is-active"
-                    (click)="onItemClick(item)"
-                  >
-                    <span class="sidebar-link-label">{{ item.label }}</span>
-                    @if (item.badge) {
-                      <cwr-badge
-                        class="sidebar-link-badge"
-                        [value]="item.badge.text"
-                        intent="brand"
-                        emphasis="subtle"
-                      />
-                    }
-                  </a>
-                }
-              </div>
-            }
-          </div>
-        }
+              icon="icon.ui.direction-down"
+              size="sm"
+            />
+          </button>
+          @if (isExpanded(group)) {
+            <div class="sidebar-group-panel" [id]="group.id + '-panel'">
+              @for (item of group.items; track trackByItem($index, item)) {
+                <a
+                  class="sidebar-link"
+                  [routerLink]="item.route"
+                  routerLinkActive="is-active"
+                  (click)="onItemClick(item)"
+                >
+                  <span class="sidebar-link-label">{{ item.label }}</span>
+                  @if (item.badge) {
+                    <cwr-badge
+                      class="sidebar-link-badge"
+                      [value]="item.badge.text"
+                      intent="brand"
+                      [emphasis]="isActiveRoute(item.route) ? 'inverse' : 'subtle'"
+                    />
+                  }
+                </a>
+              }
+            </div>
+          }
+        </div>
       }
     </div>
   </div>

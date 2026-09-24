@@ -22,28 +22,28 @@ import { MarkdownComponent } from 'ngx-markdown';
   styles: [
     `
       .example-block {
-        margin-bottom: var(--space-xl, 1.5rem);
-        border: 1px solid var(--color-border-neutral-subtle, #e2e2e2);
-        border-radius: var(--border-radius-md, 8px);
+        margin-bottom: var(--space-xl);
+        border: 1px solid var(--color-border-neutral-subtle);
+        border-radius: var(--border-radius-md);
         overflow: hidden;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
       }
 
       .example-block__title {
         margin: 0;
-        padding: var(--space-sm, 0.75rem) var(--space-md, 1rem);
+        padding: var(--space-sm) var(--space-md);
         font: var(--text-style-h4);
         color: var(--color-text-surface-secondary);
-        border-bottom: 1px solid var(--color-border-neutral-subtle, #e2e2e2);
-        background: var(--color-bg-surface-lowered, #fafafa);
+        border-bottom: 1px solid var(--color-border-neutral-subtle);
+        background: var(--color-bg-surface-lowered);
       }
 
       .example-block__demo {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--space-md, 1rem);
-        padding: var(--space-lg, 1.25rem);
+        gap: var(--space-md);
+        padding: var(--space-lg);
       }
 
       .example-block__code-wrapper {
@@ -68,10 +68,8 @@ import { MarkdownComponent } from 'ngx-markdown';
         ::ng-deep pre[class*='language-'] {
           margin: 0;
           overflow-x: auto;
-          background: var(--color-bg-surface-lowered, #fafafa);
-          font: var(--text-style-input-value);
-          font-family: 'Monaco', monospace;
-          line-height: 1.7;
+          background: var(--color-bg-surface-lowered);
+          font: var(--text-style-p);
         }
       }
     `,

@@ -27,10 +27,9 @@ import { Component, Input } from '@angular/core';
         align-items: center;
         padding: var(--space-3xs, 0.25rem) var(--space-sm, 0.75rem);
         border-radius: var(--border-radius-full, 999px);
-        background: var(--color-bg-brand);
-        color: var(--color-text-brand-inverse);
-        font: var(--text-style-caption);
-        font-family: 'SFMono-Regular', Consolas, monospace;
+        background: var(--color-bg-neutral);
+        color: var(--color-text-neutral-inverse);
+        font: var(--text-style-label);
         white-space: nowrap;
       }
     `,

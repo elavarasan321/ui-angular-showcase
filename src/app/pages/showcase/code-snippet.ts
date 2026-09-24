@@ -39,8 +39,7 @@ import { MarkdownComponent } from 'ngx-markdown';
           margin: 0;
           overflow-x: auto;
           background: none;
-          font: var(--text-style-input-value);
-          line-height: 1.7;
+          font: var(--text-style-p);
         }
       }
     `,

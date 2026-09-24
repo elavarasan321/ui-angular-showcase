@@ -314,4 +314,10 @@ export const routes: Routes = [
       import('./pages/showcase/tooltip-icon.showcase').then((m) => m.TooltipIconShowcase),
     data: { title: 'Tooltip Icon' },
   },
+  {
+    path: 'showcase/title-block',
+    loadComponent: () =>
+      import('./pages/showcase/title-block.showcase').then((m) => m.TitleBlockShowcase),
+    data: { title: 'Title Block' },
+  },
 ];

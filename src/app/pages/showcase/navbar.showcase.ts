@@ -6,7 +6,7 @@ import { ShowcaseHeader } from './showcase-header';
 @Component({
   selector: 'app-navbar-showcase',
   standalone: true,
-  imports: [Navbar, IconComponent, ExampleBlock, ShowcaseHeader],
+  imports: [Navbar, ExampleBlock, ShowcaseHeader],
   template: `
     <app-showcase-header title="Navbar" selector="cwr-navbar"></app-showcase-header>
 

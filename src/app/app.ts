@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { NavbarNavItem, WhatsNewItem } from '@checkworkrights/ui-angular';
+import { GlobalSearch } from './components/global-search/global-search';
 import { Sidebar, SidebarNavGroup } from './components/sidebar/sidebar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Sidebar],
+  imports: [RouterOutlet, Sidebar, GlobalSearch],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -214,6 +215,12 @@ export class App {
           id: 'showcase-card',
           label: 'Card',
           route: 'showcase/card',
+          badge: { text: 'NEW' },
+        },
+        {
+          id: 'showcase-title-block',
+          label: 'Title Block',
+          route: 'showcase/title-block',
           badge: { text: 'NEW' },
         },
         { id: 'showcase-divider', label: 'Divider', route: 'showcase/divider' },

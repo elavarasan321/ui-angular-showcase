@@ -1,0 +1,51 @@
+@if (open()) {
+  <cwr-dialog
+    class="global-search-dialog"
+    title="Search components"
+    introText="Jump to any component, instantly."
+    (dismiss)="close()"
+  >
+    <div class="global-search-input-wrapper">
+      <cwr-search-input
+        class="global-search-input"
+        [value]="searchTerm()"
+        (valueChange)="onSearchTermChange($event)"
+        placeholder="Search components…"
+        aria-label="Search components"
+      />
+    </div>
+
+    <div class="global-search-results">
+      @if (resultGroups().length === 0) {
+        <div class="global-search-empty">
+          <cwr-icon icon="icon.ui.search" size="lg" />
+          <p>No components match "{{ searchTerm() }}"</p>
+        </div>
+      } @else {
+        @for (group of resultGroups(); track trackByGroup($index, group)) {
+          <div class="global-search-group">
+            <p class="global-search-group-label">{{ group.label }}</p>
+            @for (item of group.items; track trackByItem($index, item)) {
+              <button
+                type="button"
+                class="global-search-result"
+                [class.is-active]="item.id === activeItemId()"
+                (mouseenter)="setActive(item)"
+                (click)="selectResult(item)"
+              >
+                <span class="global-search-result-label">{{ item.label }}</span>
+                <cwr-icon class="global-search-result-arrow" icon="icon.ui.arrow-right" size="sm" />
+              </button>
+            }
+          </div>
+        }
+      }
+    </div>
+
+    <span overlayFooterLeading class="global-search-hints">
+      <span class="global-search-hint"><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
+      <span class="global-search-hint"><kbd>↵</kbd> Select</span>
+      <span class="global-search-hint"><kbd>esc</kbd> Close</span>
+    </span>
+  </cwr-dialog>
+}

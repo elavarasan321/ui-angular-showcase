@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import {
   BadgeComponent,
+  IconButtonComponent,
   IconComponent,
   LogoComponent,
   NavbarNavItem,
-  SearchInputComponent,
 } from '@checkworkrights/ui-angular';
+import { GlobalSearchService } from '../global-search/global-search.service';
 
 export interface SidebarNavGroup {
   id: string;
@@ -17,14 +18,7 @@ export interface SidebarNavGroup {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [
-    RouterLink,
-    RouterLinkActive,
-    IconComponent,
-    BadgeComponent,
-    LogoComponent,
-    SearchInputComponent,
-  ],
+  imports: [RouterLink, RouterLinkActive, IconComponent, IconButtonComponent, BadgeComponent, LogoComponent],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
 })
@@ -32,10 +26,12 @@ export class Sidebar implements OnInit {
   @Input() topItems: NavbarNavItem[] = [];
   @Input() groups: SidebarNavGroup[] = [];
   @Input() isActiveRoute: (route: string) => boolean = () => false;
+  @Input() isDarkMode = true;
 
   @Output() navItemClick = new EventEmitter<NavbarNavItem>();
+  @Output() themeToggle = new EventEmitter<void>();
 
-  searchTerm = '';
+  private readonly globalSearchService = inject(GlobalSearchService);
 
   private readonly expandedGroupIds = new Set<string>();
 
@@ -48,10 +44,6 @@ export class Sidebar implements OnInit {
     }
   }
 
-  get isSearching(): boolean {
-    return this.searchTerm.trim().length > 0;
-  }
-
   trackByItem(_index: number, item: NavbarNavItem): string {
     return item.id ?? item.route;
   }
@@ -60,33 +52,15 @@ export class Sidebar implements OnInit {
     return group.id;
   }
 
-  filteredTopItems(): NavbarNavItem[] {
-    return this.filterItems(this.topItems);
-  }
-
-  filteredItems(group: SidebarNavGroup): NavbarNavItem[] {
-    return this.filterItems(group.items);
-  }
-
-  isGroupVisible(group: SidebarNavGroup): boolean {
-    return !this.isSearching || this.filteredItems(group).length > 0;
-  }
-
   hasActiveItem(group: SidebarNavGroup): boolean {
     return group.items.some((item) => this.isActiveRoute(item.route));
   }
 
   isExpanded(group: SidebarNavGroup): boolean {
-    if (this.isSearching) {
-      return this.filteredItems(group).length > 0;
-    }
     return this.expandedGroupIds.has(group.id);
   }
 
   toggleGroup(group: SidebarNavGroup): void {
-    if (this.isSearching) {
-      return;
-    }
     if (this.expandedGroupIds.has(group.id)) {
       this.expandedGroupIds.delete(group.id);
     } else {
@@ -98,15 +72,7 @@ export class Sidebar implements OnInit {
     this.navItemClick.emit(item);
   }
 
-  onSearchTermChange(value: string): void {
-    this.searchTerm = value;
-  }
-
-  private filterItems(items: NavbarNavItem[]): NavbarNavItem[] {
-    if (!this.isSearching) {
-      return items;
-    }
-    const term = this.searchTerm.trim().toLowerCase();
-    return items.filter((item) => item.label.toLowerCase().includes(term));
+  openGlobalSearch(): void {
+    this.globalSearchService.openDialog();
   }
 }
