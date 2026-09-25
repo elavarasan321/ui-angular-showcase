@@ -1,59 +1,107 @@
-# TestApp
+# UI Angular Showcase
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+An interactive showcase for `@checkworkrights/ui-angular`, the CheckWorkRights Angular component library, and `@checkworkrights/design-tokens`.
 
-## Development server
+Each component page includes:
 
-To start a local development server, run:
+- a live playground for changing inputs
+- usage examples with copyable code
+- an API reference generated from the installed library
 
-```bash
-ng serve
-```
+The app also has a design-tokens browser, light and dark themes, and a global search.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Tech stack
 
-## Code scaffolding
+- Angular 21 (standalone components, lazy-loaded routes)
+- `@checkworkrights/ui-angular` and `@checkworkrights/design-tokens`
+- AG Grid 36
+- ngx-highlightjs for code snippets
+- Karma and Jasmine for unit tests
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Getting started
 
-```bash
-ng generate component component-name
-```
+### Prerequisites
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- Node.js (a version supported by Angular 21)
+- Access to the `@checkworkrights` packages on GitHub Packages (`npm.pkg.github.com`), configured in `.npmrc`
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+### Install and run
 
 ```bash
-ng build
+npm install
+npm start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Then open http://localhost:4200/. The app reloads automatically when you change a source file.
 
-## Running unit tests
+## Scripts
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+| Command                   | Description                                                     |
+| ------------------------- | --------------------------------------------------------------- |
+| `npm start`               | Regenerates the generated files, then runs `ng serve`           |
+| `npm run build`           | Regenerates the generated files, then builds into `dist/`       |
+| `npm run watch`           | Rebuilds in development mode whenever a file changes            |
+| `npm test`                | Runs the unit tests with Karma                                  |
+| `npm run generate`        | Runs both generators below                                      |
+| `npm run generate:tokens` | Regenerates the design-token data and the scoped dark theme CSS |
+| `npm run generate:api`    | Regenerates the component API tables and the library version    |
+
+## Generated files
+
+`npm start` and `npm run build` run the generators first (through the `prestart` and `prebuild` scripts). The generators read the installed packages in `node_modules`, so the showcase always matches the library version it runs.
+
+Don't edit these files by hand:
+
+| File                                                     | Generator                     | Reads from                                       |
+| -------------------------------------------------------- | ----------------------------- | ------------------------------------------------ |
+| `src/app/pages/showcase/api-reference.generated.ts`      | `generate-api-reference.mjs`  | `@checkworkrights/ui-angular` typings and bundle |
+| `src/app/library-version.generated.ts`                   | `generate-api-reference.mjs`  | `@checkworkrights/ui-angular/package.json`       |
+| `src/app/pages/design-tokens/design-tokens.generated.ts` | `generate-design-tokens.mjs`  | `@checkworkrights/design-tokens/dist/dark.css`   |
+| `src/styles/dark-scoped.generated.css`                   | `generate-design-tokens.mjs`  | `@checkworkrights/design-tokens/dist/dark.css`   |
+
+After you upgrade either library, run `npm run generate` (or restart `npm start`) and commit the regenerated files.
+
+## Project structure
+
+```
+scripts/                      Code generators for tokens and API reference
+src/
+  app/
+    app.ts                    App shell: sidebar navigation groups and theme toggle
+    app.routes.ts             Lazy-loaded route for each page
+    components/
+      sidebar/                Side navigation
+      global-search/          Search dialog for pages
+    pages/
+      design-tokens/          Design-tokens browser
+      showcase/               One page per component, plus shared building blocks
+  styles/                     Global and generated styles
+```
+
+## Adding a component page
+
+1. Create `src/app/pages/showcase/<name>.showcase.ts`. Build it from the shared blocks:
+   - `ShowcaseHeader` for the page title and selector
+   - a `<name>-playground.ts` for the interactive playground
+   - `ExampleBlock` for each usage example and its code
+   - `ComponentReference` for the generated API table
+
+   See `title-block.showcase.ts` for an example.
+2. Add a route in `src/app/app.routes.ts`.
+3. Add a navigation item to the matching group in `src/app/app.ts`. The sidebar and the global search both read these groups.
+4. Run `npm run generate:api` if the component is new in the library.
+
+## Testing against a local library build
+
+To try unreleased changes to `@checkworkrights/ui-angular` or `@checkworkrights/design-tokens`, link a local build with [yalc](https://github.com/wclr/yalc):
 
 ```bash
-ng test
+# in the library package, after building it
+yalc publish
+
+# in this repo
+yalc add @checkworkrights/ui-angular
+npm install
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Run `yalc remove --all && npm install` to go back to the published packages. yalc files are git-ignored.
