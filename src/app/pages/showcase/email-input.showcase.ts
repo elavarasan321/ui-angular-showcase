@@ -3,19 +3,18 @@ import { FormsModule } from '@angular/forms';
 import { EmailInputComponent, FormFieldComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { EmailInputPlayground } from './email-input-playground';
 
 @Component({
   selector: 'app-email-input-showcase',
   standalone: true,
-  imports: [
-    FormsModule,
+  imports: [FormsModule,
     EmailInputComponent,
     FormFieldComponent,
     ExampleBlock,
     ShowcaseHeader,
-    EmailInputPlayground,
-  ],
+    EmailInputPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Email Input" selector="cwr-email-input"></app-showcase-header>
 
@@ -49,6 +48,8 @@ import { EmailInputPlayground } from './email-input-playground';
       <cwr-email-input [disabled]="true" placeholder="name@example.com"></cwr-email-input>
       <cwr-email-input [readOnly]="true" value="name@example.com"></cwr-email-input>
     </app-example-block>
+
+    <app-component-reference selector="cwr-email-input"></app-component-reference>
   `,
 })
 export class EmailInputShowcase {

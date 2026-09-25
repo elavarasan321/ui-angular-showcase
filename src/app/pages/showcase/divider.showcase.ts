@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { DividerComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { DividerPlayground } from './divider-playground';
 
 @Component({
   selector: 'app-divider-showcase',
   standalone: true,
-  imports: [DividerComponent, ExampleBlock, ShowcaseHeader, DividerPlayground],
+  imports: [DividerComponent, ExampleBlock, ShowcaseHeader, DividerPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Divider" selector="cwr-divider"></app-showcase-header>
     <app-divider-playground></app-divider-playground>
@@ -48,6 +49,8 @@ import { DividerPlayground } from './divider-playground';
         <cwr-divider size="thickest" [rounded]="false"></cwr-divider>
       </div>
     </app-example-block>
+
+    <app-component-reference selector="cwr-divider"></app-component-reference>
   `,
 })
 export class DividerShowcase {

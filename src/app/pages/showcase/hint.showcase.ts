@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { HintComponent, ButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { HintPlayground } from './hint-playground';
 
 @Component({
   selector: 'app-hint-showcase',
   standalone: true,
-  imports: [HintComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, HintPlayground],
+  imports: [HintComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, HintPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Hint" selector="cwr-hint"></app-showcase-header>
     <app-hint-playground></app-hint-playground>
@@ -28,6 +29,8 @@ import { HintPlayground } from './hint-playground';
         <cwr-hint hintText="This explains the field" arrowPosition="top"></cwr-hint>
       </span>
     </app-example-block>
+
+    <app-component-reference selector="cwr-hint"></app-component-reference>
   `,
 })
 export class HintShowcase {

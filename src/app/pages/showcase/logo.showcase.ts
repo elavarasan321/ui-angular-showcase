@@ -3,18 +3,17 @@ import { LogoComponent, LogomarkComponent, WordmarkComponent } from '@checkworkr
 import { ExampleBlock } from './example-block';
 import { LogoPlayground } from './logo-playground';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 
 @Component({
   selector: 'app-logo-showcase',
   standalone: true,
-  imports: [
-    LogoComponent,
+  imports: [LogoComponent,
     LogomarkComponent,
     WordmarkComponent,
     ExampleBlock,
     ShowcaseHeader,
-    LogoPlayground,
-  ],
+    LogoPlayground, ComponentReference],
   template: `
     <app-showcase-header
       title="Logo"
@@ -35,6 +34,8 @@ import { ShowcaseHeader } from './showcase-header';
       <cwr-logomark size="sm"></cwr-logomark>
       <cwr-wordmark size="sm"></cwr-wordmark>
     </app-example-block>
+
+    <app-component-reference selector="cwr-logo · cwr-logomark · cwr-wordmark"></app-component-reference>
   `,
 })
 export class LogoShowcase {

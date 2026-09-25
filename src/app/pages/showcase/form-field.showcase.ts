@@ -4,19 +4,18 @@ import { FormFieldComponent, TextInputComponent, InlineButtonComponent } from '@
 import { ExampleBlock } from './example-block';
 import { FormFieldPlayground } from './form-field-playground';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 
 @Component({
   selector: 'app-form-field-showcase',
   standalone: true,
-  imports: [
-    FormsModule,
+  imports: [FormsModule,
     FormFieldComponent,
     TextInputComponent,
     InlineButtonComponent,
     ExampleBlock,
     FormFieldPlayground,
-    ShowcaseHeader,
-  ],
+    ShowcaseHeader, ComponentReference],
   template: `
     <app-showcase-header title="Form Field" selector="cwr-form-field"></app-showcase-header>
 
@@ -46,6 +45,8 @@ import { ShowcaseHeader } from './showcase-header';
         <cwr-text-input id="password" type="password" placeholder="Enter password"></cwr-text-input>
       </cwr-form-field>
     </app-example-block>
+
+    <app-component-reference selector="cwr-form-field"></app-component-reference>
   `,
 })
 export class FormFieldShowcase {

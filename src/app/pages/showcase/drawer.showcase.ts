@@ -2,12 +2,13 @@ import { Component, signal } from '@angular/core';
 import { DrawerComponent, ButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { DrawerPlayground } from './drawer-playground';
 
 @Component({
   selector: 'app-drawer-showcase',
   standalone: true,
-  imports: [DrawerComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, DrawerPlayground],
+  imports: [DrawerComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, DrawerPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Drawer" selector="cwr-drawer"></app-showcase-header>
 
@@ -68,6 +69,8 @@ import { DrawerPlayground } from './drawer-playground';
         </cwr-drawer>
       }
     </app-example-block>
+
+    <app-component-reference selector="cwr-drawer"></app-component-reference>
   `,
 })
 export class DrawerShowcase {

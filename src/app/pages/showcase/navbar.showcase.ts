@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { IconComponent, Navbar, NavbarNavItem, WhatsNewItem } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 
 @Component({
   selector: 'app-navbar-showcase',
   standalone: true,
-  imports: [Navbar, ExampleBlock, ShowcaseHeader],
+  imports: [Navbar, ExampleBlock, ShowcaseHeader, ComponentReference],
   template: `
     <app-showcase-header title="Navbar" selector="cwr-navbar"></app-showcase-header>
 
@@ -25,6 +26,8 @@ import { ShowcaseHeader } from './showcase-header';
         <cwr-navbar [navItems]="navItems"></cwr-navbar>
       </div>
     </app-example-block>
+
+    <app-component-reference selector="cwr-navbar"></app-component-reference>
   `,
   styles: [
     `

@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { StyledLinkComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { StyledLinkPlayground } from './styled-link-playground';
 
 @Component({
   selector: 'app-styled-link-showcase',
   standalone: true,
-  imports: [StyledLinkComponent, ExampleBlock, ShowcaseHeader, StyledLinkPlayground],
+  imports: [StyledLinkComponent, ExampleBlock, ShowcaseHeader, StyledLinkPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Styled Link" selector="cwr-styled-link"></app-showcase-header>
 
@@ -44,6 +45,8 @@ import { StyledLinkPlayground } from './styled-link-playground';
         >Disabled link</cwr-styled-link
       >
     </app-example-block>
+
+    <app-component-reference selector="cwr-styled-link"></app-component-reference>
   `,
 })
 export class StyledLinkShowcase {

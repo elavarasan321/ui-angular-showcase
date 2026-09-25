@@ -3,11 +3,12 @@ import { IconComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { IconPlayground } from './icon-playground';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 
 @Component({
   selector: 'app-icon-showcase',
   standalone: true,
-  imports: [IconComponent, ExampleBlock, ShowcaseHeader, IconPlayground],
+  imports: [IconComponent, ExampleBlock, ShowcaseHeader, IconPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Icon" selector="cwr-icon"></app-showcase-header>
 
@@ -26,6 +27,8 @@ import { ShowcaseHeader } from './showcase-header';
       <cwr-icon icon="icon.ui.search" size="lg"></cwr-icon>
       <cwr-icon icon="icon.status.success" size="lg"></cwr-icon>
     </app-example-block>
+
+    <app-component-reference selector="cwr-icon"></app-component-reference>
   `,
 })
 export class IconShowcase {

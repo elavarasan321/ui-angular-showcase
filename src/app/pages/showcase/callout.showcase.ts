@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { CalloutComponent, ButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { CalloutPlayground } from './callout-playground';
 
 @Component({
   selector: 'app-callout-showcase',
   standalone: true,
-  imports: [CalloutComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, CalloutPlayground],
+  imports: [CalloutComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, CalloutPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Callout" selector="cwr-callout"></app-showcase-header>
 
@@ -63,6 +64,8 @@ import { CalloutPlayground } from './callout-playground';
         <cwr-button variant="solid" intent="negative" size="sm" label="Retry"></cwr-button>
       </cwr-callout>
     </app-example-block>
+
+    <app-component-reference selector="cwr-callout"></app-component-reference>
   `,
 })
 export class CalloutShowcase {

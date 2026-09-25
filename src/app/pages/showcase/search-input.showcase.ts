@@ -2,12 +2,13 @@ import { Component, signal } from '@angular/core';
 import { SearchInputComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { SearchInputPlayground } from './search-input-playground';
 
 @Component({
   selector: 'app-search-input-showcase',
   standalone: true,
-  imports: [SearchInputComponent, ExampleBlock, ShowcaseHeader, SearchInputPlayground],
+  imports: [SearchInputComponent, ExampleBlock, ShowcaseHeader, SearchInputPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Search Input" selector="cwr-search-input"></app-showcase-header>
 
@@ -51,6 +52,8 @@ import { SearchInputPlayground } from './search-input-playground';
         style="width: 100%; max-width: 20rem;"
       ></cwr-search-input>
     </app-example-block>
+
+    <app-component-reference selector="cwr-search-input"></app-component-reference>
   `,
 })
 export class SearchInputShowcase {

@@ -3,11 +3,12 @@ import { ButtonComponent } from '@checkworkrights/ui-angular';
 import { ButtonPlayground } from './button-playground';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 
 @Component({
   selector: 'app-button-showcase',
   standalone: true,
-  imports: [ButtonComponent, ButtonPlayground, ExampleBlock, ShowcaseHeader],
+  imports: [ButtonComponent, ButtonPlayground, ExampleBlock, ShowcaseHeader, ComponentReference],
   template: `
     <app-showcase-header title="Button" selector="cwr-button"></app-showcase-header>
 
@@ -37,6 +38,8 @@ import { ShowcaseHeader } from './showcase-header';
         <span>Clicked {{ clicks }} time(s)</span>
       }
     </app-example-block>
+
+    <app-component-reference selector="cwr-button"></app-component-reference>
   `,
 })
 export class ButtonShowcase {

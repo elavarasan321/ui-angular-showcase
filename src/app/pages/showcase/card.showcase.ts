@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { CardComponent, ButtonComponent, BadgeComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { CardPlayground } from './card-playground';
 
 @Component({
   selector: 'app-card-showcase',
   standalone: true,
-  imports: [CardComponent, ButtonComponent, BadgeComponent, ExampleBlock, ShowcaseHeader, CardPlayground],
+  imports: [CardComponent, ButtonComponent, BadgeComponent, ExampleBlock, ShowcaseHeader, CardPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Card" selector="cwr-card"></app-showcase-header>
 
@@ -53,6 +54,8 @@ import { CardPlayground } from './card-playground';
         >Used for dense, nested cards.</cwr-card
       >
     </app-example-block>
+
+    <app-component-reference selector="cwr-card"></app-component-reference>
   `,
 })
 export class CardShowcase {

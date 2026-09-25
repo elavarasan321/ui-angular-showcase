@@ -7,20 +7,19 @@ import {
 } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { FormPlayground } from './form-playground';
 
 @Component({
   selector: 'app-form-showcase',
   standalone: true,
-  imports: [
-    FormComponent,
+  imports: [FormComponent,
     FormFieldComponent,
     TextInputComponent,
     ButtonComponent,
     ExampleBlock,
     ShowcaseHeader,
-    FormPlayground,
-  ],
+    FormPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Form" selector="cwr-form"></app-showcase-header>
 
@@ -81,6 +80,8 @@ import { FormPlayground } from './form-playground';
         <cwr-button variant="solid" intent="brand" label="Submit"></cwr-button>
       </cwr-form>
     </app-example-block>
+
+    <app-component-reference selector="cwr-form"></app-component-reference>
   `,
 })
 export class FormShowcase {

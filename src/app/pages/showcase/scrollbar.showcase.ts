@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { ScrollbarComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { ScrollbarPlayground } from './scrollbar-playground';
 
 @Component({
   selector: 'app-scrollbar-showcase',
   standalone: true,
-  imports: [ScrollbarComponent, ExampleBlock, ShowcaseHeader, ScrollbarPlayground],
+  imports: [ScrollbarComponent, ExampleBlock, ShowcaseHeader, ScrollbarPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Scrollbar" selector="cwr-scrollbar"></app-showcase-header>
     <app-scrollbar-playground></app-scrollbar-playground>
@@ -54,6 +55,8 @@ import { ScrollbarPlayground } from './scrollbar-playground';
         <cwr-scrollbar overflow="horizontal"></cwr-scrollbar>
       </div>
     </app-example-block>
+
+    <app-component-reference selector="cwr-scrollbar"></app-component-reference>
   `,
 })
 export class ScrollbarShowcase {

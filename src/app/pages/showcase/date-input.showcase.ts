@@ -3,19 +3,18 @@ import { FormsModule } from '@angular/forms';
 import { DateInputComponent, FormFieldComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { DateInputPlayground } from './date-input-playground';
 
 @Component({
   selector: 'app-date-input-showcase',
   standalone: true,
-  imports: [
-    FormsModule,
+  imports: [FormsModule,
     DateInputComponent,
     FormFieldComponent,
     ExampleBlock,
     ShowcaseHeader,
-    DateInputPlayground,
-  ],
+    DateInputPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Date Input" selector="cwr-date-input"></app-showcase-header>
 
@@ -43,6 +42,8 @@ import { DateInputPlayground } from './date-input-playground';
       <cwr-date-input [disabled]="true"></cwr-date-input>
       <cwr-date-input [readOnly]="true" value="25/12/2024"></cwr-date-input>
     </app-example-block>
+
+    <app-component-reference selector="cwr-date-input"></app-component-reference>
   `,
 })
 export class DateInputShowcase {

@@ -6,19 +6,18 @@ import {
 } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { FieldsetPlayground } from './fieldset-playground';
 
 @Component({
   selector: 'app-fieldset-showcase',
   standalone: true,
-  imports: [
-    FieldsetComponent,
+  imports: [FieldsetComponent,
     FormFieldComponent,
     TextInputComponent,
     ExampleBlock,
     ShowcaseHeader,
-    FieldsetPlayground,
-  ],
+    FieldsetPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Fieldset" selector="cwr-fieldset"></app-showcase-header>
 
@@ -83,6 +82,8 @@ import { FieldsetPlayground } from './fieldset-playground';
         </cwr-form-field>
       </cwr-fieldset>
     </app-example-block>
+
+    <app-component-reference selector="cwr-fieldset"></app-component-reference>
   `,
 })
 export class FieldsetShowcase {

@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { SpinnerComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { SpinnerPlayground } from './spinner-playground';
 
 @Component({
   selector: 'app-spinner-showcase',
   standalone: true,
-  imports: [SpinnerComponent, ExampleBlock, ShowcaseHeader, SpinnerPlayground],
+  imports: [SpinnerComponent, ExampleBlock, ShowcaseHeader, SpinnerPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Spinner" selector="cwr-spinner"></app-showcase-header>
     <app-spinner-playground></app-spinner-playground>
@@ -23,6 +24,8 @@ import { SpinnerPlayground } from './spinner-playground';
       <cwr-spinner size="lg" style="position: relative;"></cwr-spinner>
       <cwr-spinner size="xl" style="position: relative;"></cwr-spinner>
     </app-example-block>
+
+    <app-component-reference selector="cwr-spinner"></app-component-reference>
   `,
 })
 export class SpinnerShowcase {

@@ -2,12 +2,13 @@ import { Component, signal } from '@angular/core';
 import { RadioButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { RadioButtonPlayground } from './radio-button-playground';
 
 @Component({
   selector: 'app-radio-button-showcase',
   standalone: true,
-  imports: [RadioButtonComponent, ExampleBlock, ShowcaseHeader, RadioButtonPlayground],
+  imports: [RadioButtonComponent, ExampleBlock, ShowcaseHeader, RadioButtonPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Radio Button" selector="cwr-radio-button"></app-showcase-header>
 
@@ -43,6 +44,8 @@ import { RadioButtonPlayground } from './radio-button-playground';
         [disabled]="true"
       ></cwr-radio-button>
     </app-example-block>
+
+    <app-component-reference selector="cwr-radio-button"></app-component-reference>
   `,
 })
 export class RadioButtonShowcase {

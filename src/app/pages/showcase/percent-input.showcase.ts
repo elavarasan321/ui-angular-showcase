@@ -3,19 +3,18 @@ import { FormsModule } from '@angular/forms';
 import { PercentInputComponent, FormFieldComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { PercentInputPlayground } from './percent-input-playground';
 
 @Component({
   selector: 'app-percent-input-showcase',
   standalone: true,
-  imports: [
-    FormsModule,
+  imports: [FormsModule,
     PercentInputComponent,
     FormFieldComponent,
     ExampleBlock,
     ShowcaseHeader,
-    PercentInputPlayground,
-  ],
+    PercentInputPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Percent Input" selector="cwr-percent-input"></app-showcase-header>
 
@@ -45,6 +44,8 @@ import { PercentInputPlayground } from './percent-input-playground';
       <cwr-percent-input [disabled]="true"></cwr-percent-input>
       <cwr-percent-input [readOnly]="true" [value]="42.5"></cwr-percent-input>
     </app-example-block>
+
+    <app-component-reference selector="cwr-percent-input"></app-component-reference>
   `,
 })
 export class PercentInputShowcase {

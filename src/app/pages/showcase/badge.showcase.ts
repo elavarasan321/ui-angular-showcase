@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { BadgeComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { BadgePlayground } from './badge-playground';
 
 @Component({
   selector: 'app-badge-showcase',
   standalone: true,
-  imports: [BadgeComponent, ExampleBlock, ShowcaseHeader, BadgePlayground],
+  imports: [BadgeComponent, ExampleBlock, ShowcaseHeader, BadgePlayground, ComponentReference],
   template: `
     <app-showcase-header title="Badge" selector="cwr-badge"></app-showcase-header>
     <app-badge-playground></app-badge-playground>
@@ -31,6 +32,8 @@ import { BadgePlayground } from './badge-playground';
       <cwr-badge [value]="3" intent="brand"></cwr-badge>
       <cwr-badge [value]="12" intent="negative"></cwr-badge>
     </app-example-block>
+
+    <app-component-reference selector="cwr-badge"></app-component-reference>
   `,
 })
 export class BadgeShowcase {

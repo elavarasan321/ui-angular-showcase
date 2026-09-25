@@ -2,19 +2,18 @@ import { Component } from '@angular/core';
 import { ButtonComponent, IconButtonComponent, TitleBlockComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { TitleBlockPlayground } from './title-block-playground';
 
 @Component({
   selector: 'app-title-block-showcase',
   standalone: true,
-  imports: [
-    TitleBlockComponent,
+  imports: [TitleBlockComponent,
     ButtonComponent,
     IconButtonComponent,
     ExampleBlock,
     ShowcaseHeader,
-    TitleBlockPlayground,
-  ],
+    TitleBlockPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Title Block" selector="cwr-title-block"></app-showcase-header>
 
@@ -54,6 +53,8 @@ import { TitleBlockPlayground } from './title-block-playground';
         </p>
       </cwr-title-block>
     </app-example-block>
+
+    <app-component-reference selector="cwr-title-block"></app-component-reference>
   `,
 })
 export class TitleBlockShowcase {

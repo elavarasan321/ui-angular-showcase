@@ -8,6 +8,7 @@ import {
   NavbarNavItem,
 } from '@checkworkrights/ui-angular';
 import { GlobalSearchService } from '../global-search/global-search.service';
+import { UI_ANGULAR_VERSION } from '../../library-version.generated';
 
 export interface SidebarNavGroup {
   id: string;
@@ -30,6 +31,8 @@ export class Sidebar implements OnInit {
 
   @Output() navItemClick = new EventEmitter<NavbarNavItem>();
   @Output() themeToggle = new EventEmitter<void>();
+
+  protected readonly libraryVersion = UI_ANGULAR_VERSION;
 
   private readonly globalSearchService = inject(GlobalSearchService);
 

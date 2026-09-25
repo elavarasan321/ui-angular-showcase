@@ -31,6 +31,13 @@
   align-items: center;
 }
 
+.sidebar-version {
+  margin-top: calc(-1 * var(--space-sm));
+  font: var(--text-style-caption);
+  color: var(--color-text-surface-subtle);
+  overflow-wrap: anywhere;
+}
+
 .sidebar-actions-row {
   display: flex;
   align-items: center;

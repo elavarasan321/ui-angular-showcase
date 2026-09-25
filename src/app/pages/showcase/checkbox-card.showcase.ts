@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { CheckboxCardComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { CheckboxCardPlayground } from './checkbox-card-playground';
 
 @Component({
   selector: 'app-checkbox-card-showcase',
   standalone: true,
-  imports: [CheckboxCardComponent, ExampleBlock, ShowcaseHeader, CheckboxCardPlayground],
+  imports: [CheckboxCardComponent, ExampleBlock, ShowcaseHeader, CheckboxCardPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Checkbox Card" selector="cwr-checkbox-card"></app-showcase-header>
 
@@ -34,6 +35,8 @@ import { CheckboxCardPlayground } from './checkbox-card-playground';
         [disabled]="true"
       ></cwr-checkbox-card>
     </app-example-block>
+
+    <app-component-reference selector="cwr-checkbox-card"></app-component-reference>
   `,
 })
 export class CheckboxCardShowcase {

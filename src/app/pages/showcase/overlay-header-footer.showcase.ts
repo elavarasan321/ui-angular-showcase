@@ -6,6 +6,7 @@ import {
 } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { OverlayHeaderFooterPlayground } from './overlay-header-footer-playground';
 
 const SURFACE_STYLE =
@@ -14,14 +15,12 @@ const SURFACE_STYLE =
 @Component({
   selector: 'app-overlay-header-footer-showcase',
   standalone: true,
-  imports: [
-    OverlayHeaderComponent,
+  imports: [OverlayHeaderComponent,
     OverlayFooterComponent,
     ButtonComponent,
     ExampleBlock,
     ShowcaseHeader,
-    OverlayHeaderFooterPlayground,
-  ],
+    OverlayHeaderFooterPlayground, ComponentReference],
   template: `
     <app-showcase-header
       title="Overlay Header & Footer"
@@ -71,6 +70,8 @@ const SURFACE_STYLE =
         </cwr-overlay-footer>
       </div>
     </app-example-block>
+
+    <app-component-reference selector="cwr-overlay-header · cwr-overlay-footer"></app-component-reference>
   `,
 })
 export class OverlayHeaderFooterShowcase {

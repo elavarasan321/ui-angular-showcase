@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { StatusPillComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { StatusPillPlayground } from './status-pill-playground';
 
 @Component({
   selector: 'app-status-pill-showcase',
   standalone: true,
-  imports: [StatusPillComponent, ExampleBlock, ShowcaseHeader, StatusPillPlayground],
+  imports: [StatusPillComponent, ExampleBlock, ShowcaseHeader, StatusPillPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Status Pill" selector="cwr-status-pill"></app-showcase-header>
 
@@ -52,6 +53,8 @@ import { StatusPillPlayground } from './status-pill-playground';
       <cwr-status-pill size="sm" intent="neutral" value="Small"></cwr-status-pill>
       <cwr-status-pill size="xs" intent="neutral" value="Extra small"></cwr-status-pill>
     </app-example-block>
+
+    <app-component-reference selector="cwr-status-pill"></app-component-reference>
   `,
 })
 export class StatusPillShowcase {

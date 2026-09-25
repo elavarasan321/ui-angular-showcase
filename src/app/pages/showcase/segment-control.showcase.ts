@@ -2,12 +2,13 @@ import { Component, signal } from '@angular/core';
 import { SegmentControlComponent, SegmentControlItem } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { SegmentControlPlayground } from './segment-control-playground';
 
 @Component({
   selector: 'app-segment-control-showcase',
   standalone: true,
-  imports: [SegmentControlComponent, ExampleBlock, ShowcaseHeader, SegmentControlPlayground],
+  imports: [SegmentControlComponent, ExampleBlock, ShowcaseHeader, SegmentControlPlayground, ComponentReference],
   template: `
     <app-showcase-header
       title="Segment Control"
@@ -50,6 +51,8 @@ import { SegmentControlPlayground } from './segment-control-playground';
         (checkedValueChange)="inbox.set($event)"
       ></cwr-segment-control>
     </app-example-block>
+
+    <app-component-reference selector="cwr-segment-control"></app-component-reference>
   `,
 })
 export class SegmentControlShowcase {

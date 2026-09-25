@@ -2,12 +2,13 @@ import { Component, signal } from '@angular/core';
 import { ToggleCardComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { ToggleCardPlayground } from './toggle-card-playground';
 
 @Component({
   selector: 'app-toggle-card-showcase',
   standalone: true,
-  imports: [ToggleCardComponent, ExampleBlock, ShowcaseHeader, ToggleCardPlayground],
+  imports: [ToggleCardComponent, ExampleBlock, ShowcaseHeader, ToggleCardPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Toggle Card" selector="cwr-toggle-card"></app-showcase-header>
 
@@ -54,6 +55,8 @@ import { ToggleCardPlayground } from './toggle-card-playground';
     <app-example-block title="Label position" [code]="positionCode">
       <cwr-toggle-card label="Label before switch" position="start" [checked]="true"></cwr-toggle-card>
     </app-example-block>
+
+    <app-component-reference selector="cwr-toggle-card"></app-component-reference>
   `,
 })
 export class ToggleCardShowcase {

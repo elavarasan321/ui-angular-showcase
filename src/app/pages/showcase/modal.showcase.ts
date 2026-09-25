@@ -2,12 +2,13 @@ import { Component, signal } from '@angular/core';
 import { ModalComponent, ButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { ModalPlayground } from './modal-playground';
 
 @Component({
   selector: 'app-modal-showcase',
   standalone: true,
-  imports: [ModalComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, ModalPlayground],
+  imports: [ModalComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, ModalPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Modal" selector="cwr-modal"></app-showcase-header>
 
@@ -98,6 +99,8 @@ import { ModalPlayground } from './modal-playground';
         </cwr-modal>
       }
     </app-example-block>
+
+    <app-component-reference selector="cwr-modal"></app-component-reference>
   `,
 })
 export class ModalShowcase {

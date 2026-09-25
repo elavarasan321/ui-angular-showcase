@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { TextOverflowComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { TextOverflowPlayground } from './text-overflow-playground';
 
 @Component({
   selector: 'app-text-overflow-showcase',
   standalone: true,
-  imports: [TextOverflowComponent, ExampleBlock, ShowcaseHeader, TextOverflowPlayground],
+  imports: [TextOverflowComponent, ExampleBlock, ShowcaseHeader, TextOverflowPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Text Overflow" selector="cwr-text-overflow"></app-showcase-header>
 
@@ -28,6 +29,8 @@ import { TextOverflowPlayground } from './text-overflow-playground';
         style="width: 220px; display: inline-block;"
       ></cwr-text-overflow>
     </app-example-block>
+
+    <app-component-reference selector="cwr-text-overflow"></app-component-reference>
   `,
 })
 export class TextOverflowShowcase {

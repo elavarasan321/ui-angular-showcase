@@ -3,19 +3,18 @@ import { FormsModule } from '@angular/forms';
 import { TextareaInputComponent, FormFieldComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { TextareaInputPlayground } from './textarea-input-playground';
 
 @Component({
   selector: 'app-textarea-input-showcase',
   standalone: true,
-  imports: [
-    FormsModule,
+  imports: [FormsModule,
     TextareaInputComponent,
     FormFieldComponent,
     ExampleBlock,
     ShowcaseHeader,
-    TextareaInputPlayground,
-  ],
+    TextareaInputPlayground, ComponentReference],
   template: `
     <app-showcase-header
       title="Textarea Input"
@@ -51,6 +50,8 @@ import { TextareaInputPlayground } from './textarea-input-playground';
       <cwr-textarea-input [disabled]="true" placeholder="Disabled"></cwr-textarea-input>
       <cwr-textarea-input [readOnly]="true" value="Read only value"></cwr-textarea-input>
     </app-example-block>
+
+    <app-component-reference selector="cwr-textarea-input"></app-component-reference>
   `,
 })
 export class TextareaInputShowcase {

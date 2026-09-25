@@ -3,19 +3,18 @@ import { FormsModule } from '@angular/forms';
 import { CurrencyInputComponent, FormFieldComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { CurrencyInputPlayground } from './currency-input-playground';
 
 @Component({
   selector: 'app-currency-input-showcase',
   standalone: true,
-  imports: [
-    FormsModule,
+  imports: [FormsModule,
     CurrencyInputComponent,
     FormFieldComponent,
     ExampleBlock,
     ShowcaseHeader,
-    CurrencyInputPlayground,
-  ],
+    CurrencyInputPlayground, ComponentReference],
   template: `
     <app-showcase-header
       title="Currency Input"
@@ -50,6 +49,8 @@ import { CurrencyInputPlayground } from './currency-input-playground';
       <cwr-currency-input [disabled]="true"></cwr-currency-input>
       <cwr-currency-input [readOnly]="true" [value]="1250.5"></cwr-currency-input>
     </app-example-block>
+
+    <app-component-reference selector="cwr-currency-input"></app-component-reference>
   `,
 })
 export class CurrencyInputShowcase {

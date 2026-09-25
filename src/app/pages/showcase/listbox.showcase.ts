@@ -2,12 +2,13 @@ import { Component, signal } from '@angular/core';
 import { ListboxComponent, ListboxGroup, ListboxOptionData } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { ListboxPlayground } from './listbox-playground';
 
 @Component({
   selector: 'app-listbox-showcase',
   standalone: true,
-  imports: [ListboxComponent, ExampleBlock, ShowcaseHeader, ListboxPlayground],
+  imports: [ListboxComponent, ExampleBlock, ShowcaseHeader, ListboxPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Listbox" selector="cwr-listbox"></app-showcase-header>
 
@@ -45,6 +46,8 @@ import { ListboxPlayground } from './listbox-playground';
         [showFooter]="false"
       ></cwr-listbox>
     </app-example-block>
+
+    <app-component-reference selector="cwr-listbox"></app-component-reference>
   `,
 })
 export class ListboxShowcase {

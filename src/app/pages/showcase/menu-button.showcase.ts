@@ -8,6 +8,7 @@ import {
 } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { MenuButtonPlayground } from './menu-button-playground';
 
 const ROW_MENU_ITEMS: CwrMenuItem[] = [
@@ -20,15 +21,13 @@ const ROW_MENU_ITEMS: CwrMenuItem[] = [
 @Component({
   selector: 'app-menu-button-showcase',
   standalone: true,
-  imports: [
-    MenuButtonComponent,
+  imports: [MenuButtonComponent,
     MenuComponent,
     IconButtonComponent,
     InlineButtonComponent,
     ExampleBlock,
     ShowcaseHeader,
-    MenuButtonPlayground,
-  ],
+    MenuButtonPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Menu Button" selector="cwr-menu · cwr-menu-button"></app-showcase-header>
 
@@ -65,6 +64,8 @@ const ROW_MENU_ITEMS: CwrMenuItem[] = [
         <cwr-menu slot="slot" #slotFocus aria-haspopup="menu" [items]="newMenuItems" />
       </cwr-menu-button>
     </app-example-block>
+
+    <app-component-reference selector="cwr-menu · cwr-menu-button"></app-component-reference>
   `,
 })
 export class MenuButtonShowcase {

@@ -2,6 +2,7 @@ import { Component, computed, signal } from '@angular/core';
 import { SelectInputComponent, SelectInputOption } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { SelectInputPlayground } from './select-input-playground';
 
 const COUNTRY_OPTIONS: SelectInputOption[] = [
@@ -19,7 +20,7 @@ const COUNTRY_OPTIONS: SelectInputOption[] = [
 @Component({
   selector: 'app-select-input-showcase',
   standalone: true,
-  imports: [SelectInputComponent, ExampleBlock, ShowcaseHeader, SelectInputPlayground],
+  imports: [SelectInputComponent, ExampleBlock, ShowcaseHeader, SelectInputPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Select Input" selector="cwr-select-input"></app-showcase-header>
 
@@ -64,6 +65,8 @@ const COUNTRY_OPTIONS: SelectInputOption[] = [
         style="width: 100%; max-width: 20rem;"
       ></cwr-select-input>
     </app-example-block>
+
+    <app-component-reference selector="cwr-select-input"></app-component-reference>
   `,
 })
 export class SelectInputShowcase {

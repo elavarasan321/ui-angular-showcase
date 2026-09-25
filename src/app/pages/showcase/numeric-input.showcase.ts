@@ -3,19 +3,18 @@ import { FormsModule } from '@angular/forms';
 import { NumericInputComponent, FormFieldComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { NumericInputPlayground } from './numeric-input-playground';
 
 @Component({
   selector: 'app-numeric-input-showcase',
   standalone: true,
-  imports: [
-    FormsModule,
+  imports: [FormsModule,
     NumericInputComponent,
     FormFieldComponent,
     ExampleBlock,
     ShowcaseHeader,
-    NumericInputPlayground,
-  ],
+    NumericInputPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Numeric Input" selector="cwr-numeric-input"></app-showcase-header>
 
@@ -41,6 +40,8 @@ import { NumericInputPlayground } from './numeric-input-playground';
       <cwr-numeric-input [disabled]="true" placeholder="Enter amount"></cwr-numeric-input>
       <cwr-numeric-input [readOnly]="true" [value]="1250"></cwr-numeric-input>
     </app-example-block>
+
+    <app-component-reference selector="cwr-numeric-input"></app-component-reference>
   `,
 })
 export class NumericInputShowcase {

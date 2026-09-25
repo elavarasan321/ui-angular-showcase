@@ -3,6 +3,7 @@ import { AgGrid } from '@checkworkrights/ui-angular';
 import type { ColDef } from 'ag-grid-community';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { AgGridPlayground } from './ag-grid-playground';
 
 interface ApplicantRow {
@@ -29,7 +30,7 @@ const COLUMN_DEFS: ColDef<ApplicantRow>[] = [
 @Component({
   selector: 'app-ag-grid-showcase',
   standalone: true,
-  imports: [AgGrid, ExampleBlock, ShowcaseHeader, AgGridPlayground],
+  imports: [AgGrid, ExampleBlock, ShowcaseHeader, AgGridPlayground, ComponentReference],
   template: `
     <app-showcase-header title="AG Grid" selector="cwr-ag-grid"></app-showcase-header>
 
@@ -53,6 +54,8 @@ const COLUMN_DEFS: ColDef<ApplicantRow>[] = [
       Call <code>registerAgGridEnterprise()</code>, or add <code>provideAgGridEnterprise()</code>
       to your app's providers, before rendering a grid with <code>[masterDetail]="true"</code>.
     </p>
+
+    <app-component-reference selector="cwr-ag-grid"></app-component-reference>
   `,
 })
 export class AgGridShowcase {

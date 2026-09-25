@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { TooltipIconComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { TooltipIconPlayground } from './tooltip-icon-playground';
 
 @Component({
   selector: 'app-tooltip-icon-showcase',
   standalone: true,
-  imports: [TooltipIconComponent, ExampleBlock, ShowcaseHeader, TooltipIconPlayground],
+  imports: [TooltipIconComponent, ExampleBlock, ShowcaseHeader, TooltipIconPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Tooltip Icon" selector="cwr-tooltip-icon"></app-showcase-header>
 
@@ -47,6 +48,8 @@ import { TooltipIconPlayground } from './tooltip-icon-playground';
         arrowPosition="top"
       ></cwr-tooltip-icon>
     </app-example-block>
+
+    <app-component-reference selector="cwr-tooltip-icon"></app-component-reference>
   `,
 })
 export class TooltipIconShowcase {

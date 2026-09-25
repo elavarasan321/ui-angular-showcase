@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { ToggleComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { TogglePlayground } from './toggle-playground';
 
 @Component({
   selector: 'app-toggle-showcase',
   standalone: true,
-  imports: [ToggleComponent, ExampleBlock, ShowcaseHeader, TogglePlayground],
+  imports: [ToggleComponent, ExampleBlock, ShowcaseHeader, TogglePlayground, ComponentReference],
   template: `
     <app-showcase-header title="Toggle" selector="cwr-toggle"></app-showcase-header>
 
@@ -32,6 +33,8 @@ import { TogglePlayground } from './toggle-playground';
       <cwr-toggle label="Disabled unchecked" [disabled]="true"></cwr-toggle>
       <cwr-toggle label="Disabled checked" [checked]="true" [disabled]="true"></cwr-toggle>
     </app-example-block>
+
+    <app-component-reference selector="cwr-toggle"></app-component-reference>
   `,
 })
 export class ToggleShowcase {

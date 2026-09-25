@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { PickerInputComponent, PickerInputOption } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { PickerInputPlayground } from './picker-input-playground';
 
 const FREQUENCY_OPTIONS: PickerInputOption[] = [
@@ -14,7 +15,7 @@ const FREQUENCY_OPTIONS: PickerInputOption[] = [
 @Component({
   selector: 'app-picker-input-showcase',
   standalone: true,
-  imports: [PickerInputComponent, ExampleBlock, ShowcaseHeader, PickerInputPlayground],
+  imports: [PickerInputComponent, ExampleBlock, ShowcaseHeader, PickerInputPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Picker Input" selector="cwr-picker-input"></app-showcase-header>
 
@@ -60,6 +61,8 @@ const FREQUENCY_OPTIONS: PickerInputOption[] = [
         style="width: 100%; max-width: 20rem;"
       ></cwr-picker-input>
     </app-example-block>
+
+    <app-component-reference selector="cwr-picker-input"></app-component-reference>
   `,
 })
 export class PickerInputShowcase {

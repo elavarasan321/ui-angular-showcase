@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { CheckboxComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { CheckboxPlayground } from './checkbox-playground';
 
 @Component({
   selector: 'app-checkbox-showcase',
   standalone: true,
-  imports: [CheckboxComponent, ExampleBlock, ShowcaseHeader, CheckboxPlayground],
+  imports: [CheckboxComponent, ExampleBlock, ShowcaseHeader, CheckboxPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Checkbox" selector="cwr-checkbox"></app-showcase-header>
 
@@ -30,6 +31,8 @@ import { CheckboxPlayground } from './checkbox-playground';
       <cwr-checkbox label="Disabled unchecked" [disabled]="true"></cwr-checkbox>
       <cwr-checkbox label="Disabled checked" [checked]="true" [disabled]="true"></cwr-checkbox>
     </app-example-block>
+
+    <app-component-reference selector="cwr-checkbox"></app-component-reference>
   `,
 })
 export class CheckboxShowcase {

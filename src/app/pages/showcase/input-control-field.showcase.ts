@@ -7,20 +7,19 @@ import {
 } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { InputControlFieldPlayground } from './input-control-field-playground';
 
 @Component({
   selector: 'app-input-control-field-showcase',
   standalone: true,
-  imports: [
-    InputControlFieldComponent,
+  imports: [InputControlFieldComponent,
     RadioButtonComponent,
     RadioButtonCardComponent,
     CheckboxComponent,
     ExampleBlock,
     ShowcaseHeader,
-    InputControlFieldPlayground,
-  ],
+    InputControlFieldPlayground, ComponentReference],
   template: `
     <app-showcase-header
       title="Input Control Field"
@@ -126,6 +125,8 @@ import { InputControlFieldPlayground } from './input-control-field-playground';
         <cwr-radio-button label="Monthly"></cwr-radio-button>
       </cwr-input-control-field>
     </app-example-block>
+
+    <app-component-reference selector="cwr-input-control-field"></app-component-reference>
   `,
 })
 export class InputControlFieldShowcase {

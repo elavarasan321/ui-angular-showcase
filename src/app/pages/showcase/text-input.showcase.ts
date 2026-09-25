@@ -3,12 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { TextInputComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { TextInputPlayground } from './text-input-playground';
 
 @Component({
   selector: 'app-text-input-showcase',
   standalone: true,
-  imports: [FormsModule, TextInputComponent, ExampleBlock, ShowcaseHeader, TextInputPlayground],
+  imports: [FormsModule, TextInputComponent, ExampleBlock, ShowcaseHeader, TextInputPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Text Input" selector="cwr-text-input"></app-showcase-header>
 
@@ -30,6 +31,8 @@ import { TextInputPlayground } from './text-input-playground';
       <cwr-text-input [disabled]="true" placeholder="Disabled"></cwr-text-input>
       <cwr-text-input [readOnly]="true" value="Read only value"></cwr-text-input>
     </app-example-block>
+
+    <app-component-reference selector="cwr-text-input"></app-component-reference>
   `,
 })
 export class TextInputShowcase {

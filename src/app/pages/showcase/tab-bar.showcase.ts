@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { TabBarComponent, TabBarItem } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { TabBarPlayground } from './tab-bar-playground';
 
 const BASIC_TABS: TabBarItem[] = [
@@ -25,7 +26,7 @@ const DISABLED_TABS: TabBarItem[] = [
 @Component({
   selector: 'app-tab-bar-showcase',
   standalone: true,
-  imports: [TabBarComponent, ExampleBlock, ShowcaseHeader, TabBarPlayground],
+  imports: [TabBarComponent, ExampleBlock, ShowcaseHeader, TabBarPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Tab Bar" selector="cwr-tab-bar"></app-showcase-header>
 
@@ -62,6 +63,8 @@ const DISABLED_TABS: TabBarItem[] = [
         style="width: 100%;"
       ></cwr-tab-bar>
     </app-example-block>
+
+    <app-component-reference selector="cwr-tab-bar"></app-component-reference>
   `,
 })
 export class TabBarShowcase {

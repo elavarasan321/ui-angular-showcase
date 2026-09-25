@@ -6,19 +6,18 @@ import {
 } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { EmptyStateContentBlockPlayground } from './empty-state-content-block-playground';
 
 @Component({
   selector: 'app-empty-state-content-block-showcase',
   standalone: true,
-  imports: [
-    EmptyStateContentBlockComponent,
+  imports: [EmptyStateContentBlockComponent,
     ButtonComponent,
     InlineButtonComponent,
     ExampleBlock,
     ShowcaseHeader,
-    EmptyStateContentBlockPlayground,
-  ],
+    EmptyStateContentBlockPlayground, ComponentReference],
   template: `
     <app-showcase-header
       title="Empty State Content Block"
@@ -64,6 +63,8 @@ import { EmptyStateContentBlockPlayground } from './empty-state-content-block-pl
         <cwr-inline-button variant="neutral">Remind me later</cwr-inline-button>
       </cwr-empty-state-content-block>
     </app-example-block>
+
+    <app-component-reference selector="cwr-empty-state-content-block"></app-component-reference>
   `,
 })
 export class EmptyStateContentBlockShowcase {

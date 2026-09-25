@@ -3,11 +3,12 @@ import { InlineButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { InlineButtonPlayground } from './inline-button-playground';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 
 @Component({
   selector: 'app-inline-button-showcase',
   standalone: true,
-  imports: [InlineButtonComponent, ExampleBlock, ShowcaseHeader, InlineButtonPlayground],
+  imports: [InlineButtonComponent, ExampleBlock, ShowcaseHeader, InlineButtonPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Inline Button" selector="cwr-inline-button"></app-showcase-header>
 
@@ -32,6 +33,8 @@ import { ShowcaseHeader } from './showcase-header';
       <cwr-inline-button variant="brand" [loading]="true">Saving...</cwr-inline-button>
       <cwr-inline-button variant="brand" [disabled]="true">Disabled</cwr-inline-button>
     </app-example-block>
+
+    <app-component-reference selector="cwr-inline-button"></app-component-reference>
   `,
 })
 export class InlineButtonShowcase {

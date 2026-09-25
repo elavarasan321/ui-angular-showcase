@@ -3,11 +3,12 @@ import { IllustrationComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { IllustrationPlayground } from './illustration-playground';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 
 @Component({
   selector: 'app-illustration-showcase',
   standalone: true,
-  imports: [IllustrationComponent, ExampleBlock, ShowcaseHeader, IllustrationPlayground],
+  imports: [IllustrationComponent, ExampleBlock, ShowcaseHeader, IllustrationPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Illustration" selector="cwr-illustration"></app-showcase-header>
 
@@ -25,6 +26,8 @@ import { ShowcaseHeader } from './showcase-header';
       <cwr-illustration illustration="illustration.document.expired" size="md"></cwr-illustration>
       <cwr-illustration illustration="illustration.document.fail" size="md"></cwr-illustration>
     </app-example-block>
+
+    <app-component-reference selector="cwr-illustration"></app-component-reference>
   `,
 })
 export class IllustrationShowcase {

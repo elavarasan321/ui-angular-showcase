@@ -2,12 +2,13 @@ import { Component, inject } from '@angular/core';
 import { ButtonComponent, SnackbarStackService } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
+import { ComponentReference } from './component-reference';
 import { SnackbarPlayground } from './snackbar-playground';
 
 @Component({
   selector: 'app-snackbar-showcase',
   standalone: true,
-  imports: [ButtonComponent, ExampleBlock, ShowcaseHeader, SnackbarPlayground],
+  imports: [ButtonComponent, ExampleBlock, ShowcaseHeader, SnackbarPlayground, ComponentReference],
   template: `
     <app-showcase-header
       title="Snackbar"
@@ -80,6 +81,8 @@ import { SnackbarPlayground } from './snackbar-playground';
         (buttonClick)="showAtPosition('bottom-center')"
       ></cwr-button>
     </app-example-block>
+
+    <app-component-reference selector="cwr-snackbar · cwr-snackbar-stack"></app-component-reference>
   `,
 })
 export class SnackbarShowcase {
