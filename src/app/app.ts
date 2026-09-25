@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavbarNavItem, WhatsNewItem } from '@checkworkrights/ui-angular';
+import { filter } from 'rxjs/operators';
 import { GlobalSearch } from './components/global-search/global-search';
 import { Sidebar, SidebarNavGroup } from './components/sidebar/sidebar';
 
@@ -14,27 +15,31 @@ export class App {
   protected title = 'UI Angular Showcase';
   isDarkMode = true;
 
-  constructor(private router: Router) {}
+  @ViewChild('appContent') private appContent?: ElementRef<HTMLElement>;
+
+  constructor(private router: Router) {
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
+      this.appContent?.nativeElement.scrollTo({ top: 0 });
+    });
+  }
+
   isActiveRoute = (base: string): boolean => {
     const [url] = this.router.url.split('?');
     const path = `/${base}`;
     return url === path || url.startsWith(`${path}/`);
   };
 
-  topItems: NavbarNavItem[] = [
+  topItems: NavbarNavItem[] = [];
+
+  groups: SidebarNavGroup[] = [
     {
       id: 'getting-started',
       label: 'Getting Started',
-      route: 'getting-started',
+      items: [
+        { id: 'setup-instructions', label: 'Setup Instructions', route: 'getting-started' },
+        { id: 'design-tokens', label: 'Design Tokens', route: 'design-tokens' },
+      ],
     },
-    {
-      id: 'design-tokens',
-      label: 'Design Tokens',
-      route: 'design-tokens',
-    },
-  ];
-
-  groups: SidebarNavGroup[] = [
     {
       id: 'buttons-actions',
       label: 'Buttons & Actions',

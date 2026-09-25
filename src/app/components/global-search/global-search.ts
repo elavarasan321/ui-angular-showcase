@@ -1,11 +1,6 @@
 import { Component, HostListener, Input, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  DialogComponent,
-  IconComponent,
-  NavbarNavItem,
-  SearchInputComponent,
-} from '@checkworkrights/ui-angular';
+import { DialogComponent, IconComponent, NavbarNavItem, SearchInputComponent, ScrollbarComponent } from '@checkworkrights/ui-angular';
 import { SidebarNavGroup } from '../sidebar/sidebar';
 import { GlobalSearchService } from './global-search.service';
 

@@ -26,26 +26,28 @@
   </div>
 
   <div class="sidebar-scroll">
-    <div class="sidebar-top">
-      @for (item of topItems; track trackByItem($index, item)) {
-        <a
-          class="sidebar-link"
-          [routerLink]="item.route"
-          routerLinkActive="is-active"
-          (click)="onItemClick(item)"
-        >
-          <span class="sidebar-link-label">{{ item.label }}</span>
-          @if (item.badge) {
-            <cwr-badge
-              class="sidebar-link-badge"
-              [value]="item.badge.text"
-              intent="brand"
-              [emphasis]="isActiveRoute(item.route) ? 'inverse' : 'subtle'"
-            />
-          }
-        </a>
-      }
-    </div>
+    @if (topItems.length) {
+      <div class="sidebar-top">
+        @for (item of topItems; track trackByItem($index, item)) {
+          <a
+            class="sidebar-link"
+            [routerLink]="item.route"
+            routerLinkActive="is-active"
+            (click)="onItemClick(item)"
+          >
+            <span class="sidebar-link-label">{{ item.label }}</span>
+            @if (item.badge) {
+              <cwr-badge
+                class="sidebar-link-badge"
+                [value]="item.badge.text"
+                intent="brand"
+                [emphasis]="isActiveRoute(item.route) ? 'inverse' : 'subtle'"
+              />
+            }
+          </a>
+        }
+      </div>
+    }
 
     <div class="sidebar-groups">
       @for (group of groups; track trackByGroup($index, group)) {
