@@ -15,7 +15,7 @@ const THEME_STORAGE_KEY = 'cwr-showcase-theme';
   styleUrl: './app.scss',
 })
 export class App {
-  protected title = 'UI Angular Showcase';
+  protected title = 'CWR UI Showcase';
   // index.html has already applied any saved theme, so the attribute is the source of truth.
   isDarkMode = document.documentElement.getAttribute('data-theme') !== 'light';
 

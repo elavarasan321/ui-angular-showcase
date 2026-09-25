@@ -1,4 +1,4 @@
-# UI Angular Showcase
+# CWR UI Showcase
 
 An interactive showcase for `@checkworkrights/ui-angular`, the CheckWorkRights Angular component library, and `@checkworkrights/design-tokens`.
 
