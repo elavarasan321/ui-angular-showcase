@@ -4,8 +4,12 @@ import {
   ListboxGroup,
   ListboxOptionCheckedChange,
   ListboxOptionData,
+  FormFieldComponent,
+  TextInputComponent,
+  CheckboxComponent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
 
 const GROUPS: ListboxGroup[] = [
   {
@@ -28,9 +32,9 @@ const GROUPS: ListboxGroup[] = [
 @Component({
   selector: 'app-listbox-playground',
   standalone: true,
-  imports: [ListboxComponent, Playground],
+  imports: [ListboxComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <div playground-preview class="listbox-preview">
         <cwr-listbox
           [groups]="groups"
@@ -51,59 +55,43 @@ const GROUPS: ListboxGroup[] = [
       </div>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Search placeholder</span>
-          <input
-            type="text"
+        <cwr-form-field label="Search placeholder">
+          <cwr-text-input
             [value]="searchPlaceholder()"
-            (input)="searchPlaceholder.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="searchPlaceholder.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Footer label</span>
-          <input
-            type="text"
+        <cwr-form-field label="Footer label">
+          <cwr-text-input
             [value]="footerLabel()"
-            (input)="footerLabel.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="footerLabel.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="showHeader()"
-            (change)="showHeader.set($any($event.target).checked)"
-          />
-          Show header
-        </label>
+        <cwr-checkbox
+          label="Show header"
+          [checked]="showHeader()"
+          (checkedChange)="showHeader.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="showFooter()"
-            (change)="showFooter.set($any($event.target).checked)"
-          />
-          Show footer
-        </label>
+        <cwr-checkbox
+          label="Show footer"
+          [checked]="showFooter()"
+          (checkedChange)="showFooter.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="allowVerticalScrolling()"
-            (change)="allowVerticalScrolling.set($any($event.target).checked)"
-          />
-          Allow vertical scrolling
-        </label>
+        <cwr-checkbox
+          label="Allow vertical scrolling"
+          [checked]="allowVerticalScrolling()"
+          (checkedChange)="allowVerticalScrolling.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="hasFocus()"
-            (change)="hasFocus.set($any($event.target).checked)"
-          />
-          Has focus (outline)
-        </label>
+        <cwr-checkbox
+          label="Has focus (outline)"
+          [checked]="hasFocus()"
+          (checkedChange)="hasFocus.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
   `,
@@ -123,31 +111,8 @@ const GROUPS: ListboxGroup[] = [
         color: var(--color-text-surface-secondary);
       }
 
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
 
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
 
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
     `,
   ],
 })
@@ -189,4 +154,7 @@ export class ListboxPlayground {
   (optionClick)="onOptionClick($event)"
 ></cwr-listbox>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

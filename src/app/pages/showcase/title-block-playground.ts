@@ -4,17 +4,23 @@ import {
   ButtonComponent,
   IconButtonComponent,
   TitleBlockComponent,
+  FormFieldComponent,
+  PickerInputComponent,
+  TextInputComponent,
+  CheckboxComponent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 const VARIANTS: readonly TitleBlockVariant[] = ['title', 'section'];
 
 @Component({
   selector: 'app-title-block-playground',
   standalone: true,
-  imports: [TitleBlockComponent, ButtonComponent, IconButtonComponent, Playground],
+  imports: [TitleBlockComponent, ButtonComponent, IconButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <div playground-preview style="width: 100%;">
         <cwr-title-block [variant]="variant()" [title]="title()">
           @if (showLeading()) {
@@ -46,82 +52,41 @@ const VARIANTS: readonly TitleBlockVariant[] = ['title', 'section'];
       </div>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Variant</span>
-          <select (change)="variant.set($any($event.target).value)">
-            @for (v of variants; track v) {
-              <option [value]="v" [selected]="v === variant()">{{ v }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Variant">
+          <cwr-picker-input
+            [options]="variants | pickerOptions"
+            [value]="variant()"
+            (valueChange)="variant.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Title</span>
-          <input
-            type="text"
+        <cwr-form-field label="Title">
+          <cwr-text-input
             [value]="title()"
-            (input)="title.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="title.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="showLeading()"
-            (change)="showLeading.set($any($event.target).checked)"
-          />
-          Leading slot
-        </label>
+        <cwr-checkbox
+          label="Leading slot"
+          [checked]="showLeading()"
+          (checkedChange)="showLeading.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="showTrailing()"
-            (change)="showTrailing.set($any($event.target).checked)"
-          />
-          Trailing slot
-        </label>
+        <cwr-checkbox
+          label="Trailing slot"
+          [checked]="showTrailing()"
+          (checkedChange)="showTrailing.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="showEnd()"
-            (change)="showEnd.set($any($event.target).checked)"
-          />
-          End slot
-        </label>
+        <cwr-checkbox
+          label="End slot"
+          [checked]="showEnd()"
+          (checkedChange)="showEnd.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class TitleBlockPlayground {
   variants = VARIANTS;
@@ -150,4 +115,7 @@ export class TitleBlockPlayground {
     lines.push('</cwr-title-block>');
     return lines.join('\n');
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

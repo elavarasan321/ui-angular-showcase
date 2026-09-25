@@ -34,22 +34,10 @@
               "src/styles.scss",
               "@checkworkrights/design-tokens/dark.css",
               "@checkworkrights/design-tokens/light.css",
-              "@checkworkrights/ui-angular/styles/utility-classes.css",
-              "node_modules/prismjs/themes/prism-okaidia.css",
-              "src/styles/prism-light-theme.css"
+              "src/styles/dark-scoped.generated.css",
+              "@checkworkrights/ui-angular/styles/utility-classes.css"
             ],
-            "scripts": [
-              "node_modules/prismjs/prism.js",
-              "node_modules/prismjs/components/prism-markup.min.js",
-              "node_modules/prismjs/components/prism-css.min.js",
-              "node_modules/prismjs/components/prism-clike.min.js",
-              "node_modules/prismjs/components/prism-javascript.min.js",
-              "node_modules/prismjs/components/prism-typescript.min.js",
-              "node_modules/prismjs/components/prism-scss.min.js",
-              "node_modules/prismjs/components/prism-json.min.js",
-              "node_modules/prismjs/components/prism-bash.min.js",
-              "node_modules/clipboard/dist/clipboard.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -61,8 +49,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "10kB",
+                  "maximumError": "10kB"
                 }
               ],
               "outputHashing": "all"

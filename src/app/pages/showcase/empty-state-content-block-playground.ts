@@ -1,13 +1,20 @@
 import { Component, computed, signal } from '@angular/core';
-import { EmptyStateContentBlockComponent, ButtonComponent } from '@checkworkrights/ui-angular';
+import {
+  EmptyStateContentBlockComponent,
+  ButtonComponent,
+  FormFieldComponent,
+  TextInputComponent,
+  CheckboxComponent,
+} from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
 
 @Component({
   selector: 'app-empty-state-content-block-playground',
   standalone: true,
-  imports: [EmptyStateContentBlockComponent, ButtonComponent, Playground],
+  imports: [EmptyStateContentBlockComponent, ButtonComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-empty-state-content-block
         playground-preview
         style="width: 100%;"
@@ -22,71 +29,37 @@ import { Playground } from './playground';
       </cwr-empty-state-content-block>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Title</span>
-          <input type="text" [value]="title()" (input)="title.set($any($event.target).value)" />
-        </label>
+        <cwr-form-field label="Title">
+          <cwr-text-input
+            [value]="title()"
+            (valueChange)="title.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Description</span>
-          <input
-            type="text"
+        <cwr-form-field label="Description">
+          <cwr-text-input
             [value]="description()"
-            (input)="description.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="description.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
         @if (hasActions()) {
-          <label class="playground__field">
-            <span>Action label</span>
-            <input
-              type="text"
+          <cwr-form-field label="Action label">
+            <cwr-text-input
               [value]="actionLabel()"
-              (input)="actionLabel.set($any($event.target).value)"
-            />
-          </label>
+              (valueChange)="actionLabel.set($event)"
+            ></cwr-text-input>
+          </cwr-form-field>
         }
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="hasActions()"
-            (change)="hasActions.set($any($event.target).checked)"
-          />
-          Has actions
-        </label>
+        <cwr-checkbox
+          label="Has actions"
+          [checked]="hasActions()"
+          (checkedChange)="hasActions.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class EmptyStateContentBlockPlayground {
   title = signal('No documents yet');
@@ -110,4 +83,7 @@ export class EmptyStateContentBlockPlayground {
 
     return `<cwr-empty-state-content-block ${attrs.join(' ')}></cwr-empty-state-content-block>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

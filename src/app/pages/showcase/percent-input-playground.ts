@@ -1,6 +1,16 @@
 import { Component, computed, signal } from '@angular/core';
-import { PercentInputComponent, PercentInputState } from '@checkworkrights/ui-angular';
+import {
+  PercentInputComponent,
+  PercentInputState,
+  FormFieldComponent,
+  PickerInputComponent,
+  TextInputComponent,
+  CheckboxComponent,
+  NumericInputComponent,
+} from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 // PercentInputState (InputState) is exported as a plain string literal union, not a readonly
 // array const, so the option list is hardcoded here to match the union.
@@ -9,9 +19,9 @@ const STATES: readonly PercentInputState[] = ['idle', 'error'];
 @Component({
   selector: 'app-percent-input-playground',
   standalone: true,
-  imports: [PercentInputComponent, Playground],
+  imports: [PercentInputComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe, NumericInputComponent],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-percent-input
         playground-preview
         [value]="value()"
@@ -26,104 +36,56 @@ const STATES: readonly PercentInputState[] = ['idle', 'error'];
       ></cwr-percent-input>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Placeholder</span>
-          <input
-            type="text"
+        <cwr-form-field label="Placeholder">
+          <cwr-text-input
             [value]="placeholder()"
-            (input)="placeholder.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="placeholder.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>State</span>
-          <select (change)="state.set($any($event.target).value)">
-            @for (s of states; track s) {
-              <option [value]="s" [selected]="s === state()">{{ s }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="State">
+          <cwr-picker-input
+            [options]="states | pickerOptions"
+            [value]="state()"
+            (valueChange)="state.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="limitDecimals()"
-            (change)="limitDecimals.set($any($event.target).checked)"
-          />
-          Limit decimals
-        </label>
+        <cwr-checkbox
+          label="Limit decimals"
+          [checked]="limitDecimals()"
+          (checkedChange)="limitDecimals.set($event)"
+        ></cwr-checkbox>
 
         @if (limitDecimals()) {
-          <label class="playground__field">
-            <span>Decimals</span>
-            <input
-              type="number"
-              min="0"
+          <cwr-form-field label="Decimals">
+            <cwr-numeric-input
               [value]="decimals()"
-              (input)="decimals.set($any($event.target).valueAsNumber || 0)"
-            />
-          </label>
+              (valueChange)="decimals.set($event ?? 0)"
+            ></cwr-numeric-input>
+          </cwr-form-field>
         }
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="required()"
-            (change)="required.set($any($event.target).checked)"
-          />
-          Required
-        </label>
+        <cwr-checkbox
+          label="Required"
+          [checked]="required()"
+          (checkedChange)="required.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="disabled()"
-            (change)="disabled.set($any($event.target).checked)"
-          />
-          Disabled
-        </label>
+        <cwr-checkbox
+          label="Disabled"
+          [checked]="disabled()"
+          (checkedChange)="disabled.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="readOnly()"
-            (change)="readOnly.set($any($event.target).checked)"
-          />
-          Read only
-        </label>
+        <cwr-checkbox
+          label="Read only"
+          [checked]="readOnly()"
+          (checkedChange)="readOnly.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'],
-      .playground__field input[type='number'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class PercentInputPlayground {
   states = STATES;
@@ -149,4 +111,7 @@ export class PercentInputPlayground {
     if (this.readOnly()) attrs.push(`[readOnly]="true"`);
     return `<cwr-percent-input ${attrs.join(' ')}></cwr-percent-input>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

@@ -1,6 +1,16 @@
 import { Component, computed, signal } from '@angular/core';
-import { BadgeComponent, BadgeEmphasis, BadgeIntent } from '@checkworkrights/ui-angular';
+import {
+  BadgeComponent,
+  BadgeEmphasis,
+  BadgeIntent,
+  FormFieldComponent,
+  PickerInputComponent,
+  TextInputComponent,
+  CheckboxComponent,
+} from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 // @checkworkrights/ui-angular@1.0.30 exports BadgeIntent/BadgeEmphasis as types only — the
 // BADGE_INTENTS/BADGE_EMPHASES runtime consts declared in its .d.ts aren't actually present in
@@ -18,9 +28,9 @@ const BADGE_EMPHASES: readonly BadgeEmphasis[] = ['solid', 'subtle', 'inverse'];
 @Component({
   selector: 'app-badge-playground',
   standalone: true,
-  imports: [BadgeComponent, Playground],
+  imports: [BadgeComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-badge
         playground-preview
         [value]="value()"
@@ -30,69 +40,37 @@ const BADGE_EMPHASES: readonly BadgeEmphasis[] = ['solid', 'subtle', 'inverse'];
       ></cwr-badge>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Value</span>
-          <input type="text" [value]="value()" (input)="value.set($any($event.target).value)" />
-        </label>
+        <cwr-form-field label="Value">
+          <cwr-text-input
+            [value]="'' + value()"
+            (valueChange)="value.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Intent</span>
-          <select (change)="intent.set($any($event.target).value)">
-            @for (i of intents; track i) {
-              <option [value]="i" [selected]="i === intent()">{{ i }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Intent">
+          <cwr-picker-input
+            [options]="intents | pickerOptions"
+            [value]="intent()"
+            (valueChange)="intent.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Emphasis</span>
-          <select (change)="emphasis.set($any($event.target).value)">
-            @for (e of emphases; track e) {
-              <option [value]="e" [selected]="e === emphasis()">{{ e }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Emphasis">
+          <cwr-picker-input
+            [options]="emphases | pickerOptions"
+            [value]="emphasis()"
+            (valueChange)="emphasis.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="hover()"
-            (change)="hover.set($any($event.target).checked)"
-          />
-          Hover
-        </label>
+        <cwr-checkbox
+          label="Hover"
+          [checked]="hover()"
+          (checkedChange)="hover.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class BadgePlayground {
   intents = BADGE_INTENTS;
@@ -112,4 +90,7 @@ export class BadgePlayground {
     if (this.hover()) attrs.push(`[hover]="true"`);
     return `<cwr-badge ${attrs.join(' ')}></cwr-badge>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

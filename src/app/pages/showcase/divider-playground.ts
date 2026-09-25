@@ -5,8 +5,13 @@ import {
   DividerComponent,
   DividerOrientation,
   DividerSize,
+  FormFieldComponent,
+  PickerInputComponent,
+  CheckboxComponent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 // @checkworkrights/ui-angular@1.0.30 exports DividerOrientation/DividerSize as types only —
 // the DIVIDER_ORIENTATIONS/DIVIDER_SIZES runtime consts declared in its .d.ts aren't actually
@@ -21,9 +26,9 @@ const COLORS = Object.keys(BORDER_COLOR_MAP) as BorderColorKey[];
 @Component({
   selector: 'app-divider-playground',
   standalone: true,
-  imports: [DividerComponent, Playground],
+  imports: [DividerComponent, Playground, FormFieldComponent, PickerInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <div
         playground-preview
         style="display: flex; align-items: center; justify-content: center; width: 100%;"
@@ -38,73 +43,38 @@ const COLORS = Object.keys(BORDER_COLOR_MAP) as BorderColorKey[];
       </div>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Orientation</span>
-          <select (change)="orientation.set($any($event.target).value)">
-            @for (o of orientations; track o) {
-              <option [value]="o" [selected]="o === orientation()">{{ o }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Orientation">
+          <cwr-picker-input
+            [options]="orientations | pickerOptions"
+            [value]="orientation()"
+            (valueChange)="orientation.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Size</span>
-          <select (change)="size.set($any($event.target).value)">
-            @for (s of sizes; track s) {
-              <option [value]="s" [selected]="s === size()">{{ s }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Size">
+          <cwr-picker-input
+            [options]="sizes | pickerOptions"
+            [value]="size()"
+            (valueChange)="size.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Color</span>
-          <select (change)="color.set($any($event.target).value)">
-            @for (c of colors; track c) {
-              <option [value]="c" [selected]="c === color()">{{ c }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Color">
+          <cwr-picker-input
+            [options]="colors | pickerOptions"
+            [value]="color()"
+            (valueChange)="color.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="rounded()"
-            (change)="rounded.set($any($event.target).checked)"
-          />
-          Rounded
-        </label>
+        <cwr-checkbox
+          label="Rounded"
+          [checked]="rounded()"
+          (checkedChange)="rounded.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class DividerPlayground {
   orientations = DIVIDER_ORIENTATIONS;
@@ -126,4 +96,7 @@ export class DividerPlayground {
     if (this.orientation() === 'vertical') attrs.push(`style="height: 3rem;"`);
     return `<cwr-divider ${attrs.join(' ')}></cwr-divider>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

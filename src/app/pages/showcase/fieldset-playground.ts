@@ -4,8 +4,12 @@ import {
   FormFieldComponent,
   TextInputComponent,
   FieldsetGap,
+  PickerInputComponent,
+  NumericInputComponent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 // @checkworkrights/ui-angular@1.0.30 exports the FieldsetGap type but not a FIELDSET_GAPS
 // runtime const, so the option list is hardcoded here to match the union.
@@ -14,9 +18,9 @@ const FIELDSET_GAPS: readonly FieldsetGap[] = ['md', 'lg', 'xl'];
 @Component({
   selector: 'app-fieldset-playground',
   standalone: true,
-  imports: [FieldsetComponent, FormFieldComponent, TextInputComponent, Playground],
+  imports: [FieldsetComponent, FormFieldComponent, TextInputComponent, Playground, PickerInputComponent, PickerOptionsPipe, NumericInputComponent],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-fieldset
         playground-preview
         style="width: 100%;"
@@ -47,81 +51,45 @@ const FIELDSET_GAPS: readonly FieldsetGap[] = ['md', 'lg', 'xl'];
       </cwr-fieldset>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Legend</span>
-          <input type="text" [value]="legend()" (input)="legend.set($any($event.target).value)" />
-        </label>
+        <cwr-form-field label="Legend">
+          <cwr-text-input
+            [value]="legend()"
+            (valueChange)="legend.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Description</span>
-          <input
-            type="text"
+        <cwr-form-field label="Description">
+          <cwr-text-input
             [value]="description()"
-            (input)="description.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="description.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Columns</span>
-          <input
-            type="number"
-            min="1"
-            max="3"
+        <cwr-form-field label="Columns">
+          <cwr-numeric-input
             [value]="columns()"
-            (input)="columns.set(+$any($event.target).value)"
-          />
-        </label>
+            (valueChange)="columns.set(clampColumns($event))"
+          ></cwr-numeric-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Gap</span>
-          <select (change)="gap.set($any($event.target).value)">
-            @for (g of gaps; track g) {
-              <option [value]="g" [selected]="g === gap()">{{ g }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Gap">
+          <cwr-picker-input
+            [options]="gaps | pickerOptions"
+            [value]="gap()"
+            (valueChange)="gap.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Row gap</span>
-          <select (change)="rowGap.set($any($event.target).value)">
-            @for (g of gaps; track g) {
-              <option [value]="g" [selected]="g === rowGap()">{{ g }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Row gap">
+          <cwr-picker-input
+            [options]="gaps | pickerOptions"
+            [value]="rowGap()"
+            (valueChange)="rowGap.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'],
-      .playground__field input[type='number'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class FieldsetPlayground {
   gaps = FIELDSET_GAPS;
@@ -129,6 +97,7 @@ export class FieldsetPlayground {
   legend = signal('Personal details');
   description = signal("Tell us a bit about yourself");
   columns = signal(2);
+  clampColumns = (n: number | null) => Math.min(3, Math.max(1, n ?? 1));
   gap = signal<FieldsetGap>('lg');
   rowGap = signal<FieldsetGap>('lg');
 
@@ -151,4 +120,7 @@ export class FieldsetPlayground {
   </cwr-form-field>
 </cwr-fieldset>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

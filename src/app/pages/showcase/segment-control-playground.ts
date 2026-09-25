@@ -3,8 +3,13 @@ import {
   SegmentControlComponent,
   SegmentControlItem,
   SegmentControlVariant,
+  FormFieldComponent,
+  PickerInputComponent,
+  PickerInputOption,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 // @checkworkrights/ui-angular@1.0.31 doesn't export a SEGMENT_CONTROL_VARIANTS-style runtime
 // const under a name distinct from the type, so the option list is reproduced here to match
@@ -20,9 +25,9 @@ const ITEMS: SegmentControlItem[] = [
 @Component({
   selector: 'app-segment-control-playground',
   standalone: true,
-  imports: [SegmentControlComponent, Playground],
+  imports: [SegmentControlComponent, Playground, FormFieldComponent, PickerInputComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-segment-control
         playground-preview
         [items]="items"
@@ -32,52 +37,33 @@ const ITEMS: SegmentControlItem[] = [
       ></cwr-segment-control>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Variant</span>
-          <select (change)="variant.set($any($event.target).value)">
-            @for (v of variants; track v) {
-              <option [value]="v" [selected]="v === variant()">{{ v }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Variant">
+          <cwr-picker-input
+            [options]="variants | pickerOptions"
+            [value]="variant()"
+            (valueChange)="variant.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Checked value</span>
-          <select (change)="checkedValue.set($any($event.target).value)">
-            @for (item of items; track item.value) {
-              <option [value]="item.value" [selected]="item.value === checkedValue()">
-                {{ item.label }}
-              </option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Checked value">
+          <cwr-picker-input
+            [options]="itemOptions"
+            [value]="checkedValue()"
+            (valueChange)="checkedValue.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-    `,
-  ],
+  `
 })
 export class SegmentControlPlayground {
   variants = VARIANTS;
   items = ITEMS;
+  itemOptions: PickerInputOption[] = ITEMS.map(({ label, value, icon }) => ({
+    label: label ?? value,
+    value,
+    leadingIcon: icon,
+  }));
 
   variant = signal<SegmentControlVariant>('icon-and-text');
   checkedValue = signal('list');
@@ -95,4 +81,7 @@ checkedValue = '${this.checkedValue()}';
   (checkedValueChange)="checkedValue = $event"
 ></cwr-segment-control>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

@@ -1,15 +1,20 @@
 import { Component, computed, signal } from '@angular/core';
-import { FormFieldComponent, TextInputComponent } from '@checkworkrights/ui-angular';
+import {
+  FormFieldComponent,
+  TextInputComponent,
+  CheckboxComponent,
+} from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
 
 const INPUT_ID = 'playground-demo-input';
 
 @Component({
   selector: 'app-form-field-playground',
   standalone: true,
-  imports: [FormFieldComponent, TextInputComponent, Playground],
+  imports: [FormFieldComponent, TextInputComponent, Playground, CheckboxComponent],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-form-field
         playground-preview
         [label]="label()"
@@ -23,80 +28,43 @@ const INPUT_ID = 'playground-demo-input';
       </cwr-form-field>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Label</span>
-          <input type="text" [value]="label()" (input)="label.set($any($event.target).value)" />
-        </label>
+        <cwr-form-field label="Label">
+          <cwr-text-input
+            [value]="label()"
+            (valueChange)="label.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Hint text</span>
-          <input
-            type="text"
+        <cwr-form-field label="Hint text">
+          <cwr-text-input
             [value]="hintText()"
-            (input)="hintText.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="hintText.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
         @if (hasError()) {
-          <label class="playground__field">
-            <span>Error text</span>
-            <input
-              type="text"
+          <cwr-form-field label="Error text">
+            <cwr-text-input
               [value]="errorText()"
-              (input)="errorText.set($any($event.target).value)"
-            />
-          </label>
+              (valueChange)="errorText.set($event)"
+            ></cwr-text-input>
+          </cwr-form-field>
         }
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="mandatory()"
-            (change)="mandatory.set($any($event.target).checked)"
-          />
-          Mandatory
-        </label>
+        <cwr-checkbox
+          label="Mandatory"
+          [checked]="mandatory()"
+          (checkedChange)="mandatory.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="hasError()"
-            (change)="hasError.set($any($event.target).checked)"
-          />
-          Has error
-        </label>
+        <cwr-checkbox
+          label="Has error"
+          [checked]="hasError()"
+          (checkedChange)="hasError.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class FormFieldPlayground {
   inputId = INPUT_ID;
@@ -118,4 +86,7 @@ export class FormFieldPlayground {
   <cwr-text-input id="${this.inputId}" placeholder="Enter value"></cwr-text-input>
 </cwr-form-field>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

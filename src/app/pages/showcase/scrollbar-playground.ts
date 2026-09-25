@@ -1,6 +1,13 @@
 import { Component, computed, signal } from '@angular/core';
-import { ScrollbarComponent, ScrollbarOverflow } from '@checkworkrights/ui-angular';
+import {
+  ScrollbarComponent,
+  ScrollbarOverflow,
+  FormFieldComponent,
+  PickerInputComponent,
+} from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 // @checkworkrights/ui-angular@1.0.30 exports ScrollbarOverflow as a type only — the
 // SCROLLBAR_OVERFLOWS runtime const declared in its .d.ts isn't actually present in the
@@ -10,9 +17,9 @@ const SCROLLBAR_OVERFLOWS: readonly ScrollbarOverflow[] = ['vertical', 'horizont
 @Component({
   selector: 'app-scrollbar-playground',
   standalone: true,
-  imports: [ScrollbarComponent, Playground],
+  imports: [ScrollbarComponent, Playground, FormFieldComponent, PickerInputComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <div playground-preview>
         @if (overflow() === 'vertical') {
           <div style="position: relative; height: 160px; width: 240px;">
@@ -40,46 +47,16 @@ const SCROLLBAR_OVERFLOWS: readonly ScrollbarOverflow[] = ['vertical', 'horizont
       </div>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Overflow</span>
-          <select (change)="overflow.set($any($event.target).value)">
-            @for (o of overflows; track o) {
-              <option [value]="o" [selected]="o === overflow()">{{ o }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Overflow">
+          <cwr-picker-input
+            [options]="overflows | pickerOptions"
+            [value]="overflow()"
+            (valueChange)="overflow.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class ScrollbarPlayground {
   overflows = SCROLLBAR_OVERFLOWS;
@@ -102,4 +79,7 @@ export class ScrollbarPlayground {
   <cwr-scrollbar overflow="horizontal"></cwr-scrollbar>
 </div>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

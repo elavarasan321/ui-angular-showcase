@@ -5,8 +5,13 @@ import {
   CheckboxComponent,
   InputControlFieldLayout,
   InputControlFieldRole,
+  FormFieldComponent,
+  PickerInputComponent,
+  TextInputComponent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 const INPUT_CONTROL_FIELD_LAYOUTS: readonly InputControlFieldLayout[] = ['vstack', 'grid'];
 const INPUT_CONTROL_FIELD_ROLES: readonly InputControlFieldRole[] = ['radiogroup', 'group'];
@@ -14,9 +19,9 @@ const INPUT_CONTROL_FIELD_ROLES: readonly InputControlFieldRole[] = ['radiogroup
 @Component({
   selector: 'app-input-control-field-playground',
   standalone: true,
-  imports: [InputControlFieldComponent, RadioButtonComponent, CheckboxComponent, Playground],
+  imports: [InputControlFieldComponent, RadioButtonComponent, CheckboxComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-input-control-field
         playground-preview
         style="width: 100%;"
@@ -64,98 +69,59 @@ const INPUT_CONTROL_FIELD_ROLES: readonly InputControlFieldRole[] = ['radiogroup
       </cwr-input-control-field>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Label</span>
-          <input type="text" [value]="label()" (input)="label.set($any($event.target).value)" />
-        </label>
+        <cwr-form-field label="Label">
+          <cwr-text-input
+            [value]="label()"
+            (valueChange)="label.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Hint text</span>
-          <input
-            type="text"
+        <cwr-form-field label="Hint text">
+          <cwr-text-input
             [value]="hintText()"
-            (input)="hintText.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="hintText.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
         @if (hasError()) {
-          <label class="playground__field">
-            <span>Error text</span>
-            <input
-              type="text"
+          <cwr-form-field label="Error text">
+            <cwr-text-input
               [value]="errorText()"
-              (input)="errorText.set($any($event.target).value)"
-            />
-          </label>
+              (valueChange)="errorText.set($event)"
+            ></cwr-text-input>
+          </cwr-form-field>
         }
 
-        <label class="playground__field">
-          <span>Role</span>
-          <select (change)="role.set($any($event.target).value)">
-            @for (r of roles; track r) {
-              <option [value]="r" [selected]="r === role()">{{ r }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Role">
+          <cwr-picker-input
+            [options]="roles | pickerOptions"
+            [value]="role()"
+            (valueChange)="role.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Layout</span>
-          <select (change)="layout.set($any($event.target).value)">
-            @for (l of layouts; track l) {
-              <option [value]="l" [selected]="l === layout()">{{ l }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Layout">
+          <cwr-picker-input
+            [options]="layouts | pickerOptions"
+            [value]="layout()"
+            (valueChange)="layout.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="mandatory()"
-            (change)="mandatory.set($any($event.target).checked)"
-          />
-          Mandatory
-        </label>
+        <cwr-checkbox
+          label="Mandatory"
+          [checked]="mandatory()"
+          (checkedChange)="mandatory.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="hasError()"
-            (change)="hasError.set($any($event.target).checked)"
-          />
-          Has error
-        </label>
+        <cwr-checkbox
+          label="Has error"
+          [checked]="hasError()"
+          (checkedChange)="hasError.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class InputControlFieldPlayground {
   roles = INPUT_CONTROL_FIELD_ROLES;
@@ -196,4 +162,7 @@ export class InputControlFieldPlayground {
 ${options}
 </cwr-input-control-field>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

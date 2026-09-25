@@ -6,15 +6,19 @@ import {
   ButtonComponent,
   FORM_GAPS,
   FormGap,
+  PickerInputComponent,
+  CheckboxComponent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 @Component({
   selector: 'app-form-playground',
   standalone: true,
-  imports: [FormComponent, FormFieldComponent, TextInputComponent, ButtonComponent, Playground],
+  imports: [FormComponent, FormFieldComponent, TextInputComponent, ButtonComponent, Playground, PickerInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-form
         playground-preview
         style="width: 100%; max-width: 24rem;"
@@ -37,84 +41,44 @@ import { Playground } from './playground';
       </cwr-form>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Gap</span>
-          <select (change)="gap.set($any($event.target).value)">
-            @for (g of gaps; track g) {
-              <option [value]="g" [selected]="g === gap()">{{ g }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Gap">
+          <cwr-picker-input
+            [options]="gaps | pickerOptions"
+            [value]="gap()"
+            (valueChange)="gap.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="submitting()"
-            (change)="submitting.set($any($event.target).checked)"
-          />
-          Submitting
-        </label>
+        <cwr-checkbox
+          label="Submitting"
+          [checked]="submitting()"
+          (checkedChange)="submitting.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="hasError()"
-            (change)="hasError.set($any($event.target).checked)"
-          />
-          Has error
-        </label>
+        <cwr-checkbox
+          label="Has error"
+          [checked]="hasError()"
+          (checkedChange)="hasError.set($event)"
+        ></cwr-checkbox>
 
         @if (hasError()) {
-          <label class="playground__field">
-            <span>Error title</span>
-            <input
-              type="text"
+          <cwr-form-field label="Error title">
+            <cwr-text-input
               [value]="errorTitle()"
-              (input)="errorTitle.set($any($event.target).value)"
-            />
-          </label>
+              (valueChange)="errorTitle.set($event)"
+            ></cwr-text-input>
+          </cwr-form-field>
 
-          <label class="playground__field">
-            <span>Error hint</span>
-            <input
-              type="text"
+          <cwr-form-field label="Error hint">
+            <cwr-text-input
               [value]="errorHint()"
-              (input)="errorHint.set($any($event.target).value)"
-            />
-          </label>
+              (valueChange)="errorHint.set($event)"
+            ></cwr-text-input>
+          </cwr-form-field>
         }
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class FormPlayground {
   gaps = FORM_GAPS;
@@ -143,4 +107,7 @@ export class FormPlayground {
   <cwr-button variant="solid" intent="brand" label="Submit"${buttonAttrs}></cwr-button>
 </cwr-form>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

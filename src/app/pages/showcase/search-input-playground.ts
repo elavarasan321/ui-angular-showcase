@@ -1,13 +1,20 @@
 import { Component, computed, signal } from '@angular/core';
-import { SearchInputComponent } from '@checkworkrights/ui-angular';
+import {
+  SearchInputComponent,
+  FormFieldComponent,
+  TextInputComponent,
+  CheckboxComponent,
+  NumericInputComponent,
+} from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
 
 @Component({
   selector: 'app-search-input-playground',
   standalone: true,
-  imports: [SearchInputComponent, Playground],
+  imports: [SearchInputComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent, NumericInputComponent],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-search-input
         playground-preview
         style="width: 100%; max-width: 20rem;"
@@ -19,63 +26,28 @@ import { Playground } from './playground';
       ></cwr-search-input>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Placeholder</span>
-          <input
-            type="text"
+        <cwr-form-field label="Placeholder">
+          <cwr-text-input
             [value]="placeholder()"
-            (input)="placeholder.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="placeholder.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Debounce (ms)</span>
-          <input
-            type="text"
+        <cwr-form-field label="Debounce (ms)">
+          <cwr-numeric-input
             [value]="debounceMs()"
-            (input)="debounceMs.set($any($event.target).value || 0)"
-          />
-        </label>
+            (valueChange)="debounceMs.set($event ?? 0)"
+          ></cwr-numeric-input>
+        </cwr-form-field>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="disabled()"
-            (change)="disabled.set($any($event.target).checked)"
-          />
-          Disabled
-        </label>
+        <cwr-checkbox
+          label="Disabled"
+          [checked]="disabled()"
+          (checkedChange)="disabled.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class SearchInputPlayground {
   value = signal('');
@@ -94,4 +66,7 @@ export class SearchInputPlayground {
   ${attrs.join('\n  ')}
 ></cwr-search-input>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

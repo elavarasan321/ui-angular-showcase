@@ -5,8 +5,12 @@ import {
   ButtonComponent,
   CwrMenuItem,
   MenuButtonJustify,
+  FormFieldComponent,
+  PickerInputComponent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 const MENU_BUTTON_JUSTIFY: readonly MenuButtonJustify[] = ['right', 'left'];
 
@@ -20,9 +24,9 @@ const MENU_ITEMS: CwrMenuItem[] = [
 @Component({
   selector: 'app-menu-button-playground',
   standalone: true,
-  imports: [MenuButtonComponent, MenuComponent, ButtonComponent, Playground],
+  imports: [MenuButtonComponent, MenuComponent, ButtonComponent, Playground, FormFieldComponent, PickerInputComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <div playground-preview style="padding-bottom: 9rem;">
         <cwr-menu-button [justify]="justify()">
           <cwr-button
@@ -47,37 +51,16 @@ const MENU_ITEMS: CwrMenuItem[] = [
       </div>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Justify</span>
-          <select (change)="justify.set($any($event.target).value)">
-            @for (j of justifyOptions; track j) {
-              <option [value]="j" [selected]="j === justify()">{{ j }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Justify">
+          <cwr-picker-input
+            [options]="justifyOptions | pickerOptions"
+            [value]="justify()"
+            (valueChange)="justify.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-    `,
-  ],
+  `
 })
 export class MenuButtonPlayground {
   justifyOptions = MENU_BUTTON_JUSTIFY;
@@ -92,4 +75,7 @@ export class MenuButtonPlayground {
   <cwr-menu slot="slot" #slotFocus aria-haspopup="menu" [items]="items" (itemSelected)="onSelect($event)" />
 </cwr-menu-button>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

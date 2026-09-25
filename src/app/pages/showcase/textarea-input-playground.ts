@@ -1,6 +1,16 @@
 import { Component, computed, signal } from '@angular/core';
-import { TextareaInputComponent, TextareaInputState } from '@checkworkrights/ui-angular';
+import {
+  TextareaInputComponent,
+  TextareaInputState,
+  FormFieldComponent,
+  PickerInputComponent,
+  TextInputComponent,
+  CheckboxComponent,
+  NumericInputComponent,
+} from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 // TextareaInputState (InputState) is exported as a plain string literal union, not a readonly
 // array const, so the option list is hardcoded here to match the union.
@@ -9,9 +19,9 @@ const STATES: readonly TextareaInputState[] = ['idle', 'error'];
 @Component({
   selector: 'app-textarea-input-playground',
   standalone: true,
-  imports: [TextareaInputComponent, Playground],
+  imports: [TextareaInputComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe, NumericInputComponent],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-textarea-input
         playground-preview
         [value]="value()"
@@ -26,102 +36,54 @@ const STATES: readonly TextareaInputState[] = ['idle', 'error'];
       ></cwr-textarea-input>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Placeholder</span>
-          <input
-            type="text"
+        <cwr-form-field label="Placeholder">
+          <cwr-text-input
             [value]="placeholder()"
-            (input)="placeholder.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="placeholder.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>State</span>
-          <select (change)="state.set($any($event.target).value)">
-            @for (s of states; track s) {
-              <option [value]="s" [selected]="s === state()">{{ s }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="State">
+          <cwr-picker-input
+            [options]="states | pickerOptions"
+            [value]="state()"
+            (valueChange)="state.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Max length</span>
-          <input
-            type="number"
-            min="0"
-            [value]="maxlength() ?? ''"
-            (input)="maxlength.set($any($event.target).value === '' ? null : +$any($event.target).value)"
-          />
-        </label>
+        <cwr-form-field label="Max length">
+          <cwr-numeric-input
+            [value]="maxlength()"
+            (valueChange)="maxlength.set($event)"
+          ></cwr-numeric-input>
+        </cwr-form-field>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="canResize()"
-            (change)="canResize.set($any($event.target).checked)"
-          />
-          Can resize
-        </label>
+        <cwr-checkbox
+          label="Can resize"
+          [checked]="canResize()"
+          (checkedChange)="canResize.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="required()"
-            (change)="required.set($any($event.target).checked)"
-          />
-          Required
-        </label>
+        <cwr-checkbox
+          label="Required"
+          [checked]="required()"
+          (checkedChange)="required.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="disabled()"
-            (change)="disabled.set($any($event.target).checked)"
-          />
-          Disabled
-        </label>
+        <cwr-checkbox
+          label="Disabled"
+          [checked]="disabled()"
+          (checkedChange)="disabled.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="readOnly()"
-            (change)="readOnly.set($any($event.target).checked)"
-          />
-          Read only
-        </label>
+        <cwr-checkbox
+          label="Read only"
+          [checked]="readOnly()"
+          (checkedChange)="readOnly.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'],
-      .playground__field input[type='number'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class TextareaInputPlayground {
   states = STATES;
@@ -145,4 +107,7 @@ export class TextareaInputPlayground {
     if (this.readOnly()) attrs.push(`[readOnly]="true"`);
     return `<cwr-textarea-input ${attrs.join(' ')}></cwr-textarea-input>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

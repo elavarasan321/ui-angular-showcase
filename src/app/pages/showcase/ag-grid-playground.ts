@@ -1,7 +1,9 @@
 import { Component, computed, signal } from '@angular/core';
-import { AgGrid } from '@checkworkrights/ui-angular';
+import { AgGrid, FormFieldComponent, PickerInputComponent } from '@checkworkrights/ui-angular';
 import type { ColDef } from 'ag-grid-community';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 interface ApplicantRow {
   name: string;
@@ -27,45 +29,24 @@ const COLUMN_DEFS: ColDef<ApplicantRow>[] = [
 @Component({
   selector: 'app-ag-grid-playground',
   standalone: true,
-  imports: [AgGrid, Playground],
+  imports: [AgGrid, Playground, FormFieldComponent, PickerInputComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()" language="typescript">
+    <app-playground [state]="playground" [code]="generatedCode()" language="typescript">
       <div playground-preview style="width: 100%; height: 260px;">
         <cwr-ag-grid [columnDefs]="columnDefs" [rowData]="visibleRows()"></cwr-ag-grid>
       </div>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Rows</span>
-          <select (change)="rowCount.set(+$any($event.target).value)">
-            @for (n of rowCountOptions; track n) {
-              <option [value]="n" [selected]="n === rowCount()">{{ n }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Rows">
+          <cwr-picker-input
+            [options]="rowCountOptions | pickerOptions"
+            [value]="'' + rowCount()"
+            (valueChange)="rowCount.set(+$event)"
+          ></cwr-picker-input>
+        </cwr-form-field>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-    `,
-  ],
+  `
 })
 export class AgGridPlayground {
   columnDefs = COLUMN_DEFS;
@@ -89,4 +70,7 @@ rowData = [ /* ${this.rowCount()} row(s) */ ];
   <cwr-ag-grid [columnDefs]="columnDefs" [rowData]="rowData"></cwr-ag-grid>
 </div>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

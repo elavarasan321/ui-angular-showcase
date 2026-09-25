@@ -1,15 +1,24 @@
 import { Component, computed, signal } from '@angular/core';
-import { StyledLinkComponent, StyledLinkVariant } from '@checkworkrights/ui-angular';
+import {
+  StyledLinkComponent,
+  StyledLinkVariant,
+  FormFieldComponent,
+  PickerInputComponent,
+  TextInputComponent,
+  CheckboxComponent,
+} from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 const STYLED_LINK_VARIANTS: readonly StyledLinkVariant[] = ['default', 'neutral'];
 
 @Component({
   selector: 'app-styled-link-playground',
   standalone: true,
-  imports: [StyledLinkComponent, Playground],
+  imports: [StyledLinkComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-styled-link
         playground-preview
         [variant]="variant()"
@@ -22,69 +31,35 @@ const STYLED_LINK_VARIANTS: readonly StyledLinkVariant[] = ['default', 'neutral'
       </cwr-styled-link>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Label</span>
-          <input type="text" [value]="label()" (input)="label.set($any($event.target).value)" />
-        </label>
+        <cwr-form-field label="Label">
+          <cwr-text-input
+            [value]="label()"
+            (valueChange)="label.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Variant</span>
-          <select (change)="variant.set($any($event.target).value)">
-            @for (v of variants; track v) {
-              <option [value]="v" [selected]="v === variant()">{{ v }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Variant">
+          <cwr-picker-input
+            [options]="variants | pickerOptions"
+            [value]="variant()"
+            (valueChange)="variant.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="showExternalIcon()"
-            (change)="showExternalIcon.set($any($event.target).checked)"
-          />
-          External link icon
-        </label>
+        <cwr-checkbox
+          label="External link icon"
+          [checked]="showExternalIcon()"
+          (checkedChange)="showExternalIcon.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="disabled()"
-            (change)="disabled.set($any($event.target).checked)"
-          />
-          Disabled
-        </label>
+        <cwr-checkbox
+          label="Disabled"
+          [checked]="disabled()"
+          (checkedChange)="disabled.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class StyledLinkPlayground {
   variants = STYLED_LINK_VARIANTS;
@@ -105,4 +80,7 @@ export class StyledLinkPlayground {
 
     return `<cwr-styled-link ${attrs.join(' ')}>${this.label()}</cwr-styled-link>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

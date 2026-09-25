@@ -6,8 +6,13 @@ import {
   IllustrationComponent,
   IllustrationKey,
   IllustrationSize,
+  FormFieldComponent,
+  PickerInputComponent,
+  TextInputComponent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 // @checkworkrights/ui-angular@1.0.30 declares ILLUSTRATION_SIZES in its types but doesn't
 // actually export it from the compiled bundle, so the option list is hardcoded here to match
@@ -21,9 +26,9 @@ const NONE_COLOR = '__none__';
 @Component({
   selector: 'app-illustration-playground',
   standalone: true,
-  imports: [IllustrationComponent, Playground],
+  imports: [IllustrationComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-illustration
         playground-preview
         [illustration]="illustration()"
@@ -35,97 +40,54 @@ const NONE_COLOR = '__none__';
       ></cwr-illustration>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Illustration</span>
-          <select (change)="illustration.set($any($event.target).value)">
-            @for (i of illustrationKeys; track i) {
-              <option [value]="i" [selected]="i === illustration()">{{ i }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Illustration">
+          <cwr-picker-input
+            [options]="illustrationKeys | pickerOptions"
+            [value]="illustration()"
+            (valueChange)="illustration.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Size</span>
-          <select (change)="size.set($any($event.target).value)">
-            @for (s of sizes; track s) {
-              <option [value]="s" [selected]="s === size()">{{ s }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Size">
+          <cwr-picker-input
+            [options]="sizes | pickerOptions"
+            [value]="size()"
+            (valueChange)="size.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Primary color</span>
-          <select
-            (change)="primaryColor.set($any($event.target).value)"
-          >
-            <option value="${NONE_COLOR}" [selected]="primaryColor() === '${NONE_COLOR}'">(default)</option>
-            @for (c of colorKeys; track c) {
-              <option [value]="c" [selected]="c === primaryColor()">{{ c }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Primary color">
+          <cwr-picker-input
+            [options]="colorKeys | pickerOptions: { label: '(default)', value: '${NONE_COLOR}' }"
+            [value]="primaryColor()"
+            (valueChange)="primaryColor.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Secondary color</span>
-          <select
-            (change)="secondaryColor.set($any($event.target).value)"
-          >
-            <option value="${NONE_COLOR}" [selected]="secondaryColor() === '${NONE_COLOR}'">(default)</option>
-            @for (c of colorKeys; track c) {
-              <option [value]="c" [selected]="c === secondaryColor()">{{ c }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Secondary color">
+          <cwr-picker-input
+            [options]="colorKeys | pickerOptions: { label: '(default)', value: '${NONE_COLOR}' }"
+            [value]="secondaryColor()"
+            (valueChange)="secondaryColor.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Primary opacity</span>
-          <input
-            type="text"
+        <cwr-form-field label="Primary opacity">
+          <cwr-text-input
             [value]="primaryOpacity()"
-            (input)="primaryOpacity.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="primaryOpacity.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Secondary opacity</span>
-          <input
-            type="text"
+        <cwr-form-field label="Secondary opacity">
+          <cwr-text-input
             [value]="secondaryOpacity()"
-            (input)="secondaryOpacity.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="secondaryOpacity.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class IllustrationPlayground {
   illustrationKeys = Object.keys(ILLUSTRATION_MAP) as IllustrationKey[];
@@ -159,4 +121,7 @@ export class IllustrationPlayground {
     if (this.secondaryOpacity()) attrs.push(`secondaryOpacity="${this.secondaryOpacity()}"`);
     return `<cwr-illustration ${attrs.join(' ')}></cwr-illustration>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

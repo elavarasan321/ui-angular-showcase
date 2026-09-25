@@ -1,6 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
-import { TabBarComponent, TabBarItem } from '@checkworkrights/ui-angular';
+import { TabBarComponent, TabBarItem, CheckboxComponent } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
 
 const BASE_TABS: TabBarItem[] = [
   { value: 'overview', label: 'Overview' },
@@ -11,9 +12,9 @@ const BASE_TABS: TabBarItem[] = [
 @Component({
   selector: 'app-tab-bar-playground',
   standalone: true,
-  imports: [TabBarComponent, Playground],
+  imports: [TabBarComponent, Playground, CheckboxComponent],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-tab-bar
         playground-preview
         style="width: 100%;"
@@ -23,46 +24,26 @@ const BASE_TABS: TabBarItem[] = [
       ></cwr-tab-bar>
 
       <ng-container playground-controls>
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="showIcons()"
-            (change)="showIcons.set($any($event.target).checked)"
-          />
-          Leading icons
-        </label>
+        <cwr-checkbox
+          label="Leading icons"
+          [checked]="showIcons()"
+          (checkedChange)="showIcons.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="showBadge()"
-            (change)="showBadge.set($any($event.target).checked)"
-          />
-          Badge on Documents
-        </label>
+        <cwr-checkbox
+          label="Badge on Documents"
+          [checked]="showBadge()"
+          (checkedChange)="showBadge.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="disableHistory()"
-            (change)="disableHistory.set($any($event.target).checked)"
-          />
-          Disable History tab
-        </label>
+        <cwr-checkbox
+          label="Disable History tab"
+          [checked]="disableHistory()"
+          (checkedChange)="disableHistory.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class TabBarPlayground {
   checkedValue = signal('overview');
@@ -92,4 +73,7 @@ export class TabBarPlayground {
   (checkedValueChange)="activeTab.set($event)"
 ></cwr-tab-bar>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

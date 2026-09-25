@@ -1,9 +1,12 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { NavbarNavItem, WhatsNewItem } from '@checkworkrights/ui-angular';
+import { NavbarNavItem } from '@checkworkrights/ui-angular';
 import { filter } from 'rxjs/operators';
 import { GlobalSearch } from './components/global-search/global-search';
 import { Sidebar, SidebarNavGroup } from './components/sidebar/sidebar';
+
+// Also read by the inline pre-paint script in src/index.html — keep the two in sync.
+const THEME_STORAGE_KEY = 'cwr-showcase-theme';
 
 @Component({
   selector: 'app-root',
@@ -13,14 +16,22 @@ import { Sidebar, SidebarNavGroup } from './components/sidebar/sidebar';
 })
 export class App {
   protected title = 'UI Angular Showcase';
-  isDarkMode = true;
+  // index.html has already applied any saved theme, so the attribute is the source of truth.
+  isDarkMode = document.documentElement.getAttribute('data-theme') !== 'light';
 
   @ViewChild('appContent') private appContent?: ElementRef<HTMLElement>;
 
+  private lastPath = '';
+
   constructor(private router: Router) {
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
-      this.appContent?.nativeElement.scrollTo({ top: 0 });
-    });
+    this.router.events
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        const path = event.urlAfterRedirects.split(/[?#]/)[0];
+        if (path === this.lastPath) return;
+        this.lastPath = path;
+        this.appContent?.nativeElement.scrollTo({ top: 0 });
+      });
   }
 
   isActiveRoute = (base: string): boolean => {
@@ -262,107 +273,17 @@ export class App {
     },
   ];
 
-  whatsNewItems: WhatsNewItem[] = [
-    {
-      title: 'AG Grid',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/ag-grid',
-    },
-    {
-      title: 'Modal',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/modal',
-    },
-    {
-      title: 'Dialog',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/dialog',
-    },
-    {
-      title: 'Drawer',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/drawer',
-    },
-    {
-      title: 'Snackbar',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/snackbar',
-    },
-    {
-      title: 'Menu Button',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/menu-button',
-    },
-    {
-      title: 'Card',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/card',
-    },
-    {
-      title: 'Tab Bar',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/tab-bar',
-    },
-    {
-      title: 'Select Input',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/select-input',
-    },
-    {
-      title: 'Picker Input',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/picker-input',
-    },
-    {
-      title: 'Search Input',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/search-input',
-    },
-    {
-      title: 'Status Pill',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/status-pill',
-    },
-    {
-      title: 'Toggle Card',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/toggle-card',
-    },
-    {
-      title: 'Styled Link',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/styled-link',
-    },
-    {
-      title: 'Tooltip Icon',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/tooltip-icon',
-    },
-    {
-      title: 'Empty State Content Block',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/empty-state',
-    },
-    {
-      title: 'Overlay Header & Footer',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/overlay-header-footer',
-    },
-    {
-      title: 'Input Control Field',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/input-control-field',
-    },
-    {
-      title: 'Listbox',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/listbox',
-    },
-    {
-      title: 'Segment Control',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/segment-control',
-    },
-    {
-      title: 'Currency Input',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/currency-input',
-    },
-    {
-      title: 'Percent Input',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/percent-input',
-    },
-    {
-      title: 'Textarea Input',
-      link: 'https://ui-angular-showcase.vercel.app/showcase/textarea-input',
-    },
-  ];
-
   toggleTheme(): void {
     this.isDarkMode = !this.isDarkMode;
     if (this.isDarkMode) {
-      document.body.removeAttribute('data-theme');
+      document.documentElement.removeAttribute('data-theme');
     } else {
-      document.body.setAttribute('data-theme', 'light');
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, this.isDarkMode ? 'dark' : 'light');
+    } catch {
+      // Storage can be unavailable (private mode, blocked site data); the toggle still works.
     }
   }
 }

@@ -10,7 +10,7 @@ export class TokenThemeService implements OnDestroy {
 
   constructor() {
     this.observer = new MutationObserver(() => this.version.update((v) => v + 1));
-    this.observer.observe(document.body, { attributes: true, attributeFilter: ['data-theme'] });
+    this.observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   }
 
   ngOnDestroy(): void {

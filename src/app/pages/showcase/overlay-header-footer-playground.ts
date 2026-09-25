@@ -5,8 +5,13 @@ import {
   ButtonComponent,
   OverlayHeaderDirection,
   OverlayFooterJustifyContent,
+  FormFieldComponent,
+  PickerInputComponent,
+  TextInputComponent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 const OVERLAY_HEADER_DIRECTIONS: readonly OverlayHeaderDirection[] = ['row', 'column'];
 const OVERLAY_FOOTER_JUSTIFY: readonly OverlayFooterJustifyContent[] = [
@@ -19,9 +24,9 @@ const OVERLAY_FOOTER_JUSTIFY: readonly OverlayFooterJustifyContent[] = [
 @Component({
   selector: 'app-overlay-header-footer-playground',
   standalone: true,
-  imports: [OverlayHeaderComponent, OverlayFooterComponent, ButtonComponent, Playground],
+  imports: [OverlayHeaderComponent, OverlayFooterComponent, ButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <div
         playground-preview
         style="width: 100%; border: 1px solid var(--color-border-neutral-subtle, #e2e2e2); border-radius: var(--border-radius-md, 8px); overflow: hidden;"
@@ -43,61 +48,38 @@ const OVERLAY_FOOTER_JUSTIFY: readonly OverlayFooterJustifyContent[] = [
       </div>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Title</span>
-          <input type="text" [value]="title()" (input)="title.set($any($event.target).value)" />
-        </label>
+        <cwr-form-field label="Title">
+          <cwr-text-input
+            [value]="title()"
+            (valueChange)="title.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Intro text</span>
-          <input
-            type="text"
+        <cwr-form-field label="Intro text">
+          <cwr-text-input
             [value]="introText()"
-            (input)="introText.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="introText.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Header direction</span>
-          <select (change)="direction.set($any($event.target).value)">
-            @for (d of directions; track d) {
-              <option [value]="d" [selected]="d === direction()">{{ d }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Header direction">
+          <cwr-picker-input
+            [options]="directions | pickerOptions"
+            [value]="direction()"
+            (valueChange)="direction.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Footer justify</span>
-          <select (change)="justifyContent.set($any($event.target).value)">
-            @for (j of justifyOptions; track j) {
-              <option [value]="j" [selected]="j === justifyContent()">{{ j }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Footer justify">
+          <cwr-picker-input
+            [options]="justifyOptions | pickerOptions"
+            [value]="justifyContent()"
+            (valueChange)="justifyContent.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-    `,
-  ],
+  `
 })
 export class OverlayHeaderFooterPlayground {
   directions = OVERLAY_HEADER_DIRECTIONS;
@@ -124,4 +106,7 @@ export class OverlayHeaderFooterPlayground {
   </span>
 </cwr-overlay-footer>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

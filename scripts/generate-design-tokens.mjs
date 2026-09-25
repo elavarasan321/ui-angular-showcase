@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -101,3 +101,19 @@ const tokenCount = names.length;
 console.log(
   `[generate-design-tokens] wrote ${OUT_PATH} — ${groupCount} groups from ${tokenCount} tokens.`,
 );
+
+// dark.css only declares its tokens on `:root`, so dark can't be scoped to part of a page the
+// way `[data-theme='light']` can. Re-emit the same declarations under `[data-theme='dark']` so a
+// playground preview can force dark while the page is light.
+const SCOPED_DARK_PATH = resolve(APP_ROOT, 'src/styles/dark-scoped.generated.css');
+const scopedDark = css.replace(/^:root\s*\{/m, "[data-theme='dark'] {");
+if (scopedDark === css) {
+  console.error('[generate-design-tokens] expected a `:root {` block in dark.css; not found.');
+  process.exit(1);
+}
+mkdirSync(dirname(SCOPED_DARK_PATH), { recursive: true });
+writeFileSync(
+  SCOPED_DARK_PATH,
+  `/* GENERATED FILE — do not edit by hand. Run \`npm run generate:tokens\` to regenerate. */\n${scopedDark}`,
+);
+console.log(`[generate-design-tokens] wrote ${SCOPED_DARK_PATH}.`);

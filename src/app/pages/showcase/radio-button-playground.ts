@@ -1,6 +1,15 @@
 import { Component, computed, signal } from '@angular/core';
-import { RadioButtonComponent, RadioButtonState } from '@checkworkrights/ui-angular';
+import {
+  RadioButtonComponent,
+  RadioButtonState,
+  FormFieldComponent,
+  PickerInputComponent,
+  TextInputComponent,
+  CheckboxComponent,
+} from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 // @checkworkrights/ui-angular@1.0.30 exports RadioButtonState as a type only — the
 // RADIO_BUTTON_STATES runtime const declared in its .d.ts isn't actually present in the
@@ -10,9 +19,9 @@ const RADIO_BUTTON_STATES: readonly RadioButtonState[] = ['idle', 'error'];
 @Component({
   selector: 'app-radio-button-playground',
   standalone: true,
-  imports: [RadioButtonComponent, Playground],
+  imports: [RadioButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-radio-button
         playground-preview
         [label]="label()"
@@ -24,78 +33,41 @@ const RADIO_BUTTON_STATES: readonly RadioButtonState[] = ['idle', 'error'];
       ></cwr-radio-button>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Label</span>
-          <input type="text" [value]="label()" (input)="label.set($any($event.target).value)" />
-        </label>
+        <cwr-form-field label="Label">
+          <cwr-text-input
+            [value]="label()"
+            (valueChange)="label.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>State</span>
-          <select (change)="state.set($any($event.target).value)">
-            @for (s of states; track s) {
-              <option [value]="s" [selected]="s === state()">{{ s }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="State">
+          <cwr-picker-input
+            [options]="states | pickerOptions"
+            [value]="state()"
+            (valueChange)="state.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="checked()"
-            (change)="checked.set($any($event.target).checked)"
-          />
-          Checked
-        </label>
+        <cwr-checkbox
+          label="Checked"
+          [checked]="checked()"
+          (checkedChange)="checked.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="disabled()"
-            (change)="disabled.set($any($event.target).checked)"
-          />
-          Disabled
-        </label>
+        <cwr-checkbox
+          label="Disabled"
+          [checked]="disabled()"
+          (checkedChange)="disabled.set($event)"
+        ></cwr-checkbox>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="showFocusRing()"
-            (change)="showFocusRing.set($any($event.target).checked)"
-          />
-          Show focus ring
-        </label>
+        <cwr-checkbox
+          label="Show focus ring"
+          [checked]="showFocusRing()"
+          (checkedChange)="showFocusRing.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class RadioButtonPlayground {
   states = RADIO_BUTTON_STATES;
@@ -114,4 +86,7 @@ export class RadioButtonPlayground {
     if (this.showFocusRing()) attrs.push(`[showFocusRing]="true"`);
     return `<cwr-radio-button ${attrs.join(' ')}></cwr-radio-button>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

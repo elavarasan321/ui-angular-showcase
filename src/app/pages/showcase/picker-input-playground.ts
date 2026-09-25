@@ -1,6 +1,13 @@
 import { Component, computed, signal } from '@angular/core';
-import { PickerInputComponent, PickerInputOption } from '@checkworkrights/ui-angular';
+import {
+  PickerInputComponent,
+  PickerInputOption,
+  FormFieldComponent,
+  TextInputComponent,
+  CheckboxComponent,
+} from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
 
 const FREQUENCY_OPTIONS: PickerInputOption[] = [
   { label: 'Weekly', value: 'weekly' },
@@ -12,9 +19,9 @@ const FREQUENCY_OPTIONS: PickerInputOption[] = [
 @Component({
   selector: 'app-picker-input-playground',
   standalone: true,
-  imports: [PickerInputComponent, Playground],
+  imports: [PickerInputComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-picker-input
         playground-preview
         style="width: 100%; max-width: 20rem;"
@@ -26,54 +33,21 @@ const FREQUENCY_OPTIONS: PickerInputOption[] = [
       ></cwr-picker-input>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Placeholder</span>
-          <input
-            type="text"
+        <cwr-form-field label="Placeholder">
+          <cwr-text-input
             [value]="placeholderText()"
-            (input)="placeholderText.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="placeholderText.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__checkbox">
-          <input
-            type="checkbox"
-            [checked]="disabled()"
-            (change)="disabled.set($any($event.target).checked)"
-          />
-          Disabled
-        </label>
+        <cwr-checkbox
+          label="Disabled"
+          [checked]="disabled()"
+          (checkedChange)="disabled.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-
-      .playground__checkbox {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2xs, 0.5rem);
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-      }
-    `,
-  ],
+  `
 })
 export class PickerInputPlayground {
   options = FREQUENCY_OPTIONS;
@@ -93,4 +67,7 @@ export class PickerInputPlayground {
   ${attrs.join('\n  ')}
 ></cwr-picker-input>`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }

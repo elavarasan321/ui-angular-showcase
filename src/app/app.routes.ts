@@ -6,82 +6,82 @@ export const routes: Routes = [
     path: 'getting-started',
     loadComponent: () =>
       import('./pages/showcase/getting-started.showcase').then((m) => m.GettingStartedShowcase),
-    data: { title: 'Getting Started' },
+    title: 'Getting Started',
   },
   {
     path: 'design-tokens',
     loadComponent: () =>
       import('./pages/design-tokens/design-tokens.showcase').then((m) => m.DesignTokensShowcase),
-    data: { title: 'Design Tokens' },
+    title: 'Design Tokens',
   },
   {
     path: 'showcase/badge',
     loadComponent: () => import('./pages/showcase/badge.showcase').then((m) => m.BadgeShowcase),
-    data: { title: 'Badge' },
+    title: 'Badge',
   },
   {
     path: 'showcase/button',
     loadComponent: () => import('./pages/showcase/button.showcase').then((m) => m.ButtonShowcase),
-    data: { title: 'Button' },
+    title: 'Button',
   },
   {
     path: 'showcase/callout',
     loadComponent: () =>
       import('./pages/showcase/callout.showcase').then((m) => m.CalloutShowcase),
-    data: { title: 'Callout' },
+    title: 'Callout',
   },
   {
     path: 'showcase/checkbox',
     loadComponent: () =>
       import('./pages/showcase/checkbox.showcase').then((m) => m.CheckboxShowcase),
-    data: { title: 'Checkbox' },
+    title: 'Checkbox',
   },
   {
     path: 'showcase/card-checkbox',
     loadComponent: () =>
       import('./pages/showcase/checkbox-card.showcase').then((m) => m.CheckboxCardShowcase),
-    data: { title: 'Checkbox Card' },
+    title: 'Checkbox Card',
   },
   {
     path: 'showcase/input-checkbox',
     loadComponent: () =>
       import('./pages/showcase/checkbox-input.showcase').then((m) => m.CheckboxInputShowcase),
-    data: { title: 'Checkbox Input' },
+    title: 'Checkbox Input',
   },
   {
     path: 'showcase/date-input',
     loadComponent: () =>
       import('./pages/showcase/date-input.showcase').then((m) => m.DateInputShowcase),
-    data: { title: 'Date Input' },
+    title: 'Date Input',
   },
   {
     path: 'showcase/divider',
     loadComponent: () =>
       import('./pages/showcase/divider.showcase').then((m) => m.DividerShowcase),
-    data: { title: 'Divider' },
+    title: 'Divider',
   },
   {
     path: 'showcase/email-input',
     loadComponent: () =>
       import('./pages/showcase/email-input.showcase').then((m) => m.EmailInputShowcase),
-    data: { title: 'Email Input' },
+    title: 'Email Input',
   },
   {
     path: 'showcase/fieldset',
     loadComponent: () =>
       import('./pages/showcase/fieldset.showcase').then((m) => m.FieldsetShowcase),
-    data: { title: 'Fieldset' },
+    title: 'Fieldset',
   },
   {
     path: 'showcase/form',
     loadComponent: () => import('./pages/showcase/form.showcase').then((m) => m.FormShowcase),
-    data: { title: 'Form' },
+    title: 'Form',
   },
   {
     path: 'showcase/field-form',
     loadComponent: () =>
       import('./pages/showcase/form-field.showcase').then((m) => m.FormFieldShowcase),
-    data: { title: 'Form Field' },
+    title: 'Form Field',
   },
   {
     path: 'showcase/input-control-field',
@@ -89,70 +89,70 @@ export const routes: Routes = [
       import('./pages/showcase/input-control-field.showcase').then(
         (m) => m.InputControlFieldShowcase,
       ),
-    data: { title: 'Input Control Field' },
+    title: 'Input Control Field',
   },
   {
     path: 'showcase/hint',
     loadComponent: () => import('./pages/showcase/hint.showcase').then((m) => m.HintShowcase),
-    data: { title: 'Hint' },
+    title: 'Hint',
   },
   {
     path: 'showcase/icon',
     loadComponent: () => import('./pages/showcase/icon.showcase').then((m) => m.IconShowcase),
-    data: { title: 'Icon' },
+    title: 'Icon',
   },
   {
     path: 'showcase/withicon',
     loadComponent: () =>
       import('./pages/showcase/icon-button.showcase').then((m) => m.IconButtonShowcase),
-    data: { title: 'Icon Button' },
+    title: 'Icon Button',
   },
   {
     path: 'showcase/illustration',
     loadComponent: () =>
       import('./pages/showcase/illustration.showcase').then((m) => m.IllustrationShowcase),
-    data: { title: 'Illustration' },
+    title: 'Illustration',
   },
   {
     path: 'showcase/inline-button',
     loadComponent: () =>
       import('./pages/showcase/inline-button.showcase').then((m) => m.InlineButtonShowcase),
-    data: { title: 'Inline Button' },
+    title: 'Inline Button',
   },
   {
     path: 'showcase/currency-input',
     loadComponent: () =>
       import('./pages/showcase/currency-input.showcase').then((m) => m.CurrencyInputShowcase),
-    data: { title: 'Currency Input' },
+    title: 'Currency Input',
   },
   {
     path: 'showcase/listbox',
     loadComponent: () =>
       import('./pages/showcase/listbox.showcase').then((m) => m.ListboxShowcase),
-    data: { title: 'Listbox' },
+    title: 'Listbox',
   },
   {
     path: 'showcase/logo',
     loadComponent: () => import('./pages/showcase/logo.showcase').then((m) => m.LogoShowcase),
-    data: { title: 'Logo' },
+    title: 'Logo',
   },
   {
     path: 'showcase/numeric-input',
     loadComponent: () =>
       import('./pages/showcase/numeric-input.showcase').then((m) => m.NumericInputShowcase),
-    data: { title: 'Numeric Input' },
+    title: 'Numeric Input',
   },
   {
     path: 'showcase/percent-input',
     loadComponent: () =>
       import('./pages/showcase/percent-input.showcase').then((m) => m.PercentInputShowcase),
-    data: { title: 'Percent Input' },
+    title: 'Percent Input',
   },
   {
     path: 'showcase/radio-button',
     loadComponent: () =>
       import('./pages/showcase/radio-button.showcase').then((m) => m.RadioButtonShowcase),
-    data: { title: 'Radio Button' },
+    title: 'Radio Button',
   },
   {
     path: 'showcase/card-radio-button',
@@ -160,74 +160,74 @@ export const routes: Routes = [
       import('./pages/showcase/radio-button-card.showcase').then(
         (m) => m.RadioButtonCardShowcase,
       ),
-    data: { title: 'Radio Button Card' },
+    title: 'Radio Button Card',
   },
   {
     path: 'showcase/scrollbar',
     loadComponent: () =>
       import('./pages/showcase/scrollbar.showcase').then((m) => m.ScrollbarShowcase),
-    data: { title: 'Scrollbar' },
+    title: 'Scrollbar',
   },
   {
     path: 'showcase/segment-control',
     loadComponent: () =>
       import('./pages/showcase/segment-control.showcase').then((m) => m.SegmentControlShowcase),
-    data: { title: 'Segment Control' },
+    title: 'Segment Control',
   },
   {
     path: 'showcase/spinner',
     loadComponent: () =>
       import('./pages/showcase/spinner.showcase').then((m) => m.SpinnerShowcase),
-    data: { title: 'Spinner' },
+    title: 'Spinner',
   },
   {
     path: 'showcase/text-input',
     loadComponent: () =>
       import('./pages/showcase/text-input.showcase').then((m) => m.TextInputShowcase),
-    data: { title: 'Text Input' },
+    title: 'Text Input',
   },
   {
     path: 'showcase/text-overflow',
     loadComponent: () =>
       import('./pages/showcase/text-overflow.showcase').then((m) => m.TextOverflowShowcase),
-    data: { title: 'Text Overflow' },
+    title: 'Text Overflow',
   },
   {
     path: 'showcase/textarea-input',
     loadComponent: () =>
       import('./pages/showcase/textarea-input.showcase').then((m) => m.TextareaInputShowcase),
-    data: { title: 'Textarea Input' },
+    title: 'Textarea Input',
   },
   {
     path: 'showcase/toggle',
     loadComponent: () => import('./pages/showcase/toggle.showcase').then((m) => m.ToggleShowcase),
-    data: { title: 'Toggle' },
+    title: 'Toggle',
   },
   {
     path: 'showcase/tooltip',
     loadComponent: () =>
       import('./pages/showcase/tooltip.showcase').then((m) => m.TooltipShowcase),
-    data: { title: 'Tooltip' },
+    title: 'Tooltip',
   },
   {
     path: 'showcase/ag-grid',
     loadComponent: () => import('./pages/showcase/ag-grid.showcase').then((m) => m.AgGridShowcase),
-    data: { title: 'AG Grid' },
+    title: 'AG Grid',
   },
   {
     path: 'showcase/card',
     loadComponent: () => import('./pages/showcase/card.showcase').then((m) => m.CardShowcase),
-    data: { title: 'Card' },
+    title: 'Card',
   },
   {
     path: 'showcase/dialog',
     loadComponent: () => import('./pages/showcase/dialog.showcase').then((m) => m.DialogShowcase),
-    data: { title: 'Dialog' },
+    title: 'Dialog',
   },
   {
     path: 'showcase/drawer',
     loadComponent: () => import('./pages/showcase/drawer.showcase').then((m) => m.DrawerShowcase),
-    data: { title: 'Drawer' },
+    title: 'Drawer',
   },
   {
     path: 'showcase/empty-state',
@@ -235,18 +235,18 @@ export const routes: Routes = [
       import('./pages/showcase/empty-state-content-block.showcase').then(
         (m) => m.EmptyStateContentBlockShowcase,
       ),
-    data: { title: 'Empty State Content Block' },
+    title: 'Empty State Content Block',
   },
   {
     path: 'showcase/menu-button',
     loadComponent: () =>
       import('./pages/showcase/menu-button.showcase').then((m) => m.MenuButtonShowcase),
-    data: { title: 'Menu Button' },
+    title: 'Menu Button',
   },
   {
     path: 'showcase/modal',
     loadComponent: () => import('./pages/showcase/modal.showcase').then((m) => m.ModalShowcase),
-    data: { title: 'Modal' },
+    title: 'Modal',
   },
   {
     path: 'showcase/overlay-header-footer',
@@ -254,70 +254,70 @@ export const routes: Routes = [
       import('./pages/showcase/overlay-header-footer.showcase').then(
         (m) => m.OverlayHeaderFooterShowcase,
       ),
-    data: { title: 'Overlay Header & Footer' },
+    title: 'Overlay Header & Footer',
   },
   {
     path: 'showcase/picker-input',
     loadComponent: () =>
       import('./pages/showcase/picker-input.showcase').then((m) => m.PickerInputShowcase),
-    data: { title: 'Picker Input' },
+    title: 'Picker Input',
   },
   {
     path: 'showcase/search-input',
     loadComponent: () =>
       import('./pages/showcase/search-input.showcase').then((m) => m.SearchInputShowcase),
-    data: { title: 'Search Input' },
+    title: 'Search Input',
   },
   {
     path: 'showcase/select-input',
     loadComponent: () =>
       import('./pages/showcase/select-input.showcase').then((m) => m.SelectInputShowcase),
-    data: { title: 'Select Input' },
+    title: 'Select Input',
   },
   {
     path: 'showcase/snackbar',
     loadComponent: () =>
       import('./pages/showcase/snackbar.showcase').then((m) => m.SnackbarShowcase),
-    data: { title: 'Snackbar' },
+    title: 'Snackbar',
   },
   {
     path: 'showcase/status-pill',
     loadComponent: () =>
       import('./pages/showcase/status-pill.showcase').then((m) => m.StatusPillShowcase),
-    data: { title: 'Status Pill' },
+    title: 'Status Pill',
   },
   {
     path: 'showcase/styled-link',
     loadComponent: () =>
       import('./pages/showcase/styled-link.showcase').then((m) => m.StyledLinkShowcase),
-    data: { title: 'Styled Link' },
+    title: 'Styled Link',
   },
   {
     path: 'showcase/tab-bar',
     loadComponent: () => import('./pages/showcase/tab-bar.showcase').then((m) => m.TabBarShowcase),
-    data: { title: 'Tab Bar' },
+    title: 'Tab Bar',
   },
   {
     path: 'showcase/navbar',
     loadComponent: () => import('./pages/showcase/navbar.showcase').then((m) => m.NavbarShowcase),
-    data: { title: 'Navbar' },
+    title: 'Navbar',
   },
   {
     path: 'showcase/toggle-card',
     loadComponent: () =>
       import('./pages/showcase/toggle-card.showcase').then((m) => m.ToggleCardShowcase),
-    data: { title: 'Toggle Card' },
+    title: 'Toggle Card',
   },
   {
     path: 'showcase/tooltip-icon',
     loadComponent: () =>
       import('./pages/showcase/tooltip-icon.showcase').then((m) => m.TooltipIconShowcase),
-    data: { title: 'Tooltip Icon' },
+    title: 'Tooltip Icon',
   },
   {
     path: 'showcase/title-block',
     loadComponent: () =>
       import('./pages/showcase/title-block.showcase').then((m) => m.TitleBlockShowcase),
-    data: { title: 'Title Block' },
+    title: 'Title Block',
   },
 ];

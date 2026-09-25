@@ -3,17 +3,22 @@ import {
   DialogComponent,
   ButtonComponent,
   OverlayHeaderDirection,
+  FormFieldComponent,
+  PickerInputComponent,
+  TextInputComponent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
+import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
 
 const HEADER_DIRECTIONS: readonly OverlayHeaderDirection[] = ['row', 'column'];
 
 @Component({
   selector: 'app-dialog-playground',
   standalone: true,
-  imports: [DialogComponent, ButtonComponent, Playground],
+  imports: [DialogComponent, ButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
   template: `
-    <app-playground [code]="generatedCode()">
+    <app-playground [state]="playground" [code]="generatedCode()">
       <div playground-preview>
         <cwr-button
           variant="solid"
@@ -53,52 +58,30 @@ const HEADER_DIRECTIONS: readonly OverlayHeaderDirection[] = ['row', 'column'];
       </div>
 
       <ng-container playground-controls>
-        <label class="playground__field">
-          <span>Title</span>
-          <input type="text" [value]="title()" (input)="title.set($any($event.target).value)" />
-        </label>
+        <cwr-form-field label="Title">
+          <cwr-text-input
+            [value]="title()"
+            (valueChange)="title.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Intro text</span>
-          <input
-            type="text"
+        <cwr-form-field label="Intro text">
+          <cwr-text-input
             [value]="introText()"
-            (input)="introText.set($any($event.target).value)"
-          />
-        </label>
+            (valueChange)="introText.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
 
-        <label class="playground__field">
-          <span>Header direction</span>
-          <select (change)="headerDirection.set($any($event.target).value)">
-            @for (d of directions; track d) {
-              <option [value]="d" [selected]="d === headerDirection()">{{ d }}</option>
-            }
-          </select>
-        </label>
+        <cwr-form-field label="Header direction">
+          <cwr-picker-input
+            [options]="directions | pickerOptions"
+            [value]="headerDirection()"
+            (valueChange)="headerDirection.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
       </ng-container>
     </app-playground>
-  `,
-  styles: [
-    `
-      .playground__field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3xs, 0.25rem);
-        font: var(--text-style-caption);
-        color: var(--color-text-surface-secondary);
-      }
-
-      .playground__field select,
-      .playground__field input[type='text'] {
-        font: var(--text-style-body);
-        color: var(--color-text-surface);
-        background: var(--color-bg-surface);
-        border: 1px solid var(--color-border-surface, #333);
-        border-radius: var(--border-radius-sm, 0.25rem);
-        padding: var(--space-2xs, 0.5rem);
-      }
-    `,
-  ],
+  `
 })
 export class DialogPlayground {
   directions = HEADER_DIRECTIONS;
@@ -127,4 +110,7 @@ export class DialogPlayground {
   </cwr-dialog>
 }`;
   });
+
+  // Last field on purpose: it discovers the control signals declared above.
+  protected readonly playground = playgroundState(this);
 }
