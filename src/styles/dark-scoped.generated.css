@@ -360,18 +360,18 @@
   --palette-neutral-light-slate-800: #222e40; /** Heading (light). (OKLCh L=0.3000 C=0.0357 h=257.00°) */
   --palette-neutral-light-slate-900: #1a2331; /** Heading strong (light). (OKLCh L=0.2550 C=0.0291 h=257.00°) */
   --palette-neutral-light-slate-950: #111821; /** Heading max (light). (OKLCh L=0.2050 C=0.0217 h=257.00°) */
-  --palette-neutral-light-slate-alpha-0: #3c4c6400; /** Slate 600 colour. Adjusts alpha channel using palette.light.modifiers.alpha-0 */
-  --palette-neutral-light-slate-alpha-50: #3c4c6405; /** Slate 600 colour. Adjusts alpha channel using palette.light.modifiers.alpha-50 */
-  --palette-neutral-light-slate-alpha-100: #3c4c640a; /** Slate 600 colour. Adjusts alpha channel using palette.light.modifiers.alpha-100 */
-  --palette-neutral-light-slate-alpha-200: #3c4c6414; /** Slate 600 colour. Adjusts alpha channel using palette.light.modifiers.alpha-200 */
-  --palette-neutral-light-slate-alpha-300: #3c4c641f; /** Slate 600 colour. Adjusts alpha channel using palette.light.modifiers.alpha-300 */
-  --palette-neutral-light-slate-alpha-400: #3c4c6429; /** Slate 600 colour. Adjusts alpha channel using palette.light.modifiers.alpha-400 */
-  --palette-neutral-light-slate-alpha-500: #3c4c6433; /** Slate 600 colour. Adjusts alpha channel using palette.light.modifiers.alpha-500 */
-  --palette-neutral-light-slate-alpha-600: #3c4c643d; /** Slate 600 colour. Adjusts alpha channel using palette.light.modifiers.alpha-600 */
-  --palette-neutral-light-slate-alpha-700: #3c4c6452; /** Slate 600 colour. Adjusts alpha channel using palette.light.modifiers.alpha-700 */
-  --palette-neutral-light-slate-alpha-800: #3c4c6470; /** Slate 600 colour. Adjusts alpha channel using palette.light.modifiers.alpha-800 */
-  --palette-neutral-light-slate-alpha-900: #3c4c64a3; /** Slate 600 colour. Adjusts alpha channel using palette.light.modifiers.alpha-900 */
-  --palette-neutral-light-slate-alpha-950: #3c4c64cc; /** Slate 600 colour. Adjusts alpha channel using palette.light.modifiers.alpha-950 */
+  --palette-neutral-light-slate-alpha-0: #5f6d8000; /** Slate 300 colour. Adjusts alpha channel using palette.light.modifiers.alpha-0 */
+  --palette-neutral-light-slate-alpha-50: #5f6d8005; /** Slate 300 colour. Adjusts alpha channel using palette.light.modifiers.alpha-50 */
+  --palette-neutral-light-slate-alpha-100: #5f6d800a; /** Slate 300 colour. Adjusts alpha channel using palette.light.modifiers.alpha-100 */
+  --palette-neutral-light-slate-alpha-200: #5f6d8014; /** Slate 300 colour. Adjusts alpha channel using palette.light.modifiers.alpha-200 */
+  --palette-neutral-light-slate-alpha-300: #5f6d801f; /** Slate 300 colour. Adjusts alpha channel using palette.light.modifiers.alpha-300 */
+  --palette-neutral-light-slate-alpha-400: #5f6d8029; /** Slate 300 colour. Adjusts alpha channel using palette.light.modifiers.alpha-400 */
+  --palette-neutral-light-slate-alpha-500: #5f6d8033; /** Slate 300 colour. Adjusts alpha channel using palette.light.modifiers.alpha-500 */
+  --palette-neutral-light-slate-alpha-600: #5f6d803d; /** Slate 300 colour. Adjusts alpha channel using palette.light.modifiers.alpha-600 */
+  --palette-neutral-light-slate-alpha-700: #5f6d8052; /** Slate 300 colour. Adjusts alpha channel using palette.light.modifiers.alpha-700 */
+  --palette-neutral-light-slate-alpha-800: #5f6d8070; /** Slate 300 colour. Adjusts alpha channel using palette.light.modifiers.alpha-800 */
+  --palette-neutral-light-slate-alpha-900: #5f6d80a3; /** Slate 300 colour. Adjusts alpha channel using palette.light.modifiers.alpha-900 */
+  --palette-neutral-light-slate-alpha-950: #5f6d80cc; /** Slate 300 colour. Adjusts alpha channel using palette.light.modifiers.alpha-950 */
   --palette-neutral-light-snow-25: #ffffff; /** White. App surface, navbar, overlay (light). (OKLCh L=1.0000 C=0.00000 h=257.00°) */
   --palette-neutral-light-snow-50: #fbfcfd; /** Canvas (light). (OKLCh L=0.9911 C=0.00200 h=257.00°) */
   --palette-neutral-light-snow-100: #f3f6f9; /** Canvas hover (light). (OKLCh L=0.9710 C=0.00555 h=257.00°) */
@@ -408,18 +408,18 @@
   --palette-neutral-dark-slate-800: #5a697d; /** Deeper surface (dark). (OKLCh L=0.5151 C=0.0372 h=257.00°) */
   --palette-neutral-dark-slate-900: #667284; /** Deepest surface (dark). (OKLCh L=0.5497 C=0.0317 h=257.00°) */
   --palette-neutral-dark-slate-950: #6e7a89; /** Surface max (dark). (OKLCh L=0.5745 C=0.0278 h=257.00°) */
-  --palette-neutral-dark-slate-alpha-0: #12192300; /** Slate 600 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-0 */
-  --palette-neutral-dark-slate-alpha-50: #121923cc; /** Slate 600 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-50 */
-  --palette-neutral-dark-slate-alpha-100: #121923b8; /** Slate 600 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-100 */
-  --palette-neutral-dark-slate-alpha-200: #1219237a; /** Slate 600 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-200 */
-  --palette-neutral-dark-slate-alpha-300: #12192352; /** Slate 600 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-300 */
-  --palette-neutral-dark-slate-alpha-400: #1219233d; /** Slate 600 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-400 */
-  --palette-neutral-dark-slate-alpha-500: #12192333; /** Slate 600 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-500 */
-  --palette-neutral-dark-slate-alpha-600: #12192329; /** Slate 600 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-600 */
-  --palette-neutral-dark-slate-alpha-700: #1219231f; /** Slate 600 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-700 */
-  --palette-neutral-dark-slate-alpha-800: #12192314; /** Slate 600 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-800 */
-  --palette-neutral-dark-slate-alpha-900: #1219230a; /** Slate 600 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-900 */
-  --palette-neutral-dark-slate-alpha-950: #12192305; /** Slate 600 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-950 */
+  --palette-neutral-dark-slate-alpha-0: #12192300; /** Slate 25 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-0 */
+  --palette-neutral-dark-slate-alpha-50: #121923cc; /** Slate 25 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-50 */
+  --palette-neutral-dark-slate-alpha-100: #121923b8; /** Slate 25 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-100 */
+  --palette-neutral-dark-slate-alpha-200: #1219237a; /** Slate 25 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-200 */
+  --palette-neutral-dark-slate-alpha-300: #12192352; /** Slate 25 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-300 */
+  --palette-neutral-dark-slate-alpha-400: #1219233d; /** Slate 25 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-400 */
+  --palette-neutral-dark-slate-alpha-500: #12192333; /** Slate 25 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-500 */
+  --palette-neutral-dark-slate-alpha-600: #12192329; /** Slate 25 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-600 */
+  --palette-neutral-dark-slate-alpha-700: #1219231f; /** Slate 25 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-700 */
+  --palette-neutral-dark-slate-alpha-800: #12192314; /** Slate 25 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-800 */
+  --palette-neutral-dark-slate-alpha-900: #1219230a; /** Slate 25 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-900 */
+  --palette-neutral-dark-slate-alpha-950: #12192305; /** Slate 25 colour. Adjusts alpha channel using palette.dark.modifiers.alpha-950 */
   --palette-neutral-dark-snow-25: #4c5c73; /** Muted / placeholder text (dark). (OKLCh L=0.4697 C=0.0421 h=257.00°) */
   --palette-neutral-dark-snow-50: #5b6a7e; /** Subtle text (dark). (OKLCh L=0.5186 C=0.0366 h=257.00°) */
   --palette-neutral-dark-snow-100: #6e7a89; /** Subtle text strong (dark). (OKLCh L=0.5745 C=0.0278 h=257.00°) */
@@ -666,9 +666,9 @@
   --color-bg-surface-input: #12192314; /** Background color for text and select input containers. */
   --color-bg-surface-input-hover: #12192352; /** Background color for text and select input containers when in the hover state. */
   --color-bg-surface-input-readonly: #121923b8; /** Background color for text and select input containers when in the readonly state. */
-  --color-bg-surface-popover: #121923; /** Default background color for popovers (listboxes & menus) */
-  --color-bg-surface-popover-hover: #4c5c7352; /** Default background color for popovers (listboxes & menus) when in the hover state. */
-  --color-bg-surface-overlay: #1d2837; /** Default background color for overlays (modals, drawers & dialogs) */
+  --color-bg-surface-popover: #121923; /** Default background color for popovers (listbox & menu). */
+  --color-bg-surface-popover-hover: #4c5c7352; /** Default background color for popovers (listbox & menu) when in the hover state. */
+  --color-bg-surface-overlay: #1d2837; /** Default background color for overlays (modal, drawer & dialog). */
   --color-bg-surface-navbar: #161f2b; /** Background color for Navbar surface. */
   --color-bg-surface-canvas: #1d2837; /** Default background color for Canvas. */
   --color-bg-surface-static: #121923; /** Static background color for tooltips and hints. It is static because in the value is the same across color modes. */
@@ -777,15 +777,15 @@
   --color-icon-negative-inverse-hover: #47141c; /** Inverse Negative icon color for interactive components and elements when in the hover state. Used for text on negative-hover background color. */
   --color-icon-disabled: #959aa2; /** Icon color for disable state interactive components (when not using opacity.disabled) */
   --color-icon-transparent: #12192300; /** Transparent icon color */
-  --color-border-surface: #4c5c737a; /** Subtle border color used for borders used on surface components such as the canvas, cards, panels and overlays. */
-  --color-border-surface-raised: #4c5c737a; /** Border color used for borders used on raised surface containers. */
-  --color-border-surface-lowered: #121923b8; /** Border color used for borders used on lowered surface containers. */
+  --color-border-surface: #4c5c7352; /** Subtle border color used for borders used on surface components such as the canvas, cards, panels and overlays. */
+  --color-border-surface-raised: #4c5c7352; /** Border color used for borders used on raised surface containers. */
+  --color-border-surface-lowered: #12192352; /** Border color used for borders used on lowered surface containers. */
   --color-border-surface-input: #6e7a89; /** Border color used for borders used on input surface containers. */
   --color-border-surface-input-hover: #c4c4c4; /** Border color used for borders used on lowinputered surface containers when in the hover state. */
   --color-border-surface-popover: #6e7a89; /** Border color used for borders used on popover containters. */
-  --color-border-surface-overlay: #4c5c737a; /** Border color used for borders used on overlay containters. */
+  --color-border-surface-overlay: #4c5c7352; /** Border color used for borders used on overlay containters. */
   --color-border-surface-navbar: #4c5c7352; /** Subtle border color used for borders on Navbar component. */
-  --color-border-surface-canvas: #4c5c737a; /** Subtle border color used for borders on canvas based components. */
+  --color-border-surface-canvas: #4c5c7352; /** Subtle border color used for borders on canvas based components. */
   --color-border-surface-static: #35455d; /** Static Border color used for borders used on tooltips and hints. It is static because in the value is the same across color modes. */
   --color-border-focus: #c4c4c4; /** Default border color when component has focus. */
   --color-border-focus-error: #ff7d8e; /** Border color when component has focus and has an error */
@@ -829,12 +829,12 @@
   --color-border-negative-inverse-hover: #47141c; /** Inversed Negative border color for interactive components and elements when placed on or in another container filled with the Negative background colour and in a hover state. */
   --color-border-disabled: #3c4d64; /** Border color for disable state interactive components (when not using opacity.disabled) */
   --color-border-transparent: #12192300; /** Transparent border color */
-  --color-shadow-near: #12192314; /** Very subtle shadow color that provides minimal separation between adjacent surfaces. */
-  --color-shadow-low: #1219231f; /** Low elevation shadow color that introduces gentle separation while maintaining a soft visual presence. */
-  --color-shadow-mid: #12192329; /** Medium elevation shadow color that increases perceived depth and visual prominence. */
-  --color-shadow-high: #12192333; /** High elevation shadow color that clearly separates elements from surrounding layers. */
-  --color-shadow-far: #1219233d; /** Strong elevation shadow color that emphasises clear layering and spatial distance. */
-  --color-shadow-max: #12192352; /** Maximum elevation shadow color that creates strong visual separation and depth. Use sparingly to avoid visual noise. */
+  --color-shadow-near: #12192305; /** Very subtle shadow color that provides minimal separation between adjacent surfaces. */
+  --color-shadow-low: #1219230a; /** Low elevation shadow color that introduces gentle separation while maintaining a soft visual presence. */
+  --color-shadow-mid: #12192314; /** Medium elevation shadow color that increases perceived depth and visual prominence. */
+  --color-shadow-high: #12192329; /** High elevation shadow color that clearly separates elements from surrounding layers. */
+  --color-shadow-far: #12192333; /** Strong elevation shadow color that emphasises clear layering and spatial distance. */
+  --color-shadow-max: #1219233d; /** Maximum elevation shadow color that creates strong visual separation and depth. Use sparingly to avoid visual noise. */
   --color-shadow-lowered-low: #1219231f; /** Ambient shadow color for surfaces with color.bg.surface-lowered, used on the softer, more distant layer. */
   --color-shadow-lowered-high: #12192329; /** Contact shadow color for surfaces with color.bg.surface-lowered, used on the layer closest to the recessed edge. */
   --color-utility-blue: #509df7; /** High-empahsis blue color for use in graphs, charts and various non-semantic elements that require colour. */
@@ -919,15 +919,15 @@
   --layout-flex-grow-fill: 1 0 0; /** Flex shorthand: grows to fill available space, does not shrink below its content size. Use for items that should expand to occupy remaining space in a flex container. */
   --layout-flex-grow-shrink: 1 1 0%; /** Ignores content size and takes an equal share of the container. Grows and shrinks with siblings — the standard equal-columns / equal-rows behaviour (flex: 1). */
   --layout-flex-initial: 0 1 auto; /** The browser default. Sized to content, shrinks when the container is crowded, never grows to absorb extra space. */
-  --border-surface: 1px solid #4c5c737a; /** Subtle border color, width and style used for layout dividers on or around surfaces */
-  --border-surface-raised: 1px solid #4c5c737a; /** Border color, width and style used for layout dividers on or around raised surface containers. */
-  --border-surface-lowered: 1px solid #121923b8; /** Border color, width and style used for layout dividers on or around lowered surface containers. */
+  --border-surface: 1px solid #4c5c7352; /** Subtle border color, width and style used for layout dividers on or around surfaces */
+  --border-surface-raised: 1px solid #4c5c7352; /** Border color, width and style used for layout dividers on or around raised surface containers. */
+  --border-surface-lowered: 1px solid #12192352; /** Border color, width and style used for layout dividers on or around lowered surface containers. */
   --border-surface-input: 1px solid #6e7a89; /** Border color, width and style used for inputs */
   --border-surface-input-hover: 1px solid #c4c4c4; /** Border color, width and style used for inputs when in the hover state. */
   --border-surface-popover: 1px solid #6e7a89; /** Border color, width and style used for layout dividers on or around popovers */
-  --border-surface-overlay: 1px solid #4c5c737a; /** Border color, width and style used for layout dividers on or around overlays */
+  --border-surface-overlay: 1px solid #4c5c7352; /** Border color, width and style used for layout dividers on or around overlays */
   --border-surface-navbar: 1px solid #4c5c7352; /** Border color, width and style used for borders on the Navbar component */
-  --border-surface-canvas: 1px solid #4c5c737a; /** Border color, width and style used for borders on the Canvas */
+  --border-surface-canvas: 1px solid #4c5c7352; /** Border color, width and style used for borders on the Canvas */
   --border-surface-static: 1px solid #35455d; /** Border color, width and style used for layout dividers on or around static surfaces. It is static because in the value is the same across color modes. */
   --border-focus: 2px solid #c4c4c4; /** Default border color, width and style when component has focus. */
   --border-focus-error: 2px solid #ff7d8e; /** Default border color, width and style when component has focus and has an error. */
@@ -982,13 +982,13 @@
   --border-width-md: 1px; /** Medium Border Width */
   --border-width-lg: 2px; /** Large Border Width */
   --border-width-xl: 4px; /** X-Large Border Width */
-  --box-shadow-elevation-xs: 0rem 0rem 0.25rem 0rem #12192329, 0rem 0.25rem 0.5rem 0rem #1219231f; /** Very low elevation shadow providing minimal depth and subtle separation between layers. */
-  --box-shadow-elevation-sm: 0rem 0.25rem 0.25rem 0rem #12192329, 0rem 0.5rem 0.75rem 0rem #1219231f; /** Low elevation shadow that introduces gentle depth while maintaining a soft visual presence. */
-  --box-shadow-elevation-md: 0rem 0.5rem 0.75rem 0rem #12192329, 0rem 0.75rem 1rem 0rem #1219231f; /** Medium elevation shadow that increases perceived depth and visual prominence. */
-  --box-shadow-elevation-lg: 0rem 0.75rem 1rem 0rem #12192333, 0rem 1rem 1.25rem 0rem #12192329; /** High elevation shadow that clearly defines separation between layers. */
-  --box-shadow-elevation-xl: 0rem 1.25rem 1.25rem 0rem #12192333, 0rem 1.5rem 1.5rem 0rem #12192329; /** Very high elevation shadow that emphasises strong layering and spatial distinction. */
-  --box-shadow-elevation-2xl: 0rem 1.5rem 1.75rem 0rem #1219233d, 0rem 1.75rem 2rem 0rem #12192333; /** Extreme elevation shadow that creates pronounced depth and strong visual separation. */
-  --box-shadow-elevation-3xl: 0rem 2rem 2.25rem 0rem #12192352, 0rem 2.25rem 2.5rem 0rem #12192333; /** Maximum elevation shadow that produces dominant depth and clear spatial hierarchy. Use sparingly to avoid visual noise. */
+  --box-shadow-elevation-xs: 0rem 0rem 0.25rem 0rem #12192314, 0rem 0.25rem 0.5rem 0rem #1219230a; /** Very low elevation shadow providing minimal depth and subtle separation between layers. */
+  --box-shadow-elevation-sm: 0rem 0.25rem 0.25rem 0rem #12192314, 0rem 0.5rem 0.75rem 0rem #1219230a; /** Low elevation shadow that introduces gentle depth while maintaining a soft visual presence. */
+  --box-shadow-elevation-md: 0rem 0.5rem 0.75rem 0rem #12192314, 0rem 0.75rem 1rem 0rem #1219230a; /** Medium elevation shadow that increases perceived depth and visual prominence. */
+  --box-shadow-elevation-lg: 0rem 0.5rem 0.75rem 0rem #12192329, 0rem 0.75rem 1rem 0rem #12192314; /** High elevation shadow that clearly defines separation between layers. */
+  --box-shadow-elevation-xl: 0rem 1.25rem 1.25rem 0rem #12192329, 0rem 1.5rem 1.5rem 0rem #12192314; /** Very high elevation shadow that emphasises strong layering and spatial distinction. */
+  --box-shadow-elevation-2xl: 0rem 1.5rem 1.75rem 0rem #12192333, 0rem 1.75rem 2rem 0rem #12192329; /** Extreme elevation shadow that creates pronounced depth and strong visual separation. */
+  --box-shadow-elevation-3xl: 0rem 2rem 2.25rem 0rem #1219233d, 0rem 2.25rem 2.5rem 0rem #12192329; /** Maximum elevation shadow that produces dominant depth and clear spatial hierarchy. Use sparingly to avoid visual noise. */
   --box-shadow-elevation-lowered: inset 0rem 0.125rem 0.125rem 0rem #12192329, inset 0rem 0.25rem 0.25rem 0rem #1219231f; /** Inset shadow used on surfaces with color.bg.surface-lowered to convey recession into the parent surface. Uses dedicated color.shadow.lowered-high and color.shadow.lowered-low colour tokens, tuned to read with consistent contrast against color.bg.surface-lowered in both light and dark mode. Offsets and blur are tighter than the drop-shadow ramp to keep the recessed edge well defined. */
   --transition-ease-fast: 200ms ease 0ms; /** Short duration ease transition */
   --transition-ease: 400ms ease 0ms; /** Medium duration ease transition */
@@ -1216,18 +1216,18 @@
   --illustration-ui-webhook-sync: fa-kit fa-illustration-webhook-sync; /** illustration-webhook-sync */
   --illustration-ui-upload: fa-kit fa-illustration-upload; /** illustration-upload */
   --illustration-user-admin: fa-kit fa-illustration-circle-user-alt; /** illustration-circle-user-alt */
-  --ag-advanced-filter-builder-button-bar-border: 1px solid #4c5c737a; /** Color of the dividing line above the buttons in the advanced filter builder */
+  --ag-advanced-filter-builder-button-bar-border: 1px solid #4c5c7352; /** Color of the dividing line above the buttons in the advanced filter builder */
   --ag-button-active-border: 1px solid #00936f; /** Border around standard action buttons (e.g. "Reset" and "Apply") when being clicked. Only has an effect if a border is enabled with `buttonBorder`. */
   --ag-button-border: 1px solid #6e7a89; /** Border around standard action buttons (e.g. "Reset" and "Apply") */
   --ag-button-disabled-border: 1px solid #3c4d64; /** Border around standard action buttons (e.g. "Reset" and "Apply") when disabled. */
   --ag-button-hover-border: 1px solid #959aa2; /** Border around standard action buttons (e.g. "Reset" and "Apply") when hovered. Only has an effect if a border is enabled with `buttonBorder`. */
   --ag-cell-editing-border: 1px solid #c4c4c4; /** Border around cells being edited */
-  --ag-column-border: 1px solid #4c5c737a; /** Vertical borders between columns within the grid only, excluding headers. */
-  --ag-column-drop-cell-border: 1px solid #4c5c737a; /** Border for the pill shape representing columns in the column drop component */
-  --ag-dialog-border: 1px solid #4c5c737a; /** Border color popup dialogs such as the integrated charts panel and the advanced filter builder. */
-  --ag-drag-and-drop-image-border: 1px solid #4c5c737a; /** Border color of the drag and drop image component element when dragging columns or rows */
+  --ag-column-border: 1px solid #4c5c7352; /** Vertical borders between columns within the grid only, excluding headers. */
+  --ag-column-drop-cell-border: 1px solid #4c5c7352; /** Border for the pill shape representing columns in the column drop component */
+  --ag-dialog-border: 1px solid #4c5c7352; /** Border color popup dialogs such as the integrated charts panel and the advanced filter builder. */
+  --ag-drag-and-drop-image-border: 1px solid #4c5c7352; /** Border color of the drag and drop image component element when dragging columns or rows */
   --ag-drag-and-drop-image-not-allowed-border: 1px solid #f56374; /** Border color of the drag and drop image component element when dropping is not allowed */
-  --ag-footer-row-border: 1px solid #4c5c737a; /** Horizontal borders above footer components like the pagination and status bars */
+  --ag-footer-row-border: 1px solid #4c5c7352; /** Horizontal borders above footer components like the pagination and status bars */
   --ag-formula-token1-border: 1px solid #f56374; /** The border of the 1st formula field token associated range */
   --ag-formula-token2-border: 1px solid #ef6f47; /** The border of the 2nd formula field token associated range */
   --ag-formula-token3-border: 1px solid #eba000; /** The border of the 3rd formula field token associated range */
@@ -1235,31 +1235,31 @@
   --ag-formula-token5-border: 1px solid #509df7; /** The border of the 5th formula field token associated range */
   --ag-formula-token6-border: 1px solid #00b1b4; /** The border of the 6th formula field token associated range */
   --ag-formula-token7-border: 1px solid #8d6ae9; /** The border of the 7th formula field token associated range */
-  --ag-header-column-border: 1px solid #526278; /** Vertical borders between columns within headers. */
-  --ag-header-row-border: 1px solid #526278; /** Borders between and below header rows. */
+  --ag-header-column-border: 1px solid #4c5c7352; /** Vertical borders between columns within headers. */
+  --ag-header-row-border: 1px solid #4c5c7352; /** Borders between and below header rows. */
   --ag-input-border: 1px solid #6e7a89; /** Border around text inputs (or underneath, if using the underlined input style) */
   --ag-input-disabled-border: 1px solid #3c4d64; /** Border around disabled text inputs (or underneath, if using the underlined input style) */
   --ag-input-focus-border: 1px solid #c4c4c4; /** Border around focussed text inputs (or underneath, if using the underlined input style) */
   --ag-input-invalid-border: 1px solid #f56374; /** Border around text inputs in an invalid state (or underneath, if using the underlined input style) */
   --ag-menu-border: 1px solid #6e7a89; /** Border around menus e.g. column menu and right-click context menu */
-  --ag-note-popup-border: 1px solid #4c5c737a; /** The border of the note popup */
-  --ag-panel-title-bar-border: 1px solid #4c5c737a; /** Border below the title bar of panels and dialogs such as the integrated charts panel and the advanced filter builder. */
+  --ag-note-popup-border: 1px solid #4c5c7352; /** The border of the note popup */
+  --ag-panel-title-bar-border: 1px solid #4c5c7352; /** Border below the title bar of panels and dialogs such as the integrated charts panel and the advanced filter builder. */
   --ag-picker-button-border: 1px solid #6e7a89; /** Border around buttons with attached dropdown menus (e.g. select fields) */
   --ag-picker-button-focus-border: 2px solid #959aa2; /** Border around buttons with attached dropdown menus (e.g. select fields) when focussed */
   --ag-picker-list-border: 1px solid #6e7a89; /** Border around dropdown menus attached to buttons (e.g. select fields) */
-  --ag-pinned-column-border: 1px solid #4c5c737a; /** Vertical borders between columns that are pinned to the left or right and the rest of the grid */
-  --ag-pinned-row-border: 1px solid #4c5c737a; /** Horizontal borders between the grid and rows that are pinned to the top or bottom and the rest of the grid */
-  --ag-row-border: 1px solid #4c5c737a; /** Horizontal borders between rows. */
+  --ag-pinned-column-border: 1px solid #4c5c7352; /** Vertical borders between columns that are pinned to the left or right and the rest of the grid */
+  --ag-pinned-row-border: 1px solid #4c5c7352; /** Horizontal borders between the grid and rows that are pinned to the top or bottom and the rest of the grid */
+  --ag-row-border: 1px solid #4c5c7352; /** Horizontal borders between rows. */
   --ag-select-cell-border: 1px solid #6e7a89; /** Border for selected items within the multiple select widget */
   --ag-side-button-border: 1px solid #12192300; /** Border drawn above and below tab buttons in the sidebar */
   --ag-side-button-selected-border: 1px solid #00936f; /** Border drawn above and below the selected tab button in the sidebar */
-  --ag-side-panel-border: 1px solid #4c5c737a; /** Borders between the grid and side panels including the column and filter tool bars, and chart settings */
-  --ag-tab-bar-border: 1px solid #4c5c737a; /** Border below the container for tabs */
-  --ag-tool-panel-separator-border: 1px solid #4c5c737a; /** The dividing line between sections of menus e.g. column menu and right-click context menu */
-  --ag-toolbar-separator-border: 1px solid #4c5c737a; /** Border style for the vertical separator between toolbar items. */
+  --ag-side-panel-border: 1px solid #4c5c7352; /** Borders between the grid and side panels including the column and filter tool bars, and chart settings */
+  --ag-tab-bar-border: 1px solid #4c5c7352; /** Border below the container for tabs */
+  --ag-tool-panel-separator-border: 1px solid #4c5c7352; /** The dividing line between sections of menus e.g. column menu and right-click context menu */
+  --ag-toolbar-separator-border: 1px solid #4c5c7352; /** Border style for the vertical separator between toolbar items. */
   --ag-tooltip-border: 1px solid #121923; /** Border for tooltips */
   --ag-tooltip-error-border: 1px solid #f56374; /** Border for tooltips showing errors */
-  --ag-wrapper-border: 1px solid #4c5c737a; /** Borders around the outside of the grid */
+  --ag-wrapper-border: 1px solid #4c5c7352; /** Borders around the outside of the grid */
   --ag-border-radius: 0.5rem; /** Default corner radius for many UI elements such as menus, dialogs and form widgets. */
   --ag-button-border-radius: 0.5rem; /** Corner radius of standard action buttons (e.g. "Reset" and "Apply") */
   --ag-checkbox-border-radius: 0.25rem; /** Border radius for checkboxes */
@@ -1303,24 +1303,24 @@
   --ag-tool-panel-separator-border-width: 1px;
   --ag-tooltip-border-width: 1px;
   --ag-wrapper-border-width: 1px;
-  --ag-card-shadow: 0rem 0rem 0.25rem 0rem #12192329, 0rem 0.25rem 0.5rem 0rem #1219231f; /** Default shadow for elements that float above the grid and are intended to appear elevated byt still attached e.g. dropdowns and cell editors */
-  --ag-cell-editing-shadow: 0rem 0rem 0.25rem 0rem #12192329, 0rem 0.25rem 0.5rem 0rem #1219231f; /** Shadow for cells being edited */
-  --ag-dialog-shadow: 0rem 0.75rem 1rem 0rem #12192333, 0rem 1rem 1.25rem 0rem #12192329; /** Shadow for popup dialogs such as the integrated charts panel and the advanced filter builder. */
-  --ag-drag-and-drop-image-shadow: 0rem 0.25rem 0.25rem 0rem #12192329, 0rem 0.5rem 0.75rem 0rem #1219231f; /** Shadow for the drag and drop image component element when dragging columns or rows */
-  --ag-dropdown-shadow: 0rem 0.5rem 0.75rem 0rem #12192329, 0rem 0.75rem 1rem 0rem #1219231f; /** Default shadow for dropdown menus */
+  --ag-card-shadow: 0rem 0rem 0.25rem 0rem #12192314, 0rem 0.25rem 0.5rem 0rem #1219230a; /** Default shadow for elements that float above the grid and are intended to appear elevated byt still attached e.g. dropdowns and cell editors */
+  --ag-cell-editing-shadow: 0rem 0rem 0.25rem 0rem #12192314, 0rem 0.25rem 0.5rem 0rem #1219230a; /** Shadow for cells being edited */
+  --ag-dialog-shadow: 0rem 0.5rem 0.75rem 0rem #12192329, 0rem 0.75rem 1rem 0rem #12192314; /** Shadow for popup dialogs such as the integrated charts panel and the advanced filter builder. */
+  --ag-drag-and-drop-image-shadow: 0rem 0.25rem 0.25rem 0rem #12192314, 0rem 0.5rem 0.75rem 0rem #1219230a; /** Shadow for the drag and drop image component element when dragging columns or rows */
+  --ag-dropdown-shadow: 0rem 0.5rem 0.75rem 0rem #12192314, 0rem 0.75rem 1rem 0rem #1219230a; /** Default shadow for dropdown menus */
   --ag-focus-shadow: 0rem 0rem 0rem 2px #c4c4c4; /** Shadow around UI controls that have focus e.g. text inputs and buttons. The value must a valid CSS box-shadow. */
   --ag-focus-error-shadow: 0rem 0rem 0rem 2px #ff7d8e; /** Shadow around UI controls that have focus and contain validation errors e.g. text inputs, text-areas. The value must a valid CSS box-shadow. */
   --ag-input-focus-shadow: 0rem 0rem 0rem 2px #c4c4c4; /** Shadow around focussed text inputs */
-  --ag-menu-shadow: 0rem 0.5rem 0.75rem 0rem #12192329, 0rem 0.75rem 1rem 0rem #1219231f; /** Shadow for menus e.g. column menu and right-click context menu */
-  --ag-popup-shadow: 0rem 0.5rem 0.75rem 0rem #12192329, 0rem 0.75rem 1rem 0rem #1219231f; /** Default shadow for elements that float above the grid and are intended to appear separated from it e.g. dialogs and menus */
+  --ag-menu-shadow: 0rem 0.5rem 0.75rem 0rem #12192314, 0rem 0.75rem 1rem 0rem #1219230a; /** Shadow for menus e.g. column menu and right-click context menu */
+  --ag-popup-shadow: 0rem 0.5rem 0.75rem 0rem #12192314, 0rem 0.75rem 1rem 0rem #1219230a; /** Default shadow for elements that float above the grid and are intended to appear separated from it e.g. dialogs and menus */
   --ag-accent-color: #00b68b; /** The 'brand color' for the grid, used wherever a non-neutral color is required. Selections, focus outlines and checkboxes use the accent color by default. */
-  --ag-advanced-filter-builder-button-bar-border-color: #4c5c737a;
+  --ag-advanced-filter-builder-button-bar-border-color: #4c5c7352;
   --ag-advanced-filter-builder-column-pill-color: #00b1b4; /** Color of the column pills in the Advanced Filter Builder */
   --ag-advanced-filter-builder-join-pill-color: #8d6ae9; /** Color of the join operator pills in the Advanced Filter Builder */
   --ag-advanced-filter-builder-option-pill-color: #ef6f47; /** Color of the filter option pills in the Advanced Filter Builder */
   --ag-advanced-filter-builder-value-pill-color: #eba000; /** Color of the value pills in the Advanced Filter Builder */
   --ag-background-color: #203146; /** Background color of the grid. Many UI elements are semi-transparent, so their color blends with the background color. */
-  --ag-border-color: #4c5c737a; /** Default color for borders. */
+  --ag-border-color: #4c5c7352; /** Default color for borders. */
   --ag-button-active-background-color: #0032227a; /** Background color of standard action buttons (e.g. "Reset" and "Apply") when being clicked */
   --ag-button-active-border-color: #00936f;
   --ag-button-active-text-color: #00b68b; /** Text color of standard action buttons (e.g. "Reset" and "Apply") when being clicked */
@@ -1349,10 +1349,10 @@
   --ag-checkbox-unchecked-background-color: #12192352; /** Background color of an unchecked checkbox */
   --ag-checkbox-unchecked-border-color: #6e7a89; /** Border color of an unchecked checkbox */
   --ag-chrome-background-color: #1d2837; /** Background color for non-data areas of the grid. Headers, tool panels and menus use this color by default. */
-  --ag-column-border-color: #4c5c737a;
+  --ag-column-border-color: #4c5c7352;
   --ag-column-drag-indicator-color: #00b68b; /** Color of the indicator line used to show where a row will be inserted when dragging to reorder columns */
   --ag-column-drop-cell-background-color: #526278; /** Background color of the pill shape representing columns in the column drop component */
-  --ag-column-drop-cell-border-color: #4c5c737a;
+  --ag-column-drop-cell-border-color: #4c5c7352;
   --ag-column-drop-cell-drag-handle-color: #3c4d64; /** Color of the drag grip icon in the pill shape representing columns in the column drop component */
   --ag-column-drop-cell-text-color: #e2e2e2; /** Text color for the pill shape representing columns in the column drop component */
   --ag-column-header-edit-highlight-color: #00e1a4; /** Background color for the column header currently being edited. */
@@ -1360,9 +1360,9 @@
   --ag-column-panel-apply-button-background-color: #00b68b; /** Background color of Columns Tool Panel apply button */
   --ag-column-panel-apply-button-color: #002015; /** Color of Columns Tool Panel apply button */
   --ag-data-background-color: #203146; /** Background color applied to grid rows. Should be a solid color, semi-transparent colors will cause issues. */
-  --ag-dialog-border-color: #4c5c737a;
+  --ag-dialog-border-color: #4c5c7352;
   --ag-drag-and-drop-image-background-color: #203146; /** Background color of the drag and drop image component element when dragging columns or rows */
-  --ag-drag-and-drop-image-border-color: #4c5c737a;
+  --ag-drag-and-drop-image-border-color: #4c5c7352;
   --ag-drag-handle-color: #3c4d64; /** Color of the drag handle on draggable rows and column markers */
   --ag-filter-panel-apply-button-background-color: #00b68b; /** Background color of new Filters Tool Panel apply button */
   --ag-filter-panel-apply-button-color: #002015; /** Color of new Filters Tool Panel apply button */
@@ -1372,7 +1372,7 @@
   --ag-find-active-match-color: #003222; /** Color of the active match used in Find */
   --ag-find-match-background-color: #00b68b; /** Background color of matches used in Find */
   --ag-find-match-color: #002015; /** Color of matches used in Find */
-  --ag-footer-row-border-color: #4c5c737a;
+  --ag-footer-row-border-color: #4c5c7352;
   --ag-foreground-color: #e2e2e2; /** Default color for neutral UI elements. Most text, borders and backgrounds are defined as semi-transparent versions of this color, resulting in a blend between the background and foreground colours. */
   --ag-formula-token1-background-color: #47141c33; /** The background color of the 1st formula field token associated range */
   --ag-formula-token1-color: #8d6ae9; /** The color of the 1st formula field token */
@@ -1392,13 +1392,13 @@
   --ag-header-background-color: #4c5c7333; /** Background color for header and header-like components */
   --ag-header-cell-hover-background-color: #4c5c737a; /** Background color of a header cell when hovering over it, or `transparent` for no change. */
   --ag-header-cell-moving-background-color: #4c5c737a; /** Background color of a header cell when dragging to reposition it, or `transparent` for no change. */
-  --ag-header-column-border-color: #526278;
+  --ag-header-column-border-color: #4c5c7352;
   --ag-header-column-resize-handle-color: #3c4d64; /** Color of the drag handle on resizable header columns. Set this to transparent to hide the resize handle. */
-  --ag-header-row-border-color: #526278;
+  --ag-header-row-border-color: #4c5c7352;
   --ag-header-text-color: #d0d0d0; /** Color of text in the header and header-like components */
   --ag-icon-button-active-background-color: #0032227a; /** Background color of clickable icon buttons when styled as active. This is used for the column filter button when a filter is applied to the column. */
   --ag-icon-button-active-color: #00b68b; /** Color of clickable icon buttons when styled as active. This is used for the column filter button when a filter is applied to the column. */
-  --ag-icon-button-active-indicator-color: #f56374; /** Color of the marker dot shown on icon buttons when styled as active. This is used for the column filter button when a filter is applied to the column. */
+  --ag-icon-button-active-indicator-color: #00b68b; /** Color of the marker dot shown on icon buttons when styled as active. This is used for the column filter button when a filter is applied to the column. */
   --ag-icon-button-background-color: #12192300; /** Default background color for clickable icons */
   --ag-icon-button-color: #d0d0d0; /** Default color for clickable icons */
   --ag-icon-button-hover-background-color: #1219237a; /** Background color for clickable icons when hovered */
@@ -1421,7 +1421,7 @@
   --ag-invalid-color: #f56374; /** The color for inputs and UI controls in an invalid state. */
   --ag-menu-background-color: #121923; /** Background color for menus e.g. column menu and right-click context menu */
   --ag-menu-border-color: #6e7a89;
-  --ag-menu-separator-color: #4c5c737a; /** Color of the dividing line between sections of menus e.g. column menu and right-click context menu */
+  --ag-menu-separator-color: #4c5c7352; /** Color of the dividing line between sections of menus e.g. column menu and right-click context menu */
   --ag-menu-text-color: #e2e2e2; /** Text color for menus e.g. column menu and right-click context menu */
   --ag-modal-overlay-background-color: #121923b8; /** Background color of the overlay shown over the grid e.g. a data loading indicator. */
   --ag-note-indicator-color: #00b68b; /** The color of the note indicator */
@@ -1432,7 +1432,7 @@
   --ag-odd-row-background-color: #1219237a; /** Alternative background colour applied to every other row to create a striped effect */
   --ag-panel-background-color: #203146; /** Background color for panels and dialogs such as the advanced filter builder. Note that for the integrated charts panel, the chart fully fills the panel so no background is visible behind it - set the chart theme to change its background. */
   --ag-panel-title-bar-background-color: #526278; /** Background color for the title bar of panels and dialogs such as the integrated charts panel and the advanced filter builder. */
-  --ag-panel-title-bar-border-color: #4c5c737a;
+  --ag-panel-title-bar-border-color: #4c5c7352;
   --ag-panel-title-bar-icon-color: #e2e2e2; /** Icon color for the title bar of panels and dialogs such as the integrated charts panel and the advanced filter builder. */
   --ag-panel-title-bar-text-color: #e2e2e2; /** Text color for the title bar of panels and dialogs such as the integrated charts panel and the advanced filter builder. */
   --ag-picker-button-background-color: #12192300; /** Background color for buttons with attached dropdown menus (e.g. select fields) */
@@ -1441,9 +1441,9 @@
   --ag-picker-button-focus-border-color: #959aa2;
   --ag-picker-list-background-color: #121923; /** Background color for dropdown menus attached to buttons (e.g. select fields) */
   --ag-picker-list-border-color: #6e7a89;
-  --ag-pinned-column-border-color: #4c5c737a;
+  --ag-pinned-column-border-color: #4c5c7352;
   --ag-pinned-row-background-color: #203146; /** Background color for the rows that have been pinned to the top or bottom */
-  --ag-pinned-row-border-color: #4c5c737a;
+  --ag-pinned-row-border-color: #4c5c7352;
   --ag-pinned-row-text-color: #e2e2e2; /** Text color for rows that have been pinned to the top or bottom */
   --ag-pinned-source-row-background-color: #203146; /** Background color for the row in the main viewport that has been pinned to the top or bottom */
   --ag-pinned-source-row-text-color: #e2e2e2; /** Text color for row in the main viewport that has been pinned to the top or bottom */
@@ -1455,7 +1455,7 @@
   --ag-range-selection-highlight-color: #526278; /** Background color to briefly apply to a cell range when the user copies from or pastes into it. */
   --ag-row-batch-edit-background-color: #0032227a; /** Background color for rows in batch edit mode */
   --ag-row-batch-edit-text-color: #e2e2e2; /** Text color for rows in batch edit mode */
-  --ag-row-border-color: #4c5c737a;
+  --ag-row-border-color: #4c5c7352;
   --ag-row-drag-indicator-color: #00b68b; /** Color of the indicator line used to show where a row will be inserted when dragging to reorder rows */
   --ag-row-hover-color: #4c5c737a; /** Background color when hovering over rows in the grid and in dropdown menus. Set to `transparent` to disable the hover effect. Note: if you want a hover effect on one but not the other, use CSS selectors instead of this property. */
   --ag-row-loading-skeleton-effect-color: #1219237a; /** Color of the skeleton loading effect used when loading row data with the Server-side Row Model */
@@ -1473,13 +1473,13 @@
   --ag-side-button-selected-text-color: #00b68b; /** Text color of the selected tab button in the sidebar */
   --ag-side-button-selected-underline-color: #00936f; /** Color of the underline below the selected tab in the sidebar, or 'transparent' to disable the underline effect */
   --ag-side-button-text-color: #e2e2e2; /** Text color of the tab buttons in the sidebar */
-  --ag-side-panel-border-color: #4c5c737a;
+  --ag-side-panel-border-color: #4c5c7352;
   --ag-status-bar-label-color: #a7aaaf; /** Text color for labels in the status bar component */
   --ag-status-bar-value-color: #e2e2e2; /** Text color for values in the status bar component */
   --ag-subtle-text-color: #a7aaaf; /** Color of text and UI elements that should stand out less than the default. */
   --ag-tab-background-color: #526278; /** Background color of tabs */
   --ag-tab-bar-background-color: #1219237a; /** Background color of the container for tabs */
-  --ag-tab-bar-border-color: #4c5c737a;
+  --ag-tab-bar-border-color: #4c5c7352;
   --ag-tab-hover-background-color: #6e7a89; /** Background color of tabs when hovered over */
   --ag-tab-hover-text-color: #e2e2e2; /** Color of text within tabs when hovered over */
   --ag-tab-selected-background-color: #12192300; /** Background color of selected tabs */
@@ -1491,7 +1491,7 @@
   --ag-toggle-button-off-background-color: #12192352; /** Color of the toggle button background in its 'off' state */
   --ag-toggle-button-on-background-color: #00b68b; /** Color of the toggle button background in its 'on' state */
   --ag-toggle-button-switch-background-color: #e2e2e2; /** Background color of the toggle button switch (the bit that slides from left to right) */
-  --ag-tool-panel-separator-border-color: #4c5c737a;
+  --ag-tool-panel-separator-border-color: #4c5c7352;
   --ag-toolbar-background-color: #526278; /** Background color of the toolbar. Defaults to the header background color. */
   --ag-toolbar-text-color: #e2e2e2; /** Text color in the toolbar. Defaults to the header text color. */
   --ag-tooltip-background-color: #121923; /** Background color for tooltips */
@@ -1503,7 +1503,7 @@
   --ag-value-change-delta-up-color: #00b68b; /** Color to temporarily apply to cell data when its value increases in an agAnimateShowChangeCellRenderer cell */
   --ag-value-change-value-highlight-background-color: #00b68b; /** Background color to apply when a cell value changes and enableCellChangeFlash is enabled */
   --ag-wrapper-background-color: #203146; /** Background color of the outermost container around the grid. */
-  --ag-wrapper-border-color: #4c5c737a;
+  --ag-wrapper-border-color: #4c5c7352;
   --ag-icon-button-background-spread: 0.25rem; /** The distance beyond the border of the clickable icons that the background extends to */
   --ag-spacing: 8px; /** Amount of spacing around and inside UI elements. All padding and margins in the grid are defined as a multiple of this value. */
   --ag-cell-font-family: Inter; /** Font family of text in grid cells */
@@ -1518,7 +1518,7 @@
   --ag-button-font-weight: 600; /** Font weight of text in standard action buttons (e.g. "Reset" and "Apply") */
   --ag-cell-font-weight: 500; /** Font weight of text in grid cells */
   --ag-font-weight: 500; /** Default font weight for text throughout the grid UI */
-  --ag-header-font-weight: 600; /** Font weight of text in the header and header-like components */
+  --ag-header-font-weight: 700; /** Font weight of text in the header and header-like components */
   --ag-panel-title-bar-font-weight: 600; /** Font weight for the title bar of panels and dialogs such as the integrated charts panel and the advanced filter builder. */
   --ag-pinned-row-font-weight: 600; /** Font-weight for the rows that have been pinned to the top or bottom */
   --ag-pinned-source-row-font-weight: 600; /** Font-weight for the row in the main viewport that has been pinned to the top or bottom */
@@ -1596,11 +1596,11 @@
   --ag-internal-menu-option-shortcut: 8px;
   --ag-internal-menu-option-popup-pointer: 16px;
   --ag-internal-menu-separator: 16px +1px;
-  --ag-internal-picker-list-border: 1px solid #4c5c737a;
+  --ag-internal-picker-list-border: 1px solid #4c5c7352;
   --ag-internal-paging-panel-content: 32px;
   --ag-internal-toobar-input-padding-inline: 32px;
   --ag-internal-filter-list-item-height: 1.5rem;
-  --ag-internal-wrapper-border: 1px solid #4c5c737a solid #4c5c737a;
+  --ag-internal-wrapper-border: 1px solid #4c5c7352 solid #4c5c7352;
   --ag-internal-details-row-background-color: #1219237a;
   --text-style-d1-font-family: Inter; /** Display 1 text style, for use in hero sections and very large data stats. Do not use for headings or body text. */
   --text-style-d1-font-weight: 700; /** Display 1 text style, for use in hero sections and very large data stats. Do not use for headings or body text. */

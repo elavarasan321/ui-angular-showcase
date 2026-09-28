@@ -333,6 +333,13 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
         ],
         "required": false,
         "default": "'bottom'"
+      },
+      {
+        "name": "focusTarget",
+        "type": "HTMLElement | undefined",
+        "required": false,
+        "default": "undefined",
+        "description": "Element whose keyboard focus shows the hint. Defaults to the parent element."
       }
     ],
     "outputs": []
@@ -1023,6 +1030,12 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
         "type": "boolean",
         "required": false,
         "default": "false"
+      },
+      {
+        "name": "name",
+        "type": "string | undefined",
+        "required": false,
+        "default": "undefined"
       }
     ],
     "outputs": [
@@ -1407,6 +1420,12 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
         "type": "boolean",
         "required": false,
         "default": "false"
+      },
+      {
+        "name": "name",
+        "type": "string | undefined",
+        "required": false,
+        "default": "undefined"
       },
       {
         "name": "showFocusRing",
