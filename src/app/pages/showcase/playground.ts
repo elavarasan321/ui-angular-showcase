@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   ButtonComponent,
@@ -16,6 +24,8 @@ const PREVIEW_THEMES: SegmentControlItem[] = [
   { value: 'light', label: 'Light', ariaLabel: 'Preview in the light theme' },
   { value: 'dark', label: 'Dark', ariaLabel: 'Preview in the dark theme' },
 ];
+
+const LINK_COPIED_FEEDBACK_MS = 1500;
 
 const PREVIEW_WIDTHS: SegmentControlItem[] = [
   { value: 'full', label: 'Full', ariaLabel: 'Preview at the full available width' },
@@ -46,6 +56,14 @@ const PREVIEW_WIDTHS: SegmentControlItem[] = [
             [checkedValue]="previewWidth()"
             (checkedValueChange)="setPreviewWidth($any($event))"
           ></cwr-segment-control>
+          <cwr-button
+            variant="ghost"
+            intent="neutral"
+            size="sm"
+            [label]="linkCopied() ? 'Link copied' : 'Copy link'"
+            [leadingIcon]="linkCopied() ? 'icon.ui.check' : 'icon.ui.link'"
+            (buttonClick)="copyLink()"
+          ></cwr-button>
           @if (state(); as state) {
             <cwr-button
               variant="ghost"
@@ -180,11 +198,36 @@ export class Playground {
 
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+
+  protected readonly linkCopied = signal(false);
+  private linkCopiedTimer?: ReturnType<typeof setTimeout>;
 
   protected readonly previewThemes = PREVIEW_THEMES;
   protected readonly previewTheme = signal<PreviewTheme>(this.readPreviewTheme());
   protected readonly previewWidths = PREVIEW_WIDTHS;
   protected readonly previewWidth = signal<PreviewWidth>(this.readPreviewWidth());
+
+  constructor() {
+    inject(DestroyRef).onDestroy(() => clearTimeout(this.linkCopiedTimer));
+  }
+
+  /** Copies a link to this exact setup; the controls, theme and width already live in the URL. */
+  protected copyLink(): void {
+    // PageToc gives the title an id, so the link can open scrolled to the playground.
+    const titleId = this.host.nativeElement.querySelector('.playground__title')?.id;
+    const url = `${location.origin}${location.pathname}${location.search}${titleId ? `#${titleId}` : ''}`;
+    navigator.clipboard?.writeText(url).then(
+      () => {
+        this.linkCopied.set(true);
+        clearTimeout(this.linkCopiedTimer);
+        this.linkCopiedTimer = setTimeout(() => this.linkCopied.set(false), LINK_COPIED_FEEDBACK_MS);
+      },
+      () => {
+        // Clipboard access denied; the address bar still holds the link.
+      },
+    );
+  }
 
   protected setPreviewTheme(theme: PreviewTheme): void {
     if (theme === this.previewTheme()) return;
