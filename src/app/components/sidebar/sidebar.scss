@@ -140,7 +140,9 @@
   gap: var(--space-sm);
   margin: 0 var(--space-sm);
   padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--border-radius-sm, 0.25rem);
+  // Transparent on every link so the active one's bar doesn't shift its text.
+  border-left: 3px solid transparent;
+  border-radius: 0 var(--border-radius-sm, 0.25rem) var(--border-radius-sm, 0.25rem) 0;
   color: var(--color-text-surface-secondary);
   font: var(--text-style-body);
   text-decoration: none;
@@ -160,14 +162,12 @@
   outline-offset: calc(-1 * var(--space-focus-offset, 2px));
 }
 
-.sidebar-link.is-active {
-  background: var(--color-bg-brand);
-  color: var(--color-text-brand-inverse);
-}
-
+.sidebar-link.is-active,
 .sidebar-link.is-active:hover {
-  background: var(--color-bg-brand);
-  color: var(--color-text-brand-inverse);
+  border-left-color: var(--color-border-brand);
+  background: var(--color-bg-brand-subtle);
+  color: var(--color-text-brand);
+  font-weight: 600;
 }
 
 .sidebar-link-label {
@@ -180,8 +180,37 @@
   flex-shrink: 0;
 }
 
+// Inside the mobile drawer: flow with the drawer body and bleed to its edges so the links
+// line up with the drawer header. The top bar already shows the brand, search and theme.
+:host(.sidebar--drawer) {
+  position: static;
+  width: auto;
+  margin: calc(-1 * var(--space-lg)) calc(-1 * var(--space-xl));
+  background: none;
+  border-right: none;
+  overflow: visible;
+}
+
+:host(.sidebar--drawer) .sidebar-header {
+  padding: var(--space-sm) var(--space-lg);
+}
+
+:host(.sidebar--drawer) .sidebar-brand,
+:host(.sidebar--drawer) .sidebar-actions-row {
+  display: none;
+}
+
+:host(.sidebar--drawer) .sidebar-version {
+  margin-top: 0;
+}
+
+:host(.sidebar--drawer) .sidebar-scroll {
+  overflow: visible;
+}
+
+// Below this width the mobile nav's top bar and drawer take over.
 @media (max-width: 768px) {
-  :host {
+  :host(:not(.sidebar--drawer)) {
     display: none;
   }
 }

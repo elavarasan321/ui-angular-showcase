@@ -5,23 +5,80 @@
   }
 
   .app-shell {
+    display: flex;
+    flex-direction: column;
     height: 100%;
   }
 
   .app-content {
-    height: 100%;
+    flex: 1;
+    min-height: 0;
     margin-left: var(--size-navbar-min-width);
     overflow-y: auto;
     box-sizing: border-box;
     padding: var(--space-xl, 1.5rem);
   }
 
+  .app-main {
+    min-width: 0;
+  }
+
+  .app-main:focus {
+    outline: none;
+  }
+
+  /* Hidden until a keyboard user tabs to it as the first stop on the page. */
+  .skip-link {
+    position: fixed;
+    top: var(--space-sm, 0.75rem);
+    left: var(--space-sm, 0.75rem);
+    z-index: 1100;
+    padding: var(--space-xs, 0.5rem) var(--space-md, 1rem);
+    border-radius: var(--border-radius-sm, 0.25rem);
+    background: var(--color-bg-brand);
+    color: var(--color-text-brand-inverse);
+    font: var(--text-style-label-sm);
+    text-decoration: none;
+    transform: translateY(calc(-100% - var(--space-md, 1rem)));
+  }
+
+  .skip-link:focus-visible {
+    transform: none;
+    outline: var(--border-focus);
+    outline-offset: 2px;
+  }
+
+  .app-toc {
+    display: none;
+  }
+
+  /* The contents column only appears when the page has a list to show. */
+  @media (min-width: 1200px) {
+    .app-layout:has(.page-toc) {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 13rem;
+      gap: var(--space-2xl, 2rem);
+    }
+
+    .app-toc {
+      display: block;
+      position: sticky;
+      top: 0;
+      align-self: start;
+      max-height: calc(100vh - 2 * var(--space-xl, 1.5rem));
+      overflow-y: auto;
+    }
+  }
+
   @media (max-width: 768px) {
     .app-content {
       margin-left: 0;
+      padding: var(--space-md, 1rem);
     }
   }
 </style>
+
+<a class="skip-link" href="#main-content" (click)="skipToContent($event)">Skip to content</a>
 
 <div class="app-shell">
   <app-sidebar
@@ -32,10 +89,25 @@
     (themeToggle)="toggleTheme()"
   ></app-sidebar>
 
+  <app-mobile-nav
+    [topItems]="topItems"
+    [groups]="groups"
+    [isActiveRoute]="isActiveRoute"
+    [isDarkMode]="isDarkMode()"
+    (themeToggle)="toggleTheme()"
+  ></app-mobile-nav>
+
   <app-global-search [topItems]="topItems" [groups]="groups"></app-global-search>
 
   <div class="app-content" #appContent>
-    <router-outlet />
-    <app-page-footer [path]="currentPath()" />
+    <div class="app-layout">
+      <main class="app-main" id="main-content" tabindex="-1" #appMain>
+        <div #appPage>
+          <router-outlet />
+        </div>
+        <app-page-footer [path]="currentPath()" />
+      </main>
+      <app-page-toc class="app-toc" [content]="appPage" [scrollContainer]="appContent" />
+    </div>
   </div>
 </div>

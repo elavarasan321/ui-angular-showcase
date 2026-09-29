@@ -37,12 +37,18 @@ export interface SidebarNavGroup {
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[class.sidebar--drawer]': "variant() === 'drawer'" },
 })
 export class Sidebar {
   readonly topItems = input<NavbarNavItem[]>([]);
   readonly groups = input<SidebarNavGroup[]>([]);
   readonly isActiveRoute = input<(route: string) => boolean>(() => false);
   readonly isDarkMode = input(true);
+  /**
+   * `rail` is the fixed left column on wide screens; `drawer` renders the same navigation
+   * inside the mobile drawer, which supplies its own brand, search and theme controls.
+   */
+  readonly variant = input<'rail' | 'drawer'>('rail');
 
   readonly navItemClick = output<NavbarNavItem>();
   readonly themeToggle = output<void>();
@@ -50,6 +56,7 @@ export class Sidebar {
   protected readonly libraryVersion = UI_ANGULAR_VERSION;
 
   private readonly globalSearchService = inject(GlobalSearchService);
+  protected readonly searchShortcut = this.globalSearchService.shortcutLabel;
 
   private readonly expandedGroupIds = signal<ReadonlySet<string>>(new Set());
 

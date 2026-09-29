@@ -66,3 +66,69 @@ code {
     font-weight: 600;
     src: url('/fonts/ReneBieder-GalanoGrotesqueSemiBold.otf') format('opentype');
 }
+/* `#` links that PageToc adds to each outline heading. */
+.heading-anchor {
+    position: relative;
+    margin-left: var(--space-xs, 0.5rem);
+    color: var(--color-text-surface-subtle);
+    font-weight: 400;
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 120ms ease, color 120ms ease;
+}
+
+.heading-anchor::before {
+    content: '#';
+}
+
+:is(h2, h3):hover > .heading-anchor,
+.heading-anchor:focus-visible,
+.heading-anchor.is-copied {
+    opacity: 1;
+}
+
+/* Touch screens have no hover, so keep the links faintly visible there. */
+@media (hover: none) {
+    .heading-anchor {
+        opacity: 0.5;
+    }
+}
+
+.heading-anchor:hover {
+    color: var(--color-text-brand);
+}
+
+.heading-anchor:focus-visible {
+    outline: var(--border-focus);
+    outline-offset: 2px;
+    border-radius: var(--border-radius-sm, 0.25rem);
+}
+
+.heading-anchor.is-copied::after {
+    content: 'Link copied';
+    position: absolute;
+    left: calc(100% + var(--space-xs, 0.5rem));
+    top: 50%;
+    transform: translateY(-50%);
+    padding: var(--space-3xs, 0.25rem) var(--space-xs, 0.5rem);
+    border-radius: var(--border-radius-sm, 0.25rem);
+    background: var(--color-bg-neutral-inverse, #222);
+    color: var(--color-text-neutral-inverse, #fff);
+    font: var(--text-style-caption);
+    white-space: nowrap;
+}
+
+/* Leave a little room above a heading reached through a `#section` link. */
+:is(h2, h3)[id] {
+    scroll-margin-top: var(--space-md, 1rem);
+}
+
+/* Library components manage their own motion; this covers the showcase's own transitions. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

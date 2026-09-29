@@ -6,14 +6,21 @@ import {
   SegmentControlItem,
 } from '@checkworkrights/ui-angular';
 import { HighlightSnippet } from './highlight-snippet';
-import { PREVIEW_THEME_PARAM, PlaygroundState } from './playground-state';
+import { PREVIEW_THEME_PARAM, PREVIEW_WIDTH_PARAM, PlaygroundState } from './playground-state';
 
 type PreviewTheme = 'page' | 'light' | 'dark';
+type PreviewWidth = 'full' | 'tablet' | 'mobile';
 
 const PREVIEW_THEMES: SegmentControlItem[] = [
   { value: 'page', label: 'Page', ariaLabel: 'Preview in the page theme' },
   { value: 'light', label: 'Light', ariaLabel: 'Preview in the light theme' },
   { value: 'dark', label: 'Dark', ariaLabel: 'Preview in the dark theme' },
+];
+
+const PREVIEW_WIDTHS: SegmentControlItem[] = [
+  { value: 'full', label: 'Full', ariaLabel: 'Preview at the full available width' },
+  { value: 'tablet', label: '768', ariaLabel: 'Preview at a tablet width of 768 pixels' },
+  { value: 'mobile', label: '375', ariaLabel: 'Preview at a phone width of 375 pixels' },
 ];
 
 @Component({
@@ -27,9 +34,17 @@ const PREVIEW_THEMES: SegmentControlItem[] = [
         <div class="playground__actions">
           <cwr-segment-control
             variant="text-only"
+            aria-label="Preview theme"
             [items]="previewThemes"
             [checkedValue]="previewTheme()"
             (checkedValueChange)="setPreviewTheme($any($event))"
+          ></cwr-segment-control>
+          <cwr-segment-control
+            variant="text-only"
+            aria-label="Preview width"
+            [items]="previewWidths"
+            [checkedValue]="previewWidth()"
+            (checkedValueChange)="setPreviewWidth($any($event))"
           ></cwr-segment-control>
           @if (state(); as state) {
             <cwr-button
@@ -49,6 +64,8 @@ const PREVIEW_THEMES: SegmentControlItem[] = [
              (dialogs, drawers, tooltips) still follow the page theme. -->
         <div
           class="playground__preview"
+          [class.playground__preview--tablet]="previewWidth() === 'tablet'"
+          [class.playground__preview--mobile]="previewWidth() === 'mobile'"
           [attr.data-theme]="previewTheme() === 'page' ? null : previewTheme()"
         >
           <ng-content select="[playground-preview]"></ng-content>
@@ -102,6 +119,7 @@ const PREVIEW_THEMES: SegmentControlItem[] = [
 
       .playground__actions {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: var(--space-xs, 0.5rem);
       }
@@ -128,6 +146,23 @@ const PREVIEW_THEMES: SegmentControlItem[] = [
         color: var(--color-text-surface);
       }
 
+      /* A fixed width shows how the component lays out in a narrow column. Components that
+         respond to the viewport (media queries) still see the real window size. */
+      .playground__preview--tablet,
+      .playground__preview--mobile {
+        flex: 0 0 auto;
+        box-sizing: border-box;
+        max-width: 100%;
+      }
+
+      .playground__preview--tablet {
+        width: 768px;
+      }
+
+      .playground__preview--mobile {
+        width: 375px;
+      }
+
       .playground__controls {
         display: flex;
         flex-direction: column;
@@ -148,14 +183,27 @@ export class Playground {
 
   protected readonly previewThemes = PREVIEW_THEMES;
   protected readonly previewTheme = signal<PreviewTheme>(this.readPreviewTheme());
+  protected readonly previewWidths = PREVIEW_WIDTHS;
+  protected readonly previewWidth = signal<PreviewWidth>(this.readPreviewWidth());
 
   protected setPreviewTheme(theme: PreviewTheme): void {
     if (theme === this.previewTheme()) return;
     this.previewTheme.set(theme);
+    this.writeParam(PREVIEW_THEME_PARAM, theme === 'page' ? null : theme);
+  }
+
+  protected setPreviewWidth(width: PreviewWidth): void {
+    if (width === this.previewWidth()) return;
+    this.previewWidth.set(width);
+    this.writeParam(PREVIEW_WIDTH_PARAM, width === 'full' ? null : width);
+  }
+
+  private writeParam(key: string, value: string | null): void {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { [PREVIEW_THEME_PARAM]: theme === 'page' ? null : theme },
+      queryParams: { [key]: value },
       queryParamsHandling: 'merge',
+      preserveFragment: true,
       replaceUrl: true,
     });
   }
@@ -163,5 +211,10 @@ export class Playground {
   private readPreviewTheme(): PreviewTheme {
     const raw = this.route.snapshot.queryParamMap.get(PREVIEW_THEME_PARAM);
     return raw === 'light' || raw === 'dark' ? raw : 'page';
+  }
+
+  private readPreviewWidth(): PreviewWidth {
+    const raw = this.route.snapshot.queryParamMap.get(PREVIEW_WIDTH_PARAM);
+    return raw === 'tablet' || raw === 'mobile' ? raw : 'full';
   }
 }

@@ -11,7 +11,9 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavbarNavItem } from '@checkworkrights/ui-angular';
 import { filter } from 'rxjs/operators';
 import { GlobalSearch } from './components/global-search/global-search';
+import { MobileNav } from './components/mobile-nav/mobile-nav';
 import { PageFooter } from './components/page-footer/page-footer';
+import { PageToc } from './components/page-toc/page-toc';
 import { Sidebar } from './components/sidebar/sidebar';
 import { SHOWCASE_PAGE_GROUPS, toNavGroups } from './showcase-pages';
 
@@ -23,7 +25,7 @@ const toPath = (url: string): string => url.split(/[?#]/)[0];
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Sidebar, GlobalSearch, PageFooter],
+  imports: [RouterOutlet, Sidebar, MobileNav, GlobalSearch, PageFooter, PageToc],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,6 +33,7 @@ const toPath = (url: string): string => url.split(/[?#]/)[0];
 export class App {
   private readonly router = inject(Router);
   private readonly appContent = viewChild<ElementRef<HTMLElement>>('appContent');
+  private readonly appMain = viewChild.required<ElementRef<HTMLElement>>('appMain');
 
   // index.html has already applied any saved theme, so the attribute is the source of truth.
   protected readonly isDarkMode = signal(
@@ -63,6 +66,12 @@ export class App {
     const path = `/${base}`;
     return url === path || url.startsWith(`${path}/`);
   };
+
+  /** Moves focus past the navigation; a plain `#main-content` link would go through the router. */
+  protected skipToContent(event: MouseEvent): void {
+    event.preventDefault();
+    this.appMain().nativeElement.focus();
+  }
 
   protected toggleTheme(): void {
     const dark = !this.isDarkMode();

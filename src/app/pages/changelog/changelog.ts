@@ -33,7 +33,10 @@ const INSTALLED_RELEASE = UI_ANGULAR_VERSION.replace(/-.*$/, '');
 
     @for (release of releases; track release.version) {
       <section class="release" [id]="'v' + release.version">
-        <h2 class="release__title">
+        <h2
+          class="release__title"
+          [attr.data-toc-label]="release.version === 'Unreleased' ? 'Unreleased' : 'v' + release.version"
+        >
           {{ release.version === 'Unreleased' ? 'Unreleased' : 'v' + release.version }}
           @if (release.date) {
             <span class="release__date">{{ release.date }}</span>
@@ -44,7 +47,7 @@ const INSTALLED_RELEASE = UI_ANGULAR_VERSION.replace(/-.*$/, '');
         </h2>
         @for (section of release.sections; track $index) {
           @if (section.title) {
-            <h3 class="release__section">{{ section.title }}</h3>
+            <h3 class="release__section" data-toc-ignore>{{ section.title }}</h3>
           }
           <div class="release__body" [innerHTML]="section.html"></div>
         }

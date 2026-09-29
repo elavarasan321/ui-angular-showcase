@@ -8,16 +8,18 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { Params, Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Params, Router } from '@angular/router';
 import {
   DialogComponent,
   IconComponent,
   NavbarNavItem,
   SearchInputComponent,
 } from '@checkworkrights/ui-angular';
+import { filter } from 'rxjs/operators';
 import type { ApiEntry } from '../../pages/showcase/api-reference.generated';
 import type { TokenRow } from '../../pages/design-tokens/token-data';
-import { ALL_SHOWCASE_PAGES } from '../../showcase-pages';
+import { ALL_SHOWCASE_PAGES, findPageByPath } from '../../showcase-pages';
 import { SidebarNavGroup } from '../sidebar/sidebar';
 import { GlobalSearchService } from './global-search.service';
 
@@ -42,6 +44,20 @@ const MIN_DEEP_TERM_LENGTH = 2;
 const MAX_API_RESULTS = 8;
 const MAX_TOKEN_RESULTS = 8;
 
+const RECENT_PAGES_STORAGE_KEY = 'cwr-showcase-recent-pages';
+const MAX_RECENT_PAGES = 5;
+const RECENT_GROUP_LABEL = 'Recent';
+
+/** Page routes from storage, most recent first; empty when storage is unavailable or corrupt. */
+const readRecentRoutes = (): string[] => {
+  try {
+    const parsed: unknown = JSON.parse(localStorage.getItem(RECENT_PAGES_STORAGE_KEY) ?? '[]');
+    return Array.isArray(parsed) ? parsed.filter((r): r is string => typeof r === 'string') : [];
+  } catch {
+    return [];
+  }
+};
+
 interface SearchResultGroup {
   label: string;
   items: SearchResultItem[];
@@ -65,6 +81,9 @@ export class GlobalSearch {
   protected readonly searchTerm = signal('');
   private readonly rawActiveIndex = signal(0);
   private readonly searchData = signal<SearchData | null>(null);
+  /** Showcase pages visited, most recent first, including the current one. */
+  private readonly recentRoutes = signal<string[]>(readRecentRoutes());
+  private readonly currentRoute = signal<string | null>(null);
 
   constructor() {
     effect(() => {
@@ -72,6 +91,17 @@ export class GlobalSearch {
         void this.loadSearchData();
       }
     });
+
+    this.router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntilDestroyed(),
+      )
+      .subscribe((event) => {
+        const page = findPageByPath(event.urlAfterRedirects.split(/[?#]/)[0]);
+        this.currentRoute.set(page?.route ?? null);
+        if (page) this.recordVisit(page.route);
+      });
   }
 
   private readonly allItems = computed<SearchResultItem[]>(() => [
@@ -81,9 +111,22 @@ export class GlobalSearch {
     ),
   ]);
 
+  /** Up to five recently visited pages other than the current one, shown before any typing. */
+  private readonly recentItems = computed<SearchResultItem[]>(() => {
+    const items = new Map(this.allItems().map((item) => [item.route, item]));
+    return this.recentRoutes()
+      .filter((route) => route !== this.currentRoute())
+      .flatMap((route) => {
+        const item = items.get(route);
+        // Own id so the entry and the same page in its group aren't both highlighted.
+        return item ? [{ ...item, id: `recent:${item.id}`, groupLabel: RECENT_GROUP_LABEL }] : [];
+      })
+      .slice(0, MAX_RECENT_PAGES);
+  });
+
   protected readonly resultGroups = computed<SearchResultGroup[]>(() => {
     const term = this.searchTerm().trim().toLowerCase();
-    const source = term ? this.matchPages(term) : this.allItems();
+    const source = term ? this.matchPages(term) : [...this.recentItems(), ...this.allItems()];
     if (term.length >= MIN_DEEP_TERM_LENGTH) {
       source.push(...this.matchApi(term), ...this.matchTokens(term));
     }
@@ -186,6 +229,20 @@ export class GlobalSearch {
     }
     const next = (this.activeIndex() + delta + length) % length;
     this.rawActiveIndex.set(next);
+  }
+
+  private recordVisit(route: string): void {
+    // One more than shown, so five remain once the current page is left out.
+    const routes = [route, ...this.recentRoutes().filter((r) => r !== route)].slice(
+      0,
+      MAX_RECENT_PAGES + 1,
+    );
+    this.recentRoutes.set(routes);
+    try {
+      localStorage.setItem(RECENT_PAGES_STORAGE_KEY, JSON.stringify(routes));
+    } catch {
+      // Storage can be unavailable (private mode, blocked site data); the list lasts this visit.
+    }
   }
 
   private toResultItem(item: NavbarNavItem, groupLabel: string): SearchResultItem {

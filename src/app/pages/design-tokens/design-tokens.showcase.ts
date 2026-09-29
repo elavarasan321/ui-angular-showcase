@@ -303,6 +303,8 @@ const TOTAL_TOKENS = ALL_SECTIONS.reduce(
 @Component({
   selector: 'app-design-tokens-showcase',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // This page has its own contents list; turn off the app-wide one.
+  host: { 'data-page-toc': 'none' },
   imports: [
     ShowcaseHeader,
     TokenSection,

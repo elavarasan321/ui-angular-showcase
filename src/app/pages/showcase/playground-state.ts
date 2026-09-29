@@ -25,8 +25,9 @@ const TRANSIENT_KEYS = new Set([
   'submitting',
 ]);
 
-/** Query param the playground shell uses for its preview theme; never a control's key. */
+/** Query params the playground shell uses for its preview theme and width; never control keys. */
 export const PREVIEW_THEME_PARAM = 'previewTheme';
+export const PREVIEW_WIDTH_PARAM = 'previewWidth';
 
 export interface PlaygroundState {
   /** True when any control differs from its initial value. */
@@ -82,7 +83,8 @@ export function playgroundState(host: object, exclude: readonly string[] = []): 
         typeof (value as WritableSignal<unknown>).set === 'function' &&
         !TRANSIENT_KEYS.has(key) &&
         !exclude.includes(key) &&
-        key !== PREVIEW_THEME_PARAM,
+        key !== PREVIEW_THEME_PARAM &&
+        key !== PREVIEW_WIDTH_PARAM,
     )
     .map(([key, value]) => ({ key, signal: value as WritableSignal<Primitive>, initial: (value as Signal<unknown>)() }))
     .filter((e): e is Entry => isPrimitive(e.initial));
@@ -110,6 +112,8 @@ export function playgroundState(host: object, exclude: readonly string[] = []): 
         relativeTo: route,
         queryParams,
         queryParamsHandling: 'merge',
+        // Keep a #section from a shared heading link.
+        preserveFragment: true,
         replaceUrl: true,
       });
     });

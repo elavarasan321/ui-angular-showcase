@@ -1,17 +1,24 @@
-import { provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { SHOWCASE_PAGE_GROUPS, toNavGroups } from '../../showcase-pages';
 import { GlobalSearch } from './global-search';
 import { GlobalSearchService } from './global-search.service';
+
+@Component({ template: '' })
+class BlankPage {}
 
 describe('GlobalSearch', () => {
   let fixture: ComponentFixture<GlobalSearch>;
 
   beforeEach(async () => {
+    localStorage.removeItem('cwr-showcase-recent-pages');
     await TestBed.configureTestingModule({
       imports: [GlobalSearch],
-      providers: [provideZonelessChangeDetection(), provideRouter([])],
+      providers: [
+        provideZonelessChangeDetection(),
+        provideRouter([{ path: '**', component: BlankPage }]),
+      ],
     }).compileComponents();
     fixture = TestBed.createComponent(GlobalSearch);
     fixture.componentRef.setInput('groups', toNavGroups(SHOWCASE_PAGE_GROUPS));
@@ -38,7 +45,34 @@ describe('GlobalSearch', () => {
     );
   }
 
-  afterEach(() => fixture.destroy());
+  afterEach(() => {
+    fixture.destroy();
+    localStorage.removeItem('cwr-showcase-recent-pages');
+  });
+
+  it('should list recent pages, newest first and without the current one, before typing', async () => {
+    const router = TestBed.inject(Router);
+    for (const url of ['/showcase/button', '/showcase/badge', '/getting-started']) {
+      await router.navigateByUrl(url);
+    }
+    await fixture.whenStable();
+
+    const firstGroup = document.querySelector('.global-search-group')!;
+    expect(firstGroup.querySelector('.global-search-group-label')?.textContent?.trim()).toBe(
+      'Recent',
+    );
+    const labels = Array.from(firstGroup.querySelectorAll('.global-search-result-label')).map(
+      (el) => el.textContent?.trim(),
+    );
+    expect(labels).toEqual(['Badge', 'Button']);
+  });
+
+  it('should keep recent pages across visits', async () => {
+    await TestBed.inject(Router).navigateByUrl('/showcase/button');
+    expect(JSON.parse(localStorage.getItem('cwr-showcase-recent-pages')!)).toEqual([
+      'showcase/button',
+    ]);
+  });
 
   it('should match pages by label', async () => {
     expect(await search('toggle card')).toContain('Toggle Card');

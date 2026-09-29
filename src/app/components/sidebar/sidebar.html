@@ -18,7 +18,7 @@
         intent="neutral"
         size="md"
         [tooltipPosition]="'right'"
-        label="Search everywhere (⌘K)"
+        [label]="'Search everywhere (' + searchShortcut + ')'"
         (buttonClick)="openGlobalSearch()"
       ></cwr-icon-button>
       <cwr-icon-button
