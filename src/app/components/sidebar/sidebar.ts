@@ -1,6 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
+  Injector,
+  afterNextRender,
   effect,
   inject,
   input,
@@ -59,6 +62,8 @@ export class Sidebar {
   protected readonly searchShortcut = this.globalSearchService.shortcutLabel;
 
   private readonly expandedGroupIds = signal<ReadonlySet<string>>(new Set());
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly injector = inject(Injector);
 
   constructor() {
     // Open the group holding the current page, including after navigating from outside the
@@ -67,6 +72,12 @@ export class Sidebar {
       const activeGroup = this.groups().find((group) => this.hasActiveItem(group));
       if (activeGroup) {
         this.expandedGroupIds.update((ids) => new Set(ids).add(activeGroup.id));
+      }
+      // Once the group has rendered open, bring the page's link into view: arriving from
+      // search or a shared link can land on a page far down the list.
+      const activeItem = activeGroup?.items.find((item) => this.isActiveRoute()(item.route));
+      if (activeItem) {
+        afterNextRender(() => this.revealLink(activeItem.route), { injector: this.injector });
       }
     });
   }
@@ -99,6 +110,16 @@ export class Sidebar {
 
   onItemClick(item: NavbarNavItem): void {
     this.navItemClick.emit(item);
+  }
+
+  /**
+   * Scrolls the sidebar only when the link is out of view; a no-op otherwise. Found by href
+   * because routerLinkActive may not have marked it `is-active` yet.
+   */
+  private revealLink(route: string): void {
+    this.host.nativeElement
+      .querySelector(`.sidebar-link[href="/${route}"]`)
+      ?.scrollIntoView({ block: 'nearest' });
   }
 
   openGlobalSearch(): void {
