@@ -48,11 +48,14 @@
     outline-offset: 2px;
   }
 
-  .app-toc {
-    display: none;
+  /* The contents column only appears when the page has a list to show. Narrower screens get
+     PageToc's floating button instead; keep the breakpoint in sync with page-toc.ts. */
+  @media (max-width: 1199px) {
+    .app-layout:has(.page-toc-compact) .app-main {
+      padding-bottom: 3.5rem;
+    }
   }
 
-  /* The contents column only appears when the page has a list to show. */
   @media (min-width: 1200px) {
     .app-layout:has(.page-toc) {
       display: grid;
@@ -61,7 +64,6 @@
     }
 
     .app-toc {
-      display: block;
       position: sticky;
       top: 0;
       align-self: start;

@@ -2,12 +2,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  ElementRef,
   effect,
   inject,
   input,
   signal,
+  untracked,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { Router } from '@angular/router';
+import { IconComponent } from '@checkworkrights/ui-angular';
 
 export interface TocEntry {
   id: string;
@@ -59,16 +63,45 @@ const sameEntries = (a: readonly TocEntry[], b: readonly TocEntry[]): boolean =>
  * section being read. It also gives each of those headings a `#` link that copies a link to
  * that section, query params included, so a shared link keeps the playground setup.
  *
- * Pages that have their own contents list opt out of both with `data-page-toc="none"` on an
- * element inside them.
+ * Wide screens get a column beside the page; narrower ones a floating "On this page" button
+ * that opens the same list. Pages that have their own contents list opt out of all of this
+ * with `data-page-toc="none"` on an element inside them.
  */
 @Component({
   selector: 'app-page-toc',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgTemplateOutlet, IconComponent],
+  host: {
+    '(document:keydown.escape)': 'compactOpen.set(false)',
+    '(document:click)': 'onDocumentClick($event)',
+  },
   template: `
     @if (entries().length > 1) {
       <nav class="page-toc" aria-labelledby="page-toc-title">
         <p class="page-toc__title" id="page-toc-title">On this page</p>
+        <ng-container *ngTemplateOutlet="list" />
+      </nav>
+
+      <div class="page-toc-compact">
+        @if (compactOpen()) {
+          <nav class="page-toc-compact__panel" id="page-toc-panel" aria-label="On this page">
+            <ng-container *ngTemplateOutlet="list" />
+          </nav>
+        }
+        <button
+          type="button"
+          class="page-toc-compact__toggle"
+          aria-controls="page-toc-panel"
+          [attr.aria-expanded]="compactOpen()"
+          (click)="compactOpen.set(!compactOpen())"
+        >
+          <cwr-icon icon="icon.ui.list-view" size="sm" />
+          On this page
+        </button>
+      </div>
+    }
+
+    <ng-template #list>
         <ul class="page-toc__list">
           @for (entry of entries(); track entry.id) {
             <li>
@@ -84,8 +117,7 @@ const sameEntries = (a: readonly TocEntry[], b: readonly TocEntry[]): boolean =>
             </li>
           }
         </ul>
-      </nav>
-    }
+    </ng-template>
   `,
   styles: [
     `
@@ -97,6 +129,65 @@ const sameEntries = (a: readonly TocEntry[], b: readonly TocEntry[]): boolean =>
         display: flex;
         flex-direction: column;
         gap: var(--space-xs, 0.5rem);
+      }
+
+      /* Keep in sync with the contents column breakpoint in app.html. */
+      @media (max-width: 1199px) {
+        .page-toc {
+          display: none;
+        }
+      }
+
+      @media (min-width: 1200px) {
+        .page-toc-compact {
+          display: none;
+        }
+      }
+
+      .page-toc-compact {
+        position: fixed;
+        right: var(--space-lg, 1.25rem);
+        bottom: var(--space-lg, 1.25rem);
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: var(--space-xs, 0.5rem);
+      }
+
+      .page-toc-compact__toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2xs, 0.375rem);
+        padding: var(--space-xs, 0.5rem) var(--space-md, 1rem);
+        border: 1px solid var(--color-border-neutral-subtle);
+        border-radius: 999px;
+        background: var(--color-bg-surface-overlay, var(--color-bg-surface));
+        box-shadow: var(--box-shadow-elevation-lg);
+        color: var(--color-text-surface);
+        font: var(--text-style-label-sm);
+        cursor: pointer;
+      }
+
+      .page-toc-compact__toggle:hover {
+        border-color: var(--color-border-brand);
+      }
+
+      .page-toc-compact__toggle:focus-visible {
+        outline: var(--border-focus);
+        outline-offset: 2px;
+      }
+
+      .page-toc-compact__panel {
+        width: min(18rem, calc(100vw - 2 * var(--space-lg, 1.25rem)));
+        max-height: 60vh;
+        overflow-y: auto;
+        box-sizing: border-box;
+        padding: var(--space-xs, 0.5rem);
+        border: 1px solid var(--color-border-neutral-subtle);
+        border-radius: var(--border-radius-md, 8px);
+        background: var(--color-bg-surface-overlay, var(--color-bg-surface));
+        box-shadow: var(--box-shadow-elevation-lg);
       }
 
       .page-toc__title {
@@ -171,8 +262,11 @@ export class PageToc {
 
   protected readonly entries = signal<TocEntry[]>([], { equal: sameEntries });
   protected readonly activeId = signal<string | null>(null);
+  /** The floating list on narrower screens. */
+  protected readonly compactOpen = signal(false);
 
   private readonly router = inject(Router);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
 
   private headings: HTMLElement[] = [];
   private scanFrame = 0;
@@ -184,6 +278,12 @@ export class PageToc {
 
   constructor() {
     const destroyRef = inject(DestroyRef);
+
+    // A new page (a new outline) starts with the floating list closed.
+    effect(() => {
+      this.entries();
+      untracked(() => this.compactOpen.set(false));
+    });
 
     // Routed pages load lazily and render parts of themselves later (API reference, filtered
     // token sections), so rescan whenever the page's DOM changes.
@@ -245,7 +345,14 @@ export class PageToc {
     // Let modified clicks open the link in a new tab or window as usual.
     if (isModifiedClick(event)) return;
     event.preventDefault();
+    this.compactOpen.set(false);
     this.goTo(entry.id);
+  }
+
+  protected onDocumentClick(event: MouseEvent): void {
+    if (this.compactOpen() && !this.host.nativeElement.contains(event.target as Node)) {
+      this.compactOpen.set(false);
+    }
   }
 
   private goTo(id: string): void {
