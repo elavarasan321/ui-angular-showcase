@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { IconComponent } from '@checkworkrights/ui-angular';
 import { ResolvedTokenRow, filterRows, humanize, resolveRows } from './token-data';
 import { TokenClipboardService } from './token-clipboard.service';
@@ -36,7 +36,7 @@ interface Ramp {
 
 @Component({
   selector: 'app-token-section',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [IconComponent],
   template: `
     <section class="token-section" [id]="anchorId()">

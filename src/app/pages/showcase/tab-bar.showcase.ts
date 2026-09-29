@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { TabBarComponent, TabBarItem } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -25,7 +25,7 @@ const DISABLED_TABS: TabBarItem[] = [
 
 @Component({
   selector: 'app-tab-bar-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TabBarComponent, ExampleBlock, ShowcaseHeader, TabBarPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Tab Bar" selector="cwr-tab-bar"></app-showcase-header>

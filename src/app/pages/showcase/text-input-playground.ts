@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   TextInputComponent,
   TextInputState,
@@ -23,7 +23,7 @@ const STATES: readonly TextInputState[] = ['idle', 'error'];
 
 @Component({
   selector: 'app-text-input-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TextInputComponent, Playground, FormFieldComponent, PickerInputComponent, CheckboxComponent, PickerOptionsPipe, NumericInputComponent],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

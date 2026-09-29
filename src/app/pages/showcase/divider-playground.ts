@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   BORDER_COLOR_MAP,
   BorderColorKey,
@@ -25,7 +25,7 @@ const COLORS = Object.keys(BORDER_COLOR_MAP) as BorderColorKey[];
 
 @Component({
   selector: 'app-divider-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DividerComponent, Playground, FormFieldComponent, PickerInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

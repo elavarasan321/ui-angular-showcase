@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   InlineButtonComponent,
   InlineButtonVariant,
@@ -29,7 +29,7 @@ const TRAILING_ICON = 'icon.ui.external-link';
 
 @Component({
   selector: 'app-inline-button-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InlineButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

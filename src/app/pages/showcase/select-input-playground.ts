@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   SelectInputComponent,
   SelectInputOption,
@@ -23,7 +23,7 @@ const ALL_OPTIONS: SelectInputOption[] = [
 
 @Component({
   selector: 'app-select-input-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SelectInputComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

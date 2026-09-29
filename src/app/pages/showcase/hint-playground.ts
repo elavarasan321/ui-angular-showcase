@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   HintComponent,
   ButtonComponent,
@@ -26,7 +26,7 @@ const ARROW_POSITIONS: readonly HintArrowPosition[] = [
 
 @Component({
   selector: 'app-hint-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [HintComponent, ButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

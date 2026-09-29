@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StyledLinkComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { StyledLinkPlayground } from './styled-link-playground';
 
 @Component({
   selector: 'app-styled-link-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [StyledLinkComponent, ExampleBlock, ShowcaseHeader, StyledLinkPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Styled Link" selector="cwr-styled-link"></app-showcase-header>

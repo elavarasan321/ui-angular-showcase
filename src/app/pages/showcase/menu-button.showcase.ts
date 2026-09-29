@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {
   MenuButtonComponent,
   MenuComponent,
@@ -20,7 +20,7 @@ const ROW_MENU_ITEMS: CwrMenuItem[] = [
 
 @Component({
   selector: 'app-menu-button-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MenuButtonComponent,
     MenuComponent,
     IconButtonComponent,

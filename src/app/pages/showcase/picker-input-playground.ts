@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   PickerInputComponent,
   PickerInputOption,
@@ -18,7 +18,7 @@ const FREQUENCY_OPTIONS: PickerInputOption[] = [
 
 @Component({
   selector: 'app-picker-input-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PickerInputComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

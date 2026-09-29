@@ -67,8 +67,9 @@ After you upgrade either library, run `npm run generate` (or restart `npm start`
 scripts/                      Code generators for tokens and API reference
 src/
   app/
-    app.ts                    App shell: sidebar navigation groups and theme toggle
-    app.routes.ts             Lazy-loaded route for each page
+    showcase-pages.ts         The list of pages: builds the routes, sidebar and search
+    app.ts                    App shell: sidebar, global search and theme toggle
+    app.routes.ts             Routes built from showcase-pages.ts, plus the 404 page
     components/
       sidebar/                Side navigation
       global-search/          Search dialog for pages
@@ -87,9 +88,8 @@ src/
    - `ComponentReference` for the generated API table
 
    See `title-block.showcase.ts` for an example.
-2. Add a route in `src/app/app.routes.ts`.
-3. Add a navigation item to the matching group in `src/app/app.ts`. The sidebar and the global search both read these groups.
-4. Run `npm run generate:api` if the component is new in the library.
+2. Add an entry to the matching group in `src/app/showcase-pages.ts`. The routes, the sidebar and the global search are all built from this list. Set `addedIn` to the library release that introduced the component (for example `'1.0.33'`). The page shows a **NEW** badge while the installed library is on that release, and the badge disappears automatically after the next release.
+3. Run `npm run generate:api` if the component is new in the library.
 
 ## Testing against a local library build
 

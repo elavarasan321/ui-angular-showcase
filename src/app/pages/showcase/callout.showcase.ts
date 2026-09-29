@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CalloutComponent, ButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { CalloutPlayground } from './callout-playground';
 
 @Component({
   selector: 'app-callout-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CalloutComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, CalloutPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Callout" selector="cwr-callout"></app-showcase-header>

@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   StatusPillComponent,
   StatusPillIntent,
@@ -24,7 +24,7 @@ const STATUS_PILL_SIZES: readonly StatusPillSize[] = ['md', 'sm', 'xs'];
 
 @Component({
   selector: 'app-status-pill-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [StatusPillComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

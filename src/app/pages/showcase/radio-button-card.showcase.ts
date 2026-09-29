@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RadioButtonCardComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { RadioButtonCardPlayground } from './radio-button-card-playground';
 
 @Component({
   selector: 'app-radio-button-card-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RadioButtonCardComponent, ExampleBlock, ShowcaseHeader, RadioButtonCardPlayground, ComponentReference],
   template: `
     <app-showcase-header

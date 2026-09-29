@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   SegmentControlComponent,
   SegmentControlItem,
@@ -24,7 +24,7 @@ const ITEMS: SegmentControlItem[] = [
 
 @Component({
   selector: 'app-segment-control-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SegmentControlComponent, Playground, FormFieldComponent, PickerInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

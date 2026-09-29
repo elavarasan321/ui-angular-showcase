@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   RadioButtonCardComponent,
   RadioButtonCardState,
@@ -18,7 +18,7 @@ const RADIO_BUTTON_CARD_STATES: readonly RadioButtonCardState[] = ['idle', 'erro
 
 @Component({
   selector: 'app-radio-button-card-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RadioButtonCardComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

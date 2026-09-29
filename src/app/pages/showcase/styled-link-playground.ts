@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   StyledLinkComponent,
   StyledLinkVariant,
@@ -15,7 +15,7 @@ const STYLED_LINK_VARIANTS: readonly StyledLinkVariant[] = ['default', 'neutral'
 
 @Component({
   selector: 'app-styled-link-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [StyledLinkComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

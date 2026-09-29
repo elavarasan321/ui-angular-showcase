@@ -2,9 +2,9 @@ import { Injectable, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
 
-const APP_TITLE = 'CWR UI';
+const APP_TITLE = 'CWR UI Showcase';
 
-/** Formats each route's `title` as "Button · CWR UI", falling back to the app name. */
+/** Formats each route's `title` as "Button · CWR UI Showcase", falling back to the app name. */
 @Injectable()
 export class PageTitleStrategy extends TitleStrategy {
   private readonly title = inject(Title);

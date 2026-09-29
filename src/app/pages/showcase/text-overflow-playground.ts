@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   TextOverflowComponent,
   TextOverflowPosition,
@@ -19,7 +19,7 @@ const POSITIONS: readonly TextOverflowPosition[] = ['top', 'bottom'];
 
 @Component({
   selector: 'app-text-overflow-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TextOverflowComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

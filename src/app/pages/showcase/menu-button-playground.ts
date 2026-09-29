@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   MenuButtonComponent,
   MenuComponent,
@@ -23,7 +23,7 @@ const MENU_ITEMS: CwrMenuItem[] = [
 
 @Component({
   selector: 'app-menu-button-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MenuButtonComponent, MenuComponent, ButtonComponent, Playground, FormFieldComponent, PickerInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

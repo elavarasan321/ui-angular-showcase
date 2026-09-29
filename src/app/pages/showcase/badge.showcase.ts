@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BadgeComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { BadgePlayground } from './badge-playground';
 
 @Component({
   selector: 'app-badge-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BadgeComponent, ExampleBlock, ShowcaseHeader, BadgePlayground, ComponentReference],
   template: `
     <app-showcase-header title="Badge" selector="cwr-badge"></app-showcase-header>

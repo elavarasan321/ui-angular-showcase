@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { InlineButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { InlineButtonPlayground } from './inline-button-playground';
@@ -7,7 +7,7 @@ import { ComponentReference } from './component-reference';
 
 @Component({
   selector: 'app-inline-button-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InlineButtonComponent, ExampleBlock, ShowcaseHeader, InlineButtonPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Inline Button" selector="cwr-inline-button"></app-showcase-header>

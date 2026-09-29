@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   ButtonComponent,
@@ -9,6 +9,7 @@ import { GlobalSearchService } from '../../components/global-search/global-searc
 
 @Component({
   selector: 'app-not-found',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [EmptyStateContentBlockComponent, ButtonComponent, InlineButtonComponent],
   template: `
     <cwr-empty-state-content-block
@@ -23,7 +24,9 @@ import { GlobalSearchService } from '../../components/global-search/global-searc
         label="Go to Getting Started"
         (buttonClick)="goHome()"
       ></cwr-button>
-      <cwr-inline-button variant="neutral" (click)="openSearch()">Search components</cwr-inline-button>
+      <cwr-inline-button variant="neutral" (click)="openSearch()"
+        >Search components</cwr-inline-button
+      >
     </cwr-empty-state-content-block>
   `,
   styles: [

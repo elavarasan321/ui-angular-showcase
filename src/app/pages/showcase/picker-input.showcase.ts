@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { PickerInputComponent, PickerInputOption } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -14,7 +14,7 @@ const FREQUENCY_OPTIONS: PickerInputOption[] = [
 
 @Component({
   selector: 'app-picker-input-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PickerInputComponent, ExampleBlock, ShowcaseHeader, PickerInputPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Picker Input" selector="cwr-picker-input"></app-showcase-header>

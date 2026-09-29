@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DividerComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { DividerPlayground } from './divider-playground';
 
 @Component({
   selector: 'app-divider-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DividerComponent, ExampleBlock, ShowcaseHeader, DividerPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Divider" selector="cwr-divider"></app-showcase-header>

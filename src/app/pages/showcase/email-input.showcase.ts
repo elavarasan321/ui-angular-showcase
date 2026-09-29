@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EmailInputComponent, FormFieldComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
@@ -8,7 +8,7 @@ import { EmailInputPlayground } from './email-input-playground';
 
 @Component({
   selector: 'app-email-input-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule,
     EmailInputComponent,
     FormFieldComponent,

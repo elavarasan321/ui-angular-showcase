@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { SelectInputComponent, SelectInputOption } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -19,7 +19,7 @@ const COUNTRY_OPTIONS: SelectInputOption[] = [
 
 @Component({
   selector: 'app-select-input-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SelectInputComponent, ExampleBlock, ShowcaseHeader, SelectInputPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Select Input" selector="cwr-select-input"></app-showcase-header>

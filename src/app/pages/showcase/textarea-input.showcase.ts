@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TextareaInputComponent, FormFieldComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
@@ -8,7 +8,7 @@ import { TextareaInputPlayground } from './textarea-input-playground';
 
 @Component({
   selector: 'app-textarea-input-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule,
     TextareaInputComponent,
     FormFieldComponent,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TextInputComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
@@ -8,7 +8,7 @@ import { TextInputPlayground } from './text-input-playground';
 
 @Component({
   selector: 'app-text-input-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, TextInputComponent, ExampleBlock, ShowcaseHeader, TextInputPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Text Input" selector="cwr-text-input"></app-showcase-header>

@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   DrawerComponent,
   ButtonComponent,
@@ -11,7 +11,7 @@ import { playgroundState } from './playground-state';
 
 @Component({
   selector: 'app-drawer-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DrawerComponent, ButtonComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

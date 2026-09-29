@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   FormFieldComponent,
   TextInputComponent,
@@ -11,7 +11,7 @@ const INPUT_ID = 'playground-demo-input';
 
 @Component({
   selector: 'app-form-field-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormFieldComponent, TextInputComponent, Playground, CheckboxComponent],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

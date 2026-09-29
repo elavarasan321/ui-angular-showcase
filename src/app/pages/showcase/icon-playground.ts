@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   ICON_COLOR_MAP,
   ICON_MAP,
@@ -21,7 +21,7 @@ const NONE_COLOR = '__none__';
 
 @Component({
   selector: 'app-icon-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [IconComponent, Playground, FormFieldComponent, PickerInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

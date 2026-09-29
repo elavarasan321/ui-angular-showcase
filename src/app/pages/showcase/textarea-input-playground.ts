@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   TextareaInputComponent,
   TextareaInputState,
@@ -18,7 +18,7 @@ const STATES: readonly TextareaInputState[] = ['idle', 'error'];
 
 @Component({
   selector: 'app-textarea-input-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TextareaInputComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe, NumericInputComponent],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

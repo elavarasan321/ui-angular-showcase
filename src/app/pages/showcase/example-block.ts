@@ -1,16 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { HighlightSnippet } from './highlight-snippet';
 
 @Component({
   selector: 'app-example-block',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [HighlightSnippet],
   template: `
     <section class="example-block">
-      @if (title) {
-        <h3 class="example-block__title">{{ title }}</h3>
+      @if (title()) {
+        <h3 class="example-block__title">{{ title() }}</h3>
       }
-      <app-highlight-snippet title="Usage" [code]="code" [language]="language">
+      <app-highlight-snippet title="Usage" [code]="code()" [language]="language()">
         <ng-content></ng-content>
       </app-highlight-snippet>
     </section>
@@ -34,7 +34,7 @@ import { HighlightSnippet } from './highlight-snippet';
   ],
 })
 export class ExampleBlock {
-  @Input() title = '';
-  @Input() code = '';
-  @Input() language = 'html';
+  readonly title = input('');
+  readonly code = input('');
+  readonly language = input('html');
 }

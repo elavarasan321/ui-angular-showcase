@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   EmptyStateContentBlockComponent,
   ButtonComponent,
@@ -11,7 +11,7 @@ import { playgroundState } from './playground-state';
 
 @Component({
   selector: 'app-empty-state-content-block-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [EmptyStateContentBlockComponent, ButtonComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

@@ -1,4 +1,4 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { BadgeComponent, TabBarComponent, TabBarItem } from '@checkworkrights/ui-angular';
 import { ACCESSIBILITY_NOTES, ACCESSIBILITY_NOTES_VERSION, KeyboardNote } from './accessibility-notes';
 import { API_REFERENCE, ApiEntry, UI_ANGULAR_VERSION } from './api-reference.generated';
@@ -27,7 +27,7 @@ function toKeyRow(note: KeyboardNote): KeyRow {
  */
 @Component({
   selector: 'app-component-reference',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BadgeComponent, TabBarComponent],
   template: `
     @if (a11y().length) {

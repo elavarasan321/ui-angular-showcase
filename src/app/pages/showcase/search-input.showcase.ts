@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { SearchInputComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { SearchInputPlayground } from './search-input-playground';
 
 @Component({
   selector: 'app-search-input-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SearchInputComponent, ExampleBlock, ShowcaseHeader, SearchInputPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Search Input" selector="cwr-search-input"></app-showcase-header>

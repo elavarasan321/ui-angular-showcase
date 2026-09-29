@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   BadgeComponent,
   BadgeEmphasis,
@@ -27,7 +27,7 @@ const BADGE_EMPHASES: readonly BadgeEmphasis[] = ['solid', 'subtle', 'inverse'];
 
 @Component({
   selector: 'app-badge-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BadgeComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

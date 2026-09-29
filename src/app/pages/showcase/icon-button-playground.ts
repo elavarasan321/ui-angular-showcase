@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   IconButtonComponent,
   IconButtonIntent,
@@ -50,7 +50,7 @@ const DEFAULT_TOOLTIP_POSITION: IconButtonTooltipPosition = 'bottom';
 
 @Component({
   selector: 'app-icon-button-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [IconButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

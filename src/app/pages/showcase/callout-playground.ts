@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   CalloutComponent,
   ButtonComponent,
@@ -21,7 +21,7 @@ const CALLOUT_DIRECTIONS: readonly CalloutDirection[] = ['row', 'column'];
 
 @Component({
   selector: 'app-callout-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CalloutComponent, ButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

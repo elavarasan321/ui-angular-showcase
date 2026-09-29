@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { TabBarComponent, TabBarItem, CheckboxComponent } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
 import { playgroundState } from './playground-state';
@@ -11,7 +11,7 @@ const BASE_TABS: TabBarItem[] = [
 
 @Component({
   selector: 'app-tab-bar-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TabBarComponent, Playground, CheckboxComponent],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

@@ -1,12 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-showcase-header',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="showcase-header">
-      <h1>{{ title }}</h1>
-      <span class="showcase-header__badge">{{ selector }}</span>
+      <h1>{{ title() }}</h1>
+      <span class="showcase-header__badge">{{ selector() }}</span>
     </header>
   `,
   styles: [
@@ -36,6 +36,6 @@ import { Component, Input } from '@angular/core';
   ],
 })
 export class ShowcaseHeader {
-  @Input() title = '';
-  @Input() selector = '';
+  readonly title = input('');
+  readonly selector = input('');
 }

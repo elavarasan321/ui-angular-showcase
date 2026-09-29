@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import type { SkeletonLoaderBlock } from '@checkworkrights/ui-angular';
 import {
   ButtonComponent,
@@ -13,7 +13,7 @@ import { SkeletonLoaderPlayground } from './skeleton-loader-playground';
 
 @Component({
   selector: 'app-skeleton-loader-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ButtonComponent,
     SkeletonLoaderComponent,

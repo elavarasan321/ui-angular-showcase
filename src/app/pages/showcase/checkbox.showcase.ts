@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CheckboxComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { CheckboxPlayground } from './checkbox-playground';
 
 @Component({
   selector: 'app-checkbox-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CheckboxComponent, ExampleBlock, ShowcaseHeader, CheckboxPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Checkbox" selector="cwr-checkbox"></app-showcase-header>

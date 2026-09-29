@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   InputControlFieldComponent,
   RadioButtonComponent,
@@ -18,7 +18,7 @@ const INPUT_CONTROL_FIELD_ROLES: readonly InputControlFieldRole[] = ['radiogroup
 
 @Component({
   selector: 'app-input-control-field-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InputControlFieldComponent, RadioButtonComponent, CheckboxComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   SearchInputComponent,
   FormFieldComponent,
@@ -11,7 +11,7 @@ import { playgroundState } from './playground-state';
 
 @Component({
   selector: 'app-search-input-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SearchInputComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent, NumericInputComponent],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

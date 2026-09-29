@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ScrollbarComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { ScrollbarPlayground } from './scrollbar-playground';
 
 @Component({
   selector: 'app-scrollbar-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ScrollbarComponent, ExampleBlock, ShowcaseHeader, ScrollbarPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Scrollbar" selector="cwr-scrollbar"></app-showcase-header>

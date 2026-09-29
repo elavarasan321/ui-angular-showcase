@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AgGrid } from '@checkworkrights/ui-angular';
 import type { ColDef } from 'ag-grid-community';
 import { ExampleBlock } from './example-block';
@@ -29,7 +29,7 @@ const COLUMN_DEFS: ColDef<ApplicantRow>[] = [
 
 @Component({
   selector: 'app-ag-grid-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AgGrid, ExampleBlock, ShowcaseHeader, AgGridPlayground, ComponentReference],
   template: `
     <app-showcase-header title="AG Grid" selector="cwr-ag-grid"></app-showcase-header>

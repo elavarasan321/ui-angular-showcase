@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   DialogComponent,
   ButtonComponent,
@@ -15,7 +15,7 @@ const HEADER_DIRECTIONS: readonly OverlayHeaderDirection[] = ['row', 'column'];
 
 @Component({
   selector: 'app-dialog-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DialogComponent, ButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

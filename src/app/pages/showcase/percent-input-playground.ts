@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   PercentInputComponent,
   PercentInputState,
@@ -18,7 +18,7 @@ const STATES: readonly PercentInputState[] = ['idle', 'error'];
 
 @Component({
   selector: 'app-percent-input-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PercentInputComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe, NumericInputComponent],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

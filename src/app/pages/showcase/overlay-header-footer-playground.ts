@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   OverlayHeaderComponent,
   OverlayFooterComponent,
@@ -23,7 +23,7 @@ const OVERLAY_FOOTER_JUSTIFY: readonly OverlayFooterJustifyContent[] = [
 
 @Component({
   selector: 'app-overlay-header-footer-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [OverlayHeaderComponent, OverlayFooterComponent, ButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

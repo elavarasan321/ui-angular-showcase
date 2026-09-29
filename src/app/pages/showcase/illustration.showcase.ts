@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { IllustrationComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { IllustrationPlayground } from './illustration-playground';
@@ -7,7 +7,7 @@ import { ComponentReference } from './component-reference';
 
 @Component({
   selector: 'app-illustration-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [IllustrationComponent, ExampleBlock, ShowcaseHeader, IllustrationPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Illustration" selector="cwr-illustration"></app-showcase-header>

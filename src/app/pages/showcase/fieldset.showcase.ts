@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   FieldsetComponent,
   FormFieldComponent,
@@ -11,7 +11,7 @@ import { FieldsetPlayground } from './fieldset-playground';
 
 @Component({
   selector: 'app-fieldset-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FieldsetComponent,
     FormFieldComponent,
     TextInputComponent,

@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { AgGrid, FormFieldComponent, PickerInputComponent } from '@checkworkrights/ui-angular';
 import type { ColDef } from 'ag-grid-community';
 import { Playground } from './playground';
@@ -28,7 +28,7 @@ const COLUMN_DEFS: ColDef<ApplicantRow>[] = [
 
 @Component({
   selector: 'app-ag-grid-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AgGrid, Playground, FormFieldComponent, PickerInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()" language="typescript">

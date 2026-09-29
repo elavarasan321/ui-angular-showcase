@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ButtonComponent } from '@checkworkrights/ui-angular';
 import { ButtonPlayground } from './button-playground';
 import { ExampleBlock } from './example-block';
@@ -7,7 +7,7 @@ import { ComponentReference } from './component-reference';
 
 @Component({
   selector: 'app-button-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ButtonComponent, ButtonPlayground, ExampleBlock, ShowcaseHeader, ComponentReference],
   template: `
     <app-showcase-header title="Button" selector="cwr-button"></app-showcase-header>

@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   CheckboxInputComponent,
   CheckboxInputState,
@@ -16,7 +16,7 @@ const STATES: readonly CheckboxInputState[] = ['idle', 'error'];
 
 @Component({
   selector: 'app-checkbox-input-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CheckboxInputComponent, Playground, FormFieldComponent, PickerInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

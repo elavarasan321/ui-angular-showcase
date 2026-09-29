@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TextOverflowComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { TextOverflowPlayground } from './text-overflow-playground';
 
 @Component({
   selector: 'app-text-overflow-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TextOverflowComponent, ExampleBlock, ShowcaseHeader, TextOverflowPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Text Overflow" selector="cwr-text-overflow"></app-showcase-header>

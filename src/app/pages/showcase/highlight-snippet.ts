@@ -1,10 +1,16 @@
-import { Component, ViewEncapsulation, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewEncapsulation,
+  input,
+  signal,
+} from '@angular/core';
 import { IconComponent } from '@checkworkrights/ui-angular';
 import { Highlight } from 'ngx-highlightjs';
 
 @Component({
   selector: 'app-highlight-snippet',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Highlight, IconComponent],
   encapsulation: ViewEncapsulation.None,
   template: `

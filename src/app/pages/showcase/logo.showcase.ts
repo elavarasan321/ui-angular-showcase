@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { LogoComponent, LogomarkComponent, WordmarkComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { LogoPlayground } from './logo-playground';
@@ -7,7 +7,7 @@ import { ComponentReference } from './component-reference';
 
 @Component({
   selector: 'app-logo-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [LogoComponent,
     LogomarkComponent,
     WordmarkComponent,

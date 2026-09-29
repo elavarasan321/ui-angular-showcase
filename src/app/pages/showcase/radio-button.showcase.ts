@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RadioButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { RadioButtonPlayground } from './radio-button-playground';
 
 @Component({
   selector: 'app-radio-button-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RadioButtonComponent, ExampleBlock, ShowcaseHeader, RadioButtonPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Radio Button" selector="cwr-radio-button"></app-showcase-header>

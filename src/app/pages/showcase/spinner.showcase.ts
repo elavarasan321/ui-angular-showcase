@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SpinnerComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { SpinnerPlayground } from './spinner-playground';
 
 @Component({
   selector: 'app-spinner-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SpinnerComponent, ExampleBlock, ShowcaseHeader, SpinnerPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Spinner" selector="cwr-spinner"></app-showcase-header>

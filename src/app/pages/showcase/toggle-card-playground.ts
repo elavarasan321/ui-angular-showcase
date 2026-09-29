@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   ToggleCardComponent,
   ToggleCardState,
@@ -17,7 +17,7 @@ const TOGGLE_CARD_LABEL_POSITIONS: readonly ToggleCardLabelPosition[] = ['start'
 
 @Component({
   selector: 'app-toggle-card-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ToggleCardComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   EmptyStateContentBlockComponent,
   ButtonComponent,
@@ -11,7 +11,7 @@ import { EmptyStateContentBlockPlayground } from './empty-state-content-block-pl
 
 @Component({
   selector: 'app-empty-state-content-block-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [EmptyStateContentBlockComponent,
     ButtonComponent,
     InlineButtonComponent,

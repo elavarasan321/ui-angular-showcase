@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {
   InputControlFieldComponent,
   RadioButtonComponent,
@@ -12,7 +12,7 @@ import { InputControlFieldPlayground } from './input-control-field-playground';
 
 @Component({
   selector: 'app-input-control-field-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InputControlFieldComponent,
     RadioButtonComponent,
     RadioButtonCardComponent,

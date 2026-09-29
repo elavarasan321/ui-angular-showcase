@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ListboxComponent, ListboxGroup, ListboxOptionData } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { ListboxPlayground } from './listbox-playground';
 
 @Component({
   selector: 'app-listbox-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ListboxComponent, ExampleBlock, ShowcaseHeader, ListboxPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Listbox" selector="cwr-listbox"></app-showcase-header>

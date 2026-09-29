@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import type { LogoSize } from '@checkworkrights/ui-angular';
 import {
   LogoComponent,
@@ -18,7 +18,7 @@ const SIZES: readonly LogoSize[] = ['xs', 'sm', 'md', 'lg'];
 
 @Component({
   selector: 'app-logo-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [LogoComponent, Playground, FormFieldComponent, PickerInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

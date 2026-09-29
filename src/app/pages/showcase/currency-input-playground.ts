@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   CurrencyInputComponent,
   CurrencyInputState,
@@ -17,7 +17,7 @@ const STATES: readonly CurrencyInputState[] = ['idle', 'error'];
 
 @Component({
   selector: 'app-currency-input-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CurrencyInputComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

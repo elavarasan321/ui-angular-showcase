@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TooltipComponent, IconButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { TooltipPlayground } from './tooltip-playground';
 
 @Component({
   selector: 'app-tooltip-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TooltipComponent, IconButtonComponent, ExampleBlock, ShowcaseHeader, TooltipPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Tooltip" selector="cwr-tooltip"></app-showcase-header>

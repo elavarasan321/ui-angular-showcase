@@ -1,4 +1,12 @@
-import { Component, HostListener, computed, inject, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  computed,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogComponent, IconComponent, NavbarNavItem, SearchInputComponent, ScrollbarComponent } from '@checkworkrights/ui-angular';
 import { SidebarNavGroup } from '../sidebar/sidebar';
@@ -18,7 +26,7 @@ interface SearchResultGroup {
 
 @Component({
   selector: 'app-global-search',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DialogComponent, SearchInputComponent, IconComponent],
   templateUrl: './global-search.html',
   styleUrl: './global-search.scss',

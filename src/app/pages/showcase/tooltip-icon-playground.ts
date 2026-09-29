@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   TooltipIconComponent,
   TooltipArrowPosition,
@@ -19,7 +19,7 @@ const TOOLTIP_ARROW_POSITIONS: readonly TooltipArrowPosition[] = [
 
 @Component({
   selector: 'app-tooltip-icon-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TooltipIconComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

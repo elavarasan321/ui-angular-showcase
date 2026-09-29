@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   ModalComponent,
   ButtonComponent,
@@ -15,7 +15,7 @@ const MODAL_SIZES: readonly ModalSize[] = ['sm', 'md', 'lg', 'xl'];
 
 @Component({
   selector: 'app-modal-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ModalComponent, ButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

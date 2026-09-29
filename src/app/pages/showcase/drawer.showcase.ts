@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { DrawerComponent, ButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { DrawerPlayground } from './drawer-playground';
 
 @Component({
   selector: 'app-drawer-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DrawerComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, DrawerPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Drawer" selector="cwr-drawer"></app-showcase-header>

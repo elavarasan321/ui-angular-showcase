@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StatusPillComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { StatusPillPlayground } from './status-pill-playground';
 
 @Component({
   selector: 'app-status-pill-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [StatusPillComponent, ExampleBlock, ShowcaseHeader, StatusPillPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Status Pill" selector="cwr-status-pill"></app-showcase-header>

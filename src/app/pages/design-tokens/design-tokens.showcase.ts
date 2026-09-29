@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   HostListener,
@@ -300,7 +301,7 @@ const TOTAL_TOKENS = ALL_SECTIONS.reduce(
 
 @Component({
   selector: 'app-design-tokens-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ShowcaseHeader,
     TokenSection,

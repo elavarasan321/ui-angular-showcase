@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   TooltipComponent,
   IconButtonComponent,
@@ -28,7 +28,7 @@ const ARROW_POSITIONS: readonly HintArrowPosition[] = [
 
 @Component({
   selector: 'app-tooltip-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TooltipComponent, IconButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

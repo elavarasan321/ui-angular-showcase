@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { IconComponent } from '@checkworkrights/ui-angular';
 import { filterRows, resolveRows } from './token-data';
 import { TokenClipboardService } from './token-clipboard.service';
@@ -7,7 +7,7 @@ import { TokenThemeService } from './token-theme.service';
 
 @Component({
   selector: 'app-text-style-section',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [IconComponent],
   template: `
     <section class="token-section" [id]="anchorId()">

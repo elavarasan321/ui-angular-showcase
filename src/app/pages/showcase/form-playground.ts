@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   FormComponent,
   FormFieldComponent,
@@ -15,7 +15,7 @@ import { PickerOptionsPipe } from './picker-options.pipe';
 
 @Component({
   selector: 'app-form-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormComponent, FormFieldComponent, TextInputComponent, ButtonComponent, Playground, PickerInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

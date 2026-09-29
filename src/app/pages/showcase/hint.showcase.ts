@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HintComponent, ButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { HintPlayground } from './hint-playground';
 
 @Component({
   selector: 'app-hint-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [HintComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, HintPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Hint" selector="cwr-hint"></app-showcase-header>

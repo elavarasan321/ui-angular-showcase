@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   FieldsetComponent,
   FormFieldComponent,
@@ -17,7 +17,7 @@ const FIELDSET_GAPS: readonly FieldsetGap[] = ['md', 'lg', 'xl'];
 
 @Component({
   selector: 'app-fieldset-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FieldsetComponent, FormFieldComponent, TextInputComponent, Playground, PickerInputComponent, PickerOptionsPipe, NumericInputComponent],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

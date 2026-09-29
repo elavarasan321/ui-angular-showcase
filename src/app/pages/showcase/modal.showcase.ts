@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ModalComponent, ButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { ModalPlayground } from './modal-playground';
 
 @Component({
   selector: 'app-modal-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ModalComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, ModalPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Modal" selector="cwr-modal"></app-showcase-header>

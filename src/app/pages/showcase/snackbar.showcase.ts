@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ButtonComponent, SnackbarStackService } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { SnackbarPlayground } from './snackbar-playground';
 
 @Component({
   selector: 'app-snackbar-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ButtonComponent, ExampleBlock, ShowcaseHeader, SnackbarPlayground, ComponentReference],
   template: `
     <app-showcase-header

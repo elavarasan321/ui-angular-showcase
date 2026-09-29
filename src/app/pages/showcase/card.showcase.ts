@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CardComponent, ButtonComponent, BadgeComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { CardPlayground } from './card-playground';
 
 @Component({
   selector: 'app-card-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CardComponent, ButtonComponent, BadgeComponent, ExampleBlock, ShowcaseHeader, CardPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Card" selector="cwr-card"></app-showcase-header>

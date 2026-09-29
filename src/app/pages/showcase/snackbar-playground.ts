@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import {
   ButtonComponent,
   SnackbarStackService,
@@ -21,7 +21,7 @@ const SNACKBAR_STACK_POSITIONS: readonly SnackbarStackPosition[] = [
 
 @Component({
   selector: 'app-snackbar-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

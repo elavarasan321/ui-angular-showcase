@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { DialogComponent, ButtonComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { DialogPlayground } from './dialog-playground';
 
 @Component({
   selector: 'app-dialog-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DialogComponent, ButtonComponent, ExampleBlock, ShowcaseHeader, DialogPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Dialog" selector="cwr-dialog"></app-showcase-header>

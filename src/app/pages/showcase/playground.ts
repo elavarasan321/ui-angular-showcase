@@ -1,4 +1,4 @@
-import { Component, Input, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   ButtonComponent,
@@ -18,7 +18,7 @@ const PREVIEW_THEMES: SegmentControlItem[] = [
 
 @Component({
   selector: 'app-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [HighlightSnippet, ButtonComponent, SegmentControlComponent],
   template: `
     <section class="playground">
@@ -31,7 +31,7 @@ const PREVIEW_THEMES: SegmentControlItem[] = [
             [checkedValue]="previewTheme()"
             (checkedValueChange)="setPreviewTheme($any($event))"
           ></cwr-segment-control>
-          @if (state) {
+          @if (state(); as state) {
             <cwr-button
               variant="ghost"
               intent="neutral"
@@ -59,8 +59,8 @@ const PREVIEW_THEMES: SegmentControlItem[] = [
       </div>
       <app-highlight-snippet
         title="Usage"
-        [language]="language"
-        [code]="code"
+        [language]="language()"
+        [code]="code()"
       ></app-highlight-snippet>
     </section>
   `,
@@ -138,10 +138,10 @@ const PREVIEW_THEMES: SegmentControlItem[] = [
   ],
 })
 export class Playground {
-  @Input() code = '';
-  @Input() language = 'html';
+  readonly code = input('');
+  readonly language = input('html');
   /** From `playgroundState(this)` in the host playground; enables the Reset button. */
-  @Input() state?: PlaygroundState;
+  readonly state = input<PlaygroundState>();
 
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);

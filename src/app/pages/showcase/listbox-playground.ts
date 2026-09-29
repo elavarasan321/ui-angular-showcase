@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   ListboxComponent,
   ListboxGroup,
@@ -31,7 +31,7 @@ const GROUPS: ListboxGroup[] = [
 
 @Component({
   selector: 'app-listbox-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ListboxComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   FormComponent,
   FormFieldComponent,
@@ -12,7 +12,7 @@ import { FormPlayground } from './form-playground';
 
 @Component({
   selector: 'app-form-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormComponent,
     FormFieldComponent,
     TextInputComponent,

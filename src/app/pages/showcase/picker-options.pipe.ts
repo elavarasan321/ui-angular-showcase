@@ -7,7 +7,7 @@ import { PickerInputOption } from '@checkworkrights/ui-angular';
  * existing const arrays straight in. An optional leading option (e.g. a "(default)" sentinel) is
  * prepended as-is.
  */
-@Pipe({ name: 'pickerOptions', standalone: true })
+@Pipe({ name: 'pickerOptions' })
 export class PickerOptionsPipe implements PipeTransform {
   transform(
     values: readonly (string | number)[],

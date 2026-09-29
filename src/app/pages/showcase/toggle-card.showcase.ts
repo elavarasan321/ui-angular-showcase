@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ToggleCardComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { ToggleCardPlayground } from './toggle-card-playground';
 
 @Component({
   selector: 'app-toggle-card-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ToggleCardComponent, ExampleBlock, ShowcaseHeader, ToggleCardPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Toggle Card" selector="cwr-toggle-card"></app-showcase-header>

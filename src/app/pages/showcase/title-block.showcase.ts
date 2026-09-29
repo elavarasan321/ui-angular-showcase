@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ButtonComponent, IconButtonComponent, TitleBlockComponent } from '@checkworkrights/ui-angular';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
@@ -7,7 +7,7 @@ import { TitleBlockPlayground } from './title-block-playground';
 
 @Component({
   selector: 'app-title-block-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TitleBlockComponent,
     ButtonComponent,
     IconButtonComponent,

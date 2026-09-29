@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {
   OverlayHeaderComponent,
   OverlayFooterComponent,
@@ -14,7 +14,7 @@ const SURFACE_STYLE =
 
 @Component({
   selector: 'app-overlay-header-footer-showcase',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [OverlayHeaderComponent,
     OverlayFooterComponent,
     ButtonComponent,

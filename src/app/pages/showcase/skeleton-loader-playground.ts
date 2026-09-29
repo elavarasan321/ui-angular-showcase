@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import type { SkeletonLoaderGap } from '@checkworkrights/ui-angular';
 import {
   SkeletonLoaderComponent,
@@ -26,7 +26,7 @@ const PEOPLE = [
 
 @Component({
   selector: 'app-skeleton-loader-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     SkeletonLoaderComponent,
     SkeletonLoaderContentDirective,

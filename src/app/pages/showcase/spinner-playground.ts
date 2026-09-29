@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import type { spinnerSize } from '@checkworkrights/ui-angular';
 import {
   SpinnerComponent,
@@ -15,7 +15,7 @@ const SIZES: readonly spinnerSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 @Component({
   selector: 'app-spinner-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SpinnerComponent, Playground, FormFieldComponent, PickerInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

@@ -18,7 +18,7 @@
         (buttonClick)="openGlobalSearch()"
       ></cwr-icon-button>
       <cwr-icon-button
-        [icon]="isDarkMode ? 'icon.ui.sun' : 'icon.ui.moon'"
+        [icon]="isDarkMode() ? 'icon.ui.sun' : 'icon.ui.moon'"
         variant="solid"
         intent="neutral"
         size="md"
@@ -29,9 +29,9 @@
   </div>
 
   <div class="sidebar-scroll">
-    @if (topItems.length) {
+    @if (topItems().length) {
       <div class="sidebar-top">
-        @for (item of topItems; track trackByItem($index, item)) {
+        @for (item of topItems(); track trackByItem($index, item)) {
           <a
             class="sidebar-link"
             [routerLink]="item.route"
@@ -44,7 +44,7 @@
                 class="sidebar-link-badge"
                 [value]="item.badge.text"
                 intent="brand"
-                [emphasis]="isActiveRoute(item.route) ? 'inverse' : 'subtle'"
+                [emphasis]="isActiveRoute()(item.route) ? 'inverse' : 'subtle'"
               />
             }
           </a>
@@ -53,7 +53,7 @@
     }
 
     <div class="sidebar-groups">
-      @for (group of groups; track trackByGroup($index, group)) {
+      @for (group of groups(); track trackByGroup($index, group)) {
         <div class="sidebar-group">
           <button
             type="button"
@@ -87,7 +87,7 @@
                       class="sidebar-link-badge"
                       [value]="item.badge.text"
                       intent="brand"
-                      [emphasis]="isActiveRoute(item.route) ? 'inverse' : 'subtle'"
+                      [emphasis]="isActiveRoute()(item.route) ? 'inverse' : 'subtle'"
                     />
                   }
                 </a>

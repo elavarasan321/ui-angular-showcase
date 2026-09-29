@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   ScrollbarComponent,
   ScrollbarOverflow,
@@ -16,7 +16,7 @@ const SCROLLBAR_OVERFLOWS: readonly ScrollbarOverflow[] = ['vertical', 'horizont
 
 @Component({
   selector: 'app-scrollbar-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ScrollbarComponent, Playground, FormFieldComponent, PickerInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">

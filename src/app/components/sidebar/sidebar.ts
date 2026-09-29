@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import {
   BadgeComponent,
@@ -18,33 +26,42 @@ export interface SidebarNavGroup {
 
 @Component({
   selector: 'app-sidebar',
-  standalone: true,
-  imports: [RouterLink, RouterLinkActive, IconComponent, IconButtonComponent, BadgeComponent, LogoComponent],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    IconComponent,
+    IconButtonComponent,
+    BadgeComponent,
+    LogoComponent,
+  ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Sidebar implements OnInit {
-  @Input() topItems: NavbarNavItem[] = [];
-  @Input() groups: SidebarNavGroup[] = [];
-  @Input() isActiveRoute: (route: string) => boolean = () => false;
-  @Input() isDarkMode = true;
+export class Sidebar {
+  readonly topItems = input<NavbarNavItem[]>([]);
+  readonly groups = input<SidebarNavGroup[]>([]);
+  readonly isActiveRoute = input<(route: string) => boolean>(() => false);
+  readonly isDarkMode = input(true);
 
-  @Output() navItemClick = new EventEmitter<NavbarNavItem>();
-  @Output() themeToggle = new EventEmitter<void>();
+  readonly navItemClick = output<NavbarNavItem>();
+  readonly themeToggle = output<void>();
 
   protected readonly libraryVersion = UI_ANGULAR_VERSION;
 
   private readonly globalSearchService = inject(GlobalSearchService);
 
-  private readonly expandedGroupIds = new Set<string>();
+  private readonly expandedGroupIds = signal<ReadonlySet<string>>(new Set());
 
-  ngOnInit(): void {
-    const activeGroup = this.groups.find((group) =>
-      group.items.some((item) => this.isActiveRoute(item.route)),
-    );
-    if (activeGroup) {
-      this.expandedGroupIds.add(activeGroup.id);
-    }
+  constructor() {
+    // Open the group holding the current page, including after navigating from outside the
+    // sidebar (search, in-page links). Never collapses a group the user opened.
+    effect(() => {
+      const activeGroup = this.groups().find((group) => this.hasActiveItem(group));
+      if (activeGroup) {
+        this.expandedGroupIds.update((ids) => new Set(ids).add(activeGroup.id));
+      }
+    });
   }
 
   trackByItem(_index: number, item: NavbarNavItem): string {
@@ -56,19 +73,21 @@ export class Sidebar implements OnInit {
   }
 
   hasActiveItem(group: SidebarNavGroup): boolean {
-    return group.items.some((item) => this.isActiveRoute(item.route));
+    return group.items.some((item) => this.isActiveRoute()(item.route));
   }
 
   isExpanded(group: SidebarNavGroup): boolean {
-    return this.expandedGroupIds.has(group.id);
+    return this.expandedGroupIds().has(group.id);
   }
 
   toggleGroup(group: SidebarNavGroup): void {
-    if (this.expandedGroupIds.has(group.id)) {
-      this.expandedGroupIds.delete(group.id);
-    } else {
-      this.expandedGroupIds.add(group.id);
-    }
+    this.expandedGroupIds.update((ids) => {
+      const next = new Set(ids);
+      if (!next.delete(group.id)) {
+        next.add(group.id);
+      }
+      return next;
+    });
   }
 
   onItemClick(item: NavbarNavItem): void {

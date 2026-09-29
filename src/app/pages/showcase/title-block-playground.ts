@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import type { TitleBlockVariant } from '@checkworkrights/ui-angular';
 import {
   ButtonComponent,
@@ -17,7 +17,7 @@ const VARIANTS: readonly TitleBlockVariant[] = ['title', 'section'];
 
 @Component({
   selector: 'app-title-block-playground',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TitleBlockComponent, ButtonComponent, IconButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">
