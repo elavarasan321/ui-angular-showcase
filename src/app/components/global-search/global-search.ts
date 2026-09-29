@@ -58,6 +58,27 @@ const readRecentRoutes = (): string[] => {
   }
 };
 
+export interface TextPart {
+  text: string;
+  match: boolean;
+}
+
+/** Splits `text` around every case-insensitive occurrence of `term`, for highlighting. */
+export function splitOnMatches(text: string, term: string): TextPart[] {
+  const needle = term.trim().toLowerCase();
+  if (!needle) return [{ text, match: false }];
+  const haystack = text.toLowerCase();
+  const parts: TextPart[] = [];
+  let start = 0;
+  for (let at = haystack.indexOf(needle); at >= 0; at = haystack.indexOf(needle, start)) {
+    if (at > start) parts.push({ text: text.slice(start, at), match: false });
+    parts.push({ text: text.slice(at, at + needle.length), match: true });
+    start = at + needle.length;
+  }
+  if (start < text.length) parts.push({ text: text.slice(start), match: false });
+  return parts;
+}
+
 interface SearchResultGroup {
   label: string;
   items: SearchResultItem[];
@@ -212,6 +233,10 @@ export class GlobalSearch {
   protected selectResult(item: SearchResultItem): void {
     this.close();
     this.router.navigate(['/' + item.route], { queryParams: item.queryParams });
+  }
+
+  protected highlight(text: string): TextPart[] {
+    return splitOnMatches(text, this.searchTerm());
   }
 
   protected trackByItem(_index: number, item: SearchResultItem): string {

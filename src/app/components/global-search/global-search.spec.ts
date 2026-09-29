@@ -2,7 +2,7 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
 import { SHOWCASE_PAGE_GROUPS, toNavGroups } from '../../showcase-pages';
-import { GlobalSearch } from './global-search';
+import { GlobalSearch, splitOnMatches } from './global-search';
 import { GlobalSearchService } from './global-search.service';
 
 @Component({ template: '' })
@@ -74,6 +74,14 @@ describe('GlobalSearch', () => {
     ]);
   });
 
+  it('should highlight the matched part of a result', async () => {
+    await search('card');
+    const matches = Array.from(document.querySelectorAll('.global-search-match')).map((el) =>
+      el.textContent?.trim(),
+    );
+    expect(matches).toContain('Card');
+  });
+
   it('should match pages by label', async () => {
     expect(await search('toggle card')).toContain('Toggle Card');
   });
@@ -89,5 +97,20 @@ describe('GlobalSearch', () => {
   it('should match design tokens', async () => {
     const results = await search('--color-bg-brand');
     expect(results.some((r) => r.startsWith('--color-bg-brand'))).toBeTrue();
+  });
+});
+
+describe('splitOnMatches', () => {
+  it('should split around every case-insensitive match', () => {
+    expect(splitOnMatches('Toggle card, Checkbox Card', 'CARD')).toEqual([
+      { text: 'Toggle ', match: false },
+      { text: 'card', match: true },
+      { text: ', Checkbox ', match: false },
+      { text: 'Card', match: true },
+    ]);
+  });
+
+  it('should return the whole text when the term is blank', () => {
+    expect(splitOnMatches('Button', '  ')).toEqual([{ text: 'Button', match: false }]);
   });
 });
