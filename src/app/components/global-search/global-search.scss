@@ -154,3 +154,8 @@
   font: var(--text-style-label-sm);
   font-family: inherit;
 }
+
+.global-search-match {
+  color: var(--color-text-brand);
+  font-weight: 600;
+}

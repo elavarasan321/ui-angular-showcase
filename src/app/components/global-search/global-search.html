@@ -35,9 +35,9 @@
                 (click)="selectResult(item)"
               >
                 <span class="global-search-result-text">
-                  <span class="global-search-result-label">{{ item.label }}</span>
+                  <span class="global-search-result-label">@for (part of highlight(item.label); track $index) {<span [class.global-search-match]="part.match">{{ part.text }}</span>}</span>
                   @if (item.detail) {
-                    <span class="global-search-result-detail">{{ item.detail }}</span>
+                    <span class="global-search-result-detail">@for (part of highlight(item.detail); track $index) {<span [class.global-search-match]="part.match">{{ part.text }}</span>}</span>
                   }
                 </span>
                 <cwr-icon class="global-search-result-arrow" icon="icon.ui.arrow-right" size="sm" />
