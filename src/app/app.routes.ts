@@ -320,4 +320,10 @@ export const routes: Routes = [
       import('./pages/showcase/title-block.showcase').then((m) => m.TitleBlockShowcase),
     title: 'Title Block',
   },
+  {
+    path: 'showcase/skeleton-loader',
+    loadComponent: () =>
+      import('./pages/showcase/skeleton-loader.showcase').then((m) => m.SkeletonLoaderShowcase),
+    title: 'Skeleton Loader',
+  },
 ];

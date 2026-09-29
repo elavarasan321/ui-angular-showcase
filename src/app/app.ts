@@ -173,6 +173,12 @@ export class App {
         { id: 'showcase-hint', label: 'Hint', route: 'showcase/hint' },
         { id: 'showcase-spinner', label: 'Spinner', route: 'showcase/spinner' },
         {
+          id: 'showcase-skeleton-loader',
+          label: 'Skeleton Loader',
+          route: 'showcase/skeleton-loader',
+          badge: { text: 'NEW' },
+        },
+        {
           id: 'showcase-snackbar',
           label: 'Snackbar',
           route: 'showcase/snackbar',

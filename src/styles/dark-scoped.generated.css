@@ -660,9 +660,9 @@
   --timing-timing-function-ease-out: ease-out; /** ease-out */
   --timing-timing-function-ease-in-out: ease-in-out; /** ease-in-out */
   --color-bg-surface: #203146; /** Default background color for surface containers. */
-  --color-bg-surface-hover: #4c5c737a; /** Default background color for surface containers when in a hover state */
-  --color-bg-surface-raised: #4c5c7333; /** Background color for raised surface containers. */
-  --color-bg-surface-lowered: #1219237a; /** Background color for lowered surface containers. */
+  --color-bg-surface-hover: #4c5c7352; /** Default background color for surface containers when in a hover state */
+  --color-bg-surface-raised: #4c5c733d; /** Background color for raised surface containers. */
+  --color-bg-surface-lowered: #12192352; /** Background color for lowered surface containers. */
   --color-bg-surface-input: #12192314; /** Background color for text and select input containers. */
   --color-bg-surface-input-hover: #12192352; /** Background color for text and select input containers when in the hover state. */
   --color-bg-surface-input-readonly: #121923b8; /** Background color for text and select input containers when in the readonly state. */
@@ -1389,9 +1389,9 @@
   --ag-formula-token7-background-color: #261b4933; /** The background color of the 7th formula field token associated range */
   --ag-formula-token7-color: #8d6ae9; /** The color of the 7th formula field token */
   --ag-full-row-edit-invalid-background-color: #47141c52; /** Background color for a row with invalid editor status */
-  --ag-header-background-color: #4c5c7333; /** Background color for header and header-like components */
-  --ag-header-cell-hover-background-color: #4c5c737a; /** Background color of a header cell when hovering over it, or `transparent` for no change. */
-  --ag-header-cell-moving-background-color: #4c5c737a; /** Background color of a header cell when dragging to reposition it, or `transparent` for no change. */
+  --ag-header-background-color: #4c5c733d; /** Background color for header and header-like components */
+  --ag-header-cell-hover-background-color: #4c5c7352; /** Background color of a header cell when hovering over it, or `transparent` for no change. */
+  --ag-header-cell-moving-background-color: #4c5c7352; /** Background color of a header cell when dragging to reposition it, or `transparent` for no change. */
   --ag-header-column-border-color: #4c5c7352;
   --ag-header-column-resize-handle-color: #3c4d64; /** Color of the drag handle on resizable header columns. Set this to transparent to hide the resize handle. */
   --ag-header-row-border-color: #4c5c7352;
@@ -1429,7 +1429,7 @@
   --ag-note-popup-input-background-color: #12192300; /** The background color of the note popup input */
   --ag-note-popup-input-text-color: #e2e2e2; /** The color of the note popup input text */
   --ag-note-popup-text-color: #e2e2e2; /** The color of the note popup text */
-  --ag-odd-row-background-color: #1219237a; /** Alternative background colour applied to every other row to create a striped effect */
+  --ag-odd-row-background-color: #12192352; /** Alternative background colour applied to every other row to create a striped effect */
   --ag-panel-background-color: #203146; /** Background color for panels and dialogs such as the advanced filter builder. Note that for the integrated charts panel, the chart fully fills the panel so no background is visible behind it - set the chart theme to change its background. */
   --ag-panel-title-bar-background-color: #526278; /** Background color for the title bar of panels and dialogs such as the integrated charts panel and the advanced filter builder. */
   --ag-panel-title-bar-border-color: #4c5c7352;
@@ -1451,14 +1451,14 @@
   --ag-range-selection-background-color: #0032227a; /** Background color of selected cell ranges. Choosing a semi-transparent color ensure that multiple overlapping ranges look correct. */
   --ag-range-selection-border-color: #00936f; /** The color used for borders around range selections. The selection background defaults to a semi-transparent version of this color. */
   --ag-range-selection-chart-background-color: #e2e2e2; /** Background color for cells that provide data to the current range chart */
-  --ag-range-selection-chart-category-background-color: #1219237a; /** Background color for cells that provide categories to the current range chart */
+  --ag-range-selection-chart-category-background-color: #12192352; /** Background color for cells that provide categories to the current range chart */
   --ag-range-selection-highlight-color: #526278; /** Background color to briefly apply to a cell range when the user copies from or pastes into it. */
   --ag-row-batch-edit-background-color: #0032227a; /** Background color for rows in batch edit mode */
   --ag-row-batch-edit-text-color: #e2e2e2; /** Text color for rows in batch edit mode */
   --ag-row-border-color: #4c5c7352;
   --ag-row-drag-indicator-color: #00b68b; /** Color of the indicator line used to show where a row will be inserted when dragging to reorder rows */
-  --ag-row-hover-color: #4c5c737a; /** Background color when hovering over rows in the grid and in dropdown menus. Set to `transparent` to disable the hover effect. Note: if you want a hover effect on one but not the other, use CSS selectors instead of this property. */
-  --ag-row-loading-skeleton-effect-color: #1219237a; /** Color of the skeleton loading effect used when loading row data with the Server-side Row Model */
+  --ag-row-hover-color: #4c5c7352; /** Background color when hovering over rows in the grid and in dropdown menus. Set to `transparent` to disable the hover effect. Note: if you want a hover effect on one but not the other, use CSS selectors instead of this property. */
+  --ag-row-loading-skeleton-effect-color: #12192352; /** Color of the skeleton loading effect used when loading row data with the Server-side Row Model */
   --ag-row-numbers-selected-color: #526278; /** Background color of the Row Numbers cells when the range selects all cells for that row. */
   --ag-select-cell-background-color: #12192352; /** Background color for selected items within the multiple select widget */
   --ag-select-cell-border-color: #6e7a89;
@@ -1478,7 +1478,7 @@
   --ag-status-bar-value-color: #e2e2e2; /** Text color for values in the status bar component */
   --ag-subtle-text-color: #a7aaaf; /** Color of text and UI elements that should stand out less than the default. */
   --ag-tab-background-color: #526278; /** Background color of tabs */
-  --ag-tab-bar-background-color: #1219237a; /** Background color of the container for tabs */
+  --ag-tab-bar-background-color: #12192352; /** Background color of the container for tabs */
   --ag-tab-bar-border-color: #4c5c7352;
   --ag-tab-hover-background-color: #6e7a89; /** Background color of tabs when hovered over */
   --ag-tab-hover-text-color: #e2e2e2; /** Color of text within tabs when hovered over */
@@ -1601,7 +1601,7 @@
   --ag-internal-toobar-input-padding-inline: 32px;
   --ag-internal-filter-list-item-height: 1.5rem;
   --ag-internal-wrapper-border: 1px solid #4c5c7352 solid #4c5c7352;
-  --ag-internal-details-row-background-color: #1219237a;
+  --ag-internal-details-row-background-color: #12192352;
   --text-style-d1-font-family: Inter; /** Display 1 text style, for use in hero sections and very large data stats. Do not use for headings or body text. */
   --text-style-d1-font-weight: 700; /** Display 1 text style, for use in hero sections and very large data stats. Do not use for headings or body text. */
   --text-style-d1-font-size: 4rem; /** Display 1 text style, for use in hero sections and very large data stats. Do not use for headings or body text. */

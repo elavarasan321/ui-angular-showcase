@@ -2333,11 +2333,12 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
         "name": "size",
         "type": "StatusPillSize",
         "values": [
+          "'md'",
           "'sm'",
           "'xs'"
         ],
         "required": false,
-        "default": "'sm'"
+        "default": "'md'"
       },
       {
         "name": "value",
@@ -3074,5 +3075,125 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       }
     ],
     "outputs": []
+  },
+  "ng-template[cwrSkeletonContent]": {
+    "className": "SkeletonLoaderContentDirective",
+    "inputs": [],
+    "outputs": []
+  },
+  "ng-template[cwrSkeletonPlaceholder]": {
+    "className": "SkeletonLoaderPlaceholderDirective",
+    "inputs": [],
+    "outputs": []
+  },
+  "cwr-skeleton-loader": {
+    "className": "SkeletonLoaderComponent",
+    "inputs": [
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "true"
+      },
+      {
+        "name": "blockCount",
+        "type": "number",
+        "required": false,
+        "default": "1"
+      },
+      {
+        "name": "lines",
+        "type": "number",
+        "required": false,
+        "default": "DEFAULT_LINES"
+      },
+      {
+        "name": "hasImage",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "blocks",
+        "type": "SkeletonLoaderBlock[]",
+        "required": false,
+        "default": "undefined"
+      },
+      {
+        "name": "loadingLabel",
+        "type": "string",
+        "required": false,
+        "default": "'Loading'"
+      },
+      {
+        "name": "blockGap",
+        "type": "SkeletonLoaderGap",
+        "values": [
+          "'none'",
+          "'3xs'",
+          "'2xs'",
+          "'xs'",
+          "'sm'",
+          "'md'",
+          "'lg'",
+          "'xl'",
+          "'2xl'"
+        ],
+        "required": false,
+        "default": "'lg'"
+      },
+      {
+        "name": "imageGap",
+        "type": "SkeletonLoaderGap",
+        "values": [
+          "'none'",
+          "'3xs'",
+          "'2xs'",
+          "'xs'",
+          "'sm'",
+          "'md'",
+          "'lg'",
+          "'xl'",
+          "'2xl'"
+        ],
+        "required": false,
+        "default": "'sm'"
+      },
+      {
+        "name": "lineGap",
+        "type": "SkeletonLoaderGap",
+        "values": [
+          "'none'",
+          "'3xs'",
+          "'2xs'",
+          "'xs'",
+          "'sm'",
+          "'md'",
+          "'lg'",
+          "'xl'",
+          "'2xl'"
+        ],
+        "required": false,
+        "default": "'sm'"
+      },
+      {
+        "name": "showDelay",
+        "type": "number",
+        "required": false,
+        "default": "undefined"
+      },
+      {
+        "name": "minVisibleDuration",
+        "type": "number",
+        "required": false,
+        "default": "undefined"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "contentShown",
+        "type": "void"
+      }
+    ]
   }
 };

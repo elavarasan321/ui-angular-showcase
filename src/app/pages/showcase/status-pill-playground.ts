@@ -20,7 +20,7 @@ const STATUS_PILL_INTENTS: readonly StatusPillIntent[] = [
   'negative',
 ];
 const STATUS_PILL_VARIANTS: readonly StatusPillVariant[] = ['outline', 'solid'];
-const STATUS_PILL_SIZES: readonly StatusPillSize[] = ['sm', 'xs'];
+const STATUS_PILL_SIZES: readonly StatusPillSize[] = ['md', 'sm', 'xs'];
 
 @Component({
   selector: 'app-status-pill-playground',
@@ -88,7 +88,7 @@ export class StatusPillPlayground {
   value = signal('Active');
   intent = signal<StatusPillIntent>('positive');
   variant = signal<StatusPillVariant>('outline');
-  size = signal<StatusPillSize>('sm');
+  size = signal<StatusPillSize>('md');
 
   generatedCode = computed(() => {
     const attrs = [

@@ -15,7 +15,7 @@ export interface AccessibilityNotes {
 }
 
 /** Library version these notes were checked against; the page flags a mismatch. */
-export const ACCESSIBILITY_NOTES_VERSION = '1.0.32-dev.7f5d95c';
+export const ACCESSIBILITY_NOTES_VERSION = '1.0.32-dev.d968770';
 
 export const ACCESSIBILITY_NOTES: Record<string, AccessibilityNotes> = {
   "cwr-ag-grid": {
@@ -935,6 +935,19 @@ export const ACCESSIBILITY_NOTES: Record<string, AccessibilityNotes> = {
     "notes": [
       "It renders label, separator and value as plain text. Intent is only a data attribute used for styling, so the status is not conveyed to assistive technology beyond that text.",
       "The leading and trailing icons do not get aria-hidden."
+    ]
+  },
+  "cwr-skeleton-loader": {
+    "keyboard": [],
+    "aria": [
+      "While loading, it renders a wrapper with role=\"status\" (an implicit polite live region).",
+      "The loadingLabel text (default 'Loading') goes into a visually hidden span inside that wrapper only once the skeleton becomes visible, so nothing is announced during showDelay or for loads that finish before it.",
+      "The generated blocks and any cwrSkeletonPlaceholder content are aria-hidden=\"true\"."
+    ],
+    "notes": [
+      "When loading ends, the role=\"status\" wrapper is removed and the cwrSkeletonContent template is rendered. Nothing announces that the content has arrived; move focus or announce it yourself if the change matters.",
+      "Once settled, the host switches to display: contents, so width or other layout styles set on cwr-skeleton-loader stop applying to the loaded content.",
+      "The pulse animation is turned off under prefers-reduced-motion: reduce."
     ]
   },
   "cwr-styled-link": {

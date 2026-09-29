@@ -50,9 +50,14 @@ import { StatusPillPlayground } from './status-pill-playground';
     </app-example-block>
 
     <app-example-block title="Sizes" [code]="sizesCode">
+      <cwr-status-pill size="md" intent="neutral" value="Medium"></cwr-status-pill>
       <cwr-status-pill size="sm" intent="neutral" value="Small"></cwr-status-pill>
       <cwr-status-pill size="xs" intent="neutral" value="Extra small"></cwr-status-pill>
     </app-example-block>
+    <p>
+      <code>md</code> is the default. Leading and trailing icons scale with the pill, so each size
+      uses the matching icon size.
+    </p>
 
     <app-component-reference selector="cwr-status-pill"></app-component-reference>
   `,
@@ -72,6 +77,7 @@ export class StatusPillShowcase {
   iconCode = `<cwr-status-pill intent="positive" value="Verified" leadingIcon="icon.status.success"></cwr-status-pill>
 <cwr-status-pill intent="neutral" size="xs" value="Details" trailingIcon="icon.ui.external-link"></cwr-status-pill>`;
 
-  sizesCode = `<cwr-status-pill size="sm" intent="neutral" value="Small"></cwr-status-pill>
+  sizesCode = `<cwr-status-pill size="md" intent="neutral" value="Medium"></cwr-status-pill>
+<cwr-status-pill size="sm" intent="neutral" value="Small"></cwr-status-pill>
 <cwr-status-pill size="xs" intent="neutral" value="Extra small"></cwr-status-pill>`;
 }
