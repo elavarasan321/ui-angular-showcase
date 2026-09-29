@@ -11,6 +11,7 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavbarNavItem } from '@checkworkrights/ui-angular';
 import { filter } from 'rxjs/operators';
 import { GlobalSearch } from './components/global-search/global-search';
+import { PageFooter } from './components/page-footer/page-footer';
 import { Sidebar } from './components/sidebar/sidebar';
 import { SHOWCASE_PAGE_GROUPS, toNavGroups } from './showcase-pages';
 
@@ -22,7 +23,7 @@ const toPath = (url: string): string => url.split(/[?#]/)[0];
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Sidebar, GlobalSearch],
+  imports: [RouterOutlet, Sidebar, GlobalSearch, PageFooter],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,7 +39,7 @@ export class App {
 
   // A signal (rather than reading router.url directly) so OnPush views that call
   // isActiveRoute() re-render on every navigation.
-  private readonly currentPath = signal(toPath(this.router.url));
+  protected readonly currentPath = signal(toPath(this.router.url));
 
   protected readonly topItems: NavbarNavItem[] = [];
   protected readonly groups = toNavGroups(SHOWCASE_PAGE_GROUPS);

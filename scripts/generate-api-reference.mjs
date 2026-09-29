@@ -28,7 +28,13 @@ for (const p of [DTS_PATH, MJS_PATH]) {
   }
 }
 
-const version = JSON.parse(readFileSync(resolve(PKG_ROOT, 'package.json'), 'utf8')).version;
+const pkg = JSON.parse(readFileSync(resolve(PKG_ROOT, 'package.json'), 'utf8'));
+const version = pkg.version;
+// Browse URL for the library source, e.g. https://github.com/org/repo/tree/main/packages/ui/angular
+const repoUrl = (pkg.repository?.url ?? '').replace(/^git\+/, '').replace(/\.git$/, '');
+const sourceUrl = repoUrl
+  ? `${repoUrl}/tree/main${pkg.repository?.directory ? `/${pkg.repository.directory}` : ''}`
+  : '';
 const dts = ts.createSourceFile(DTS_PATH, readFileSync(DTS_PATH, 'utf8'), ts.ScriptTarget.Latest, true);
 const mjs = ts.createSourceFile(MJS_PATH, readFileSync(MJS_PATH, 'utf8'), ts.ScriptTarget.Latest, true);
 
@@ -288,6 +294,9 @@ writeFileSync(
   `${banner}
 /** Installed version of @checkworkrights/ui-angular. */
 export const UI_ANGULAR_VERSION = ${JSON.stringify(version)};
+
+/** Where the library source lives on GitHub (from its package.json \`repository\`). */
+export const UI_ANGULAR_SOURCE_URL = ${JSON.stringify(sourceUrl)};
 `,
 );
 console.log(

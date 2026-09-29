@@ -2,3 +2,6 @@
 
 /** Installed version of @checkworkrights/ui-angular. */
 export const UI_ANGULAR_VERSION = "1.0.32-dev.d968770";
+
+/** Where the library source lives on GitHub (from its package.json `repository`). */
+export const UI_ANGULAR_SOURCE_URL = "https://github.com/checkworkrights/platform/tree/main/packages/ui/angular";

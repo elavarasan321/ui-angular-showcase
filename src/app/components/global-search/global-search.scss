@@ -65,6 +65,25 @@
   transition: background 0.12s ease, color 0.12s ease;
 }
 
+.global-search-result-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.global-search-result-label,
+.global-search-result-detail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.global-search-result-detail {
+  font: var(--text-style-caption);
+  color: var(--color-text-surface-secondary);
+}
+
 .global-search-result-arrow {
   flex-shrink: 0;
   color: var(--color-text-brand);

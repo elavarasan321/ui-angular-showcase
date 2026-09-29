@@ -19,6 +19,13 @@ export interface ShowcasePage {
    * badge while the installed library is on that release.
    */
   addedIn?: string;
+  /** Page source under `src/app/pages/`, without the extension. Used for "Edit this page". */
+  file: string;
+  /**
+   * Library selectors documented on the page; the first one's folder (`cwr-menu` →
+   * `src/lib/menu`) is the "View source" target. Search also matches these.
+   */
+  selectors?: string[];
   loadComponent: () => Promise<Type<unknown>>;
 }
 
@@ -38,6 +45,7 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Setup Instructions',
         route: 'getting-started',
         title: 'Getting Started',
+        file: 'showcase/getting-started.showcase',
         loadComponent: () =>
           import('./pages/showcase/getting-started.showcase').then((m) => m.GettingStartedShowcase),
       },
@@ -46,10 +54,18 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Design Tokens',
         route: 'design-tokens',
         addedIn: '1.0.30',
+        file: 'design-tokens/design-tokens.showcase',
         loadComponent: () =>
           import('./pages/design-tokens/design-tokens.showcase').then(
             (m) => m.DesignTokensShowcase,
           ),
+      },
+      {
+        id: 'changelog',
+        label: 'Changelog',
+        route: 'changelog',
+        file: 'changelog/changelog',
+        loadComponent: () => import('./pages/changelog/changelog').then((m) => m.Changelog),
       },
     ],
   },
@@ -61,6 +77,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         id: 'showcase-button',
         label: 'Button',
         route: 'showcase/button',
+        file: 'showcase/button.showcase',
+        selectors: ['cwr-button'],
         loadComponent: () =>
           import('./pages/showcase/button.showcase').then((m) => m.ButtonShowcase),
       },
@@ -68,6 +86,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         id: 'showcase-icons-button',
         label: 'Icon Button',
         route: 'showcase/withicon',
+        file: 'showcase/icon-button.showcase',
+        selectors: ['cwr-icon-button'],
         loadComponent: () =>
           import('./pages/showcase/icon-button.showcase').then((m) => m.IconButtonShowcase),
       },
@@ -75,6 +95,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         id: 'showcase-inline-button',
         label: 'Inline Button',
         route: 'showcase/inline-button',
+        file: 'showcase/inline-button.showcase',
+        selectors: ['cwr-inline-button'],
         loadComponent: () =>
           import('./pages/showcase/inline-button.showcase').then((m) => m.InlineButtonShowcase),
       },
@@ -83,6 +105,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Menu Button',
         route: 'showcase/menu-button',
         addedIn: '1.0.32',
+        file: 'showcase/menu-button.showcase',
+        selectors: ['cwr-menu', 'cwr-menu-button'],
         loadComponent: () =>
           import('./pages/showcase/menu-button.showcase').then((m) => m.MenuButtonShowcase),
       },
@@ -91,6 +115,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Toggle',
         route: 'showcase/toggle',
         addedIn: '1.0.30',
+        file: 'showcase/toggle.showcase',
+        selectors: ['cwr-toggle'],
         loadComponent: () =>
           import('./pages/showcase/toggle.showcase').then((m) => m.ToggleShowcase),
       },
@@ -99,6 +125,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Toggle Card',
         route: 'showcase/toggle-card',
         addedIn: '1.0.32',
+        file: 'showcase/toggle-card.showcase',
+        selectors: ['cwr-toggle-card'],
         loadComponent: () =>
           import('./pages/showcase/toggle-card.showcase').then((m) => m.ToggleCardShowcase),
       },
@@ -107,6 +135,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Styled Link',
         route: 'showcase/styled-link',
         addedIn: '1.0.32',
+        file: 'showcase/styled-link.showcase',
+        selectors: ['cwr-styled-link'],
         loadComponent: () =>
           import('./pages/showcase/styled-link.showcase').then((m) => m.StyledLinkShowcase),
       },
@@ -121,12 +151,16 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Form',
         route: 'showcase/form',
         addedIn: '1.0.30',
+        file: 'showcase/form.showcase',
+        selectors: ['cwr-form'],
         loadComponent: () => import('./pages/showcase/form.showcase').then((m) => m.FormShowcase),
       },
       {
         id: 'showcase-form-field',
         label: 'Form Field',
         route: 'showcase/field-form',
+        file: 'showcase/form-field.showcase',
+        selectors: ['cwr-form-field'],
         loadComponent: () =>
           import('./pages/showcase/form-field.showcase').then((m) => m.FormFieldShowcase),
       },
@@ -135,6 +169,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Fieldset',
         route: 'showcase/fieldset',
         addedIn: '1.0.30',
+        file: 'showcase/fieldset.showcase',
+        selectors: ['cwr-fieldset'],
         loadComponent: () =>
           import('./pages/showcase/fieldset.showcase').then((m) => m.FieldsetShowcase),
       },
@@ -143,6 +179,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Input Control Field',
         route: 'showcase/input-control-field',
         addedIn: '1.0.32',
+        file: 'showcase/input-control-field.showcase',
+        selectors: ['cwr-input-control-field'],
         loadComponent: () =>
           import('./pages/showcase/input-control-field.showcase').then(
             (m) => m.InputControlFieldShowcase,
@@ -152,6 +190,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         id: 'showcase-text-input',
         label: 'Text Input',
         route: 'showcase/text-input',
+        file: 'showcase/text-input.showcase',
+        selectors: ['cwr-text-input'],
         loadComponent: () =>
           import('./pages/showcase/text-input.showcase').then((m) => m.TextInputShowcase),
       },
@@ -160,6 +200,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Textarea Input',
         route: 'showcase/textarea-input',
         addedIn: '1.0.31',
+        file: 'showcase/textarea-input.showcase',
+        selectors: ['cwr-textarea-input'],
         loadComponent: () =>
           import('./pages/showcase/textarea-input.showcase').then((m) => m.TextareaInputShowcase),
       },
@@ -168,6 +210,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Email Input',
         route: 'showcase/email-input',
         addedIn: '1.0.30',
+        file: 'showcase/email-input.showcase',
+        selectors: ['cwr-email-input'],
         loadComponent: () =>
           import('./pages/showcase/email-input.showcase').then((m) => m.EmailInputShowcase),
       },
@@ -176,6 +220,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Date Input',
         route: 'showcase/date-input',
         addedIn: '1.0.30',
+        file: 'showcase/date-input.showcase',
+        selectors: ['cwr-date-input'],
         loadComponent: () =>
           import('./pages/showcase/date-input.showcase').then((m) => m.DateInputShowcase),
       },
@@ -184,6 +230,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Numeric Input',
         route: 'showcase/numeric-input',
         addedIn: '1.0.30',
+        file: 'showcase/numeric-input.showcase',
+        selectors: ['cwr-numeric-input'],
         loadComponent: () =>
           import('./pages/showcase/numeric-input.showcase').then((m) => m.NumericInputShowcase),
       },
@@ -192,6 +240,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Currency Input',
         route: 'showcase/currency-input',
         addedIn: '1.0.31',
+        file: 'showcase/currency-input.showcase',
+        selectors: ['cwr-currency-input'],
         loadComponent: () =>
           import('./pages/showcase/currency-input.showcase').then((m) => m.CurrencyInputShowcase),
       },
@@ -200,6 +250,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Percent Input',
         route: 'showcase/percent-input',
         addedIn: '1.0.31',
+        file: 'showcase/percent-input.showcase',
+        selectors: ['cwr-percent-input'],
         loadComponent: () =>
           import('./pages/showcase/percent-input.showcase').then((m) => m.PercentInputShowcase),
       },
@@ -208,6 +260,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Search Input',
         route: 'showcase/search-input',
         addedIn: '1.0.32',
+        file: 'showcase/search-input.showcase',
+        selectors: ['cwr-search-input'],
         loadComponent: () =>
           import('./pages/showcase/search-input.showcase').then((m) => m.SearchInputShowcase),
       },
@@ -216,6 +270,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Select Input',
         route: 'showcase/select-input',
         addedIn: '1.0.32',
+        file: 'showcase/select-input.showcase',
+        selectors: ['cwr-select-input'],
         loadComponent: () =>
           import('./pages/showcase/select-input.showcase').then((m) => m.SelectInputShowcase),
       },
@@ -224,6 +280,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Picker Input',
         route: 'showcase/picker-input',
         addedIn: '1.0.32',
+        file: 'showcase/picker-input.showcase',
+        selectors: ['cwr-picker-input'],
         loadComponent: () =>
           import('./pages/showcase/picker-input.showcase').then((m) => m.PickerInputShowcase),
       },
@@ -232,6 +290,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Listbox',
         route: 'showcase/listbox',
         addedIn: '1.0.31',
+        file: 'showcase/listbox.showcase',
+        selectors: ['cwr-listbox'],
         loadComponent: () =>
           import('./pages/showcase/listbox.showcase').then((m) => m.ListboxShowcase),
       },
@@ -240,6 +300,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Segment Control',
         route: 'showcase/segment-control',
         addedIn: '1.0.31',
+        file: 'showcase/segment-control.showcase',
+        selectors: ['cwr-segment-control'],
         loadComponent: () =>
           import('./pages/showcase/segment-control.showcase').then((m) => m.SegmentControlShowcase),
       },
@@ -248,6 +310,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Checkbox',
         route: 'showcase/checkbox',
         addedIn: '1.0.30',
+        file: 'showcase/checkbox.showcase',
+        selectors: ['cwr-checkbox'],
         loadComponent: () =>
           import('./pages/showcase/checkbox.showcase').then((m) => m.CheckboxShowcase),
       },
@@ -256,6 +320,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Checkbox Input',
         route: 'showcase/input-checkbox',
         addedIn: '1.0.30',
+        file: 'showcase/checkbox-input.showcase',
+        selectors: ['cwr-checkbox-input'],
         loadComponent: () =>
           import('./pages/showcase/checkbox-input.showcase').then((m) => m.CheckboxInputShowcase),
       },
@@ -264,6 +330,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Checkbox Card',
         route: 'showcase/card-checkbox',
         addedIn: '1.0.30',
+        file: 'showcase/checkbox-card.showcase',
+        selectors: ['cwr-checkbox-card'],
         loadComponent: () =>
           import('./pages/showcase/checkbox-card.showcase').then((m) => m.CheckboxCardShowcase),
       },
@@ -272,6 +340,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Radio Button',
         route: 'showcase/radio-button',
         addedIn: '1.0.30',
+        file: 'showcase/radio-button.showcase',
+        selectors: ['cwr-radio-button'],
         loadComponent: () =>
           import('./pages/showcase/radio-button.showcase').then((m) => m.RadioButtonShowcase),
       },
@@ -280,6 +350,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Radio Button Card',
         route: 'showcase/card-radio-button',
         addedIn: '1.0.30',
+        file: 'showcase/radio-button-card.showcase',
+        selectors: ['cwr-radio-button-card'],
         loadComponent: () =>
           import('./pages/showcase/radio-button-card.showcase').then(
             (m) => m.RadioButtonCardShowcase,
@@ -296,6 +368,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Badge',
         route: 'showcase/badge',
         addedIn: '1.0.30',
+        file: 'showcase/badge.showcase',
+        selectors: ['cwr-badge'],
         loadComponent: () => import('./pages/showcase/badge.showcase').then((m) => m.BadgeShowcase),
       },
       {
@@ -303,6 +377,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Status Pill',
         route: 'showcase/status-pill',
         addedIn: '1.0.32',
+        file: 'showcase/status-pill.showcase',
+        selectors: ['cwr-status-pill'],
         loadComponent: () =>
           import('./pages/showcase/status-pill.showcase').then((m) => m.StatusPillShowcase),
       },
@@ -311,6 +387,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Callout',
         route: 'showcase/callout',
         addedIn: '1.0.30',
+        file: 'showcase/callout.showcase',
+        selectors: ['cwr-callout'],
         loadComponent: () =>
           import('./pages/showcase/callout.showcase').then((m) => m.CalloutShowcase),
       },
@@ -318,12 +396,16 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         id: 'showcase-hint',
         label: 'Hint',
         route: 'showcase/hint',
+        file: 'showcase/hint.showcase',
+        selectors: ['cwr-hint'],
         loadComponent: () => import('./pages/showcase/hint.showcase').then((m) => m.HintShowcase),
       },
       {
         id: 'showcase-spinner',
         label: 'Spinner',
         route: 'showcase/spinner',
+        file: 'showcase/spinner.showcase',
+        selectors: ['cwr-spinner'],
         loadComponent: () =>
           import('./pages/showcase/spinner.showcase').then((m) => m.SpinnerShowcase),
       },
@@ -332,6 +414,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Skeleton Loader',
         route: 'showcase/skeleton-loader',
         addedIn: '1.0.32',
+        file: 'showcase/skeleton-loader.showcase',
+        selectors: ['cwr-skeleton-loader'],
         loadComponent: () =>
           import('./pages/showcase/skeleton-loader.showcase').then((m) => m.SkeletonLoaderShowcase),
       },
@@ -340,6 +424,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Snackbar',
         route: 'showcase/snackbar',
         addedIn: '1.0.32',
+        file: 'showcase/snackbar.showcase',
+        selectors: ['cwr-snackbar', 'cwr-snackbar-stack'],
         loadComponent: () =>
           import('./pages/showcase/snackbar.showcase').then((m) => m.SnackbarShowcase),
       },
@@ -347,6 +433,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         id: 'showcase-tooltip',
         label: 'Tooltip',
         route: 'showcase/tooltip',
+        file: 'showcase/tooltip.showcase',
+        selectors: ['cwr-tooltip'],
         loadComponent: () =>
           import('./pages/showcase/tooltip.showcase').then((m) => m.TooltipShowcase),
       },
@@ -355,6 +443,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Tooltip Icon',
         route: 'showcase/tooltip-icon',
         addedIn: '1.0.32',
+        file: 'showcase/tooltip-icon.showcase',
+        selectors: ['cwr-tooltip-icon'],
         loadComponent: () =>
           import('./pages/showcase/tooltip-icon.showcase').then((m) => m.TooltipIconShowcase),
       },
@@ -363,6 +453,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Empty State Content Block',
         route: 'showcase/empty-state',
         addedIn: '1.0.32',
+        file: 'showcase/empty-state-content-block.showcase',
+        selectors: ['cwr-empty-state-content-block'],
         loadComponent: () =>
           import('./pages/showcase/empty-state-content-block.showcase').then(
             (m) => m.EmptyStateContentBlockShowcase,
@@ -379,6 +471,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Dialog',
         route: 'showcase/dialog',
         addedIn: '1.0.32',
+        file: 'showcase/dialog.showcase',
+        selectors: ['cwr-dialog'],
         loadComponent: () =>
           import('./pages/showcase/dialog.showcase').then((m) => m.DialogShowcase),
       },
@@ -387,6 +481,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Drawer',
         route: 'showcase/drawer',
         addedIn: '1.0.32',
+        file: 'showcase/drawer.showcase',
+        selectors: ['cwr-drawer'],
         loadComponent: () =>
           import('./pages/showcase/drawer.showcase').then((m) => m.DrawerShowcase),
       },
@@ -395,6 +491,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Modal',
         route: 'showcase/modal',
         addedIn: '1.0.32',
+        file: 'showcase/modal.showcase',
+        selectors: ['cwr-modal'],
         loadComponent: () => import('./pages/showcase/modal.showcase').then((m) => m.ModalShowcase),
       },
       {
@@ -402,6 +500,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Overlay Header & Footer',
         route: 'showcase/overlay-header-footer',
         addedIn: '1.0.32',
+        file: 'showcase/overlay-header-footer.showcase',
+        selectors: ['cwr-overlay-header', 'cwr-overlay-footer'],
         loadComponent: () =>
           import('./pages/showcase/overlay-header-footer.showcase').then(
             (m) => m.OverlayHeaderFooterShowcase,
@@ -418,6 +518,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Card',
         route: 'showcase/card',
         addedIn: '1.0.32',
+        file: 'showcase/card.showcase',
+        selectors: ['cwr-card'],
         loadComponent: () => import('./pages/showcase/card.showcase').then((m) => m.CardShowcase),
       },
       {
@@ -425,6 +527,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Title Block',
         route: 'showcase/title-block',
         addedIn: '1.0.32',
+        file: 'showcase/title-block.showcase',
+        selectors: ['cwr-title-block'],
         loadComponent: () =>
           import('./pages/showcase/title-block.showcase').then((m) => m.TitleBlockShowcase),
       },
@@ -433,6 +537,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Divider',
         route: 'showcase/divider',
         addedIn: '1.0.30',
+        file: 'showcase/divider.showcase',
+        selectors: ['cwr-divider'],
         loadComponent: () =>
           import('./pages/showcase/divider.showcase').then((m) => m.DividerShowcase),
       },
@@ -441,6 +547,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Scrollbar',
         route: 'showcase/scrollbar',
         addedIn: '1.0.30',
+        file: 'showcase/scrollbar.showcase',
+        selectors: ['cwr-scrollbar'],
         loadComponent: () =>
           import('./pages/showcase/scrollbar.showcase').then((m) => m.ScrollbarShowcase),
       },
@@ -448,6 +556,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         id: 'showcase-text-overflow',
         label: 'Text Overflow',
         route: 'showcase/text-overflow',
+        file: 'showcase/text-overflow.showcase',
+        selectors: ['cwr-text-overflow'],
         loadComponent: () =>
           import('./pages/showcase/text-overflow.showcase').then((m) => m.TextOverflowShowcase),
       },
@@ -456,6 +566,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Tab Bar',
         route: 'showcase/tab-bar',
         addedIn: '1.0.32',
+        file: 'showcase/tab-bar.showcase',
+        selectors: ['cwr-tab-bar'],
         loadComponent: () =>
           import('./pages/showcase/tab-bar.showcase').then((m) => m.TabBarShowcase),
       },
@@ -464,6 +576,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'Navbar',
         route: 'showcase/navbar',
         addedIn: '1.0.32',
+        file: 'showcase/navbar.showcase',
+        selectors: ['cwr-navbar'],
         loadComponent: () =>
           import('./pages/showcase/navbar.showcase').then((m) => m.NavbarShowcase),
       },
@@ -472,6 +586,8 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         label: 'AG Grid',
         route: 'showcase/ag-grid',
         addedIn: '1.0.32',
+        file: 'showcase/ag-grid.showcase',
+        selectors: ['cwr-ag-grid'],
         loadComponent: () =>
           import('./pages/showcase/ag-grid.showcase').then((m) => m.AgGridShowcase),
       },
@@ -485,24 +601,40 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
         id: 'showcase-logo',
         label: 'Logo',
         route: 'showcase/logo',
+        file: 'showcase/logo.showcase',
+        selectors: ['cwr-logo', 'cwr-logomark', 'cwr-wordmark'],
         loadComponent: () => import('./pages/showcase/logo.showcase').then((m) => m.LogoShowcase),
       },
       {
         id: 'showcase-icon',
         label: 'Icon',
         route: 'showcase/icon',
+        file: 'showcase/icon.showcase',
+        selectors: ['cwr-icon'],
         loadComponent: () => import('./pages/showcase/icon.showcase').then((m) => m.IconShowcase),
       },
       {
         id: 'showcase-illustration',
         label: 'Illustration',
         route: 'showcase/illustration',
+        file: 'showcase/illustration.showcase',
+        selectors: ['cwr-illustration'],
         loadComponent: () =>
           import('./pages/showcase/illustration.showcase').then((m) => m.IllustrationShowcase),
       },
     ],
   },
 ];
+
+/** Every page in sidebar order — the order previous/next links follow. */
+export const ALL_SHOWCASE_PAGES: ShowcasePage[] = SHOWCASE_PAGE_GROUPS.flatMap(
+  (group) => group.pages,
+);
+
+/** The page whose route matches a router path such as `/showcase/button`. */
+export function findPageByPath(path: string): ShowcasePage | undefined {
+  return ALL_SHOWCASE_PAGES.find((page) => `/${page.route}` === path);
+}
 
 /** `1.0.32-dev.d968770` → `1.0.32` */
 const CURRENT_RELEASE = UI_ANGULAR_VERSION.replace(/-.*$/, '');

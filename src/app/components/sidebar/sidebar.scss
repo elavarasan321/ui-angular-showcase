@@ -36,6 +36,12 @@
   font: var(--text-style-caption);
   color: var(--color-text-surface-subtle);
   overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.sidebar-version:hover {
+  color: var(--color-text-brand);
+  text-decoration: underline;
 }
 
 .sidebar-actions-row {

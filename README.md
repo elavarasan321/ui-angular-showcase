@@ -36,15 +36,16 @@ Then open http://localhost:4200/. The app reloads automatically when you change 
 
 ## Scripts
 
-| Command                   | Description                                                     |
-| ------------------------- | --------------------------------------------------------------- |
-| `npm start`               | Regenerates the generated files, then runs `ng serve`           |
-| `npm run build`           | Regenerates the generated files, then builds into `dist/`       |
-| `npm run watch`           | Rebuilds in development mode whenever a file changes            |
-| `npm test`                | Runs the unit tests with Karma                                  |
-| `npm run generate`        | Runs both generators below                                      |
-| `npm run generate:tokens` | Regenerates the design-token data and the scoped dark theme CSS |
-| `npm run generate:api`    | Regenerates the component API tables and the library version    |
+| Command                      | Description                                                      |
+| ---------------------------- | ---------------------------------------------------------------- |
+| `npm start`                  | Regenerates the generated files, then runs `ng serve`            |
+| `npm run build`              | Regenerates the generated files, then builds into `dist/`        |
+| `npm run watch`              | Rebuilds in development mode whenever a file changes             |
+| `npm test`                   | Runs the unit tests with Karma                                   |
+| `npm run generate`           | Runs both generators below                                       |
+| `npm run generate:tokens`    | Regenerates the design-token data and the scoped dark theme CSS  |
+| `npm run generate:api`       | Regenerates the component API tables and the library version     |
+| `npm run generate:changelog` | Regenerates the changelog page from the library's `CHANGELOG.md` |
 
 ## Generated files
 
@@ -52,12 +53,13 @@ Then open http://localhost:4200/. The app reloads automatically when you change 
 
 Don't edit these files by hand:
 
-| File                                                     | Generator                     | Reads from                                       |
-| -------------------------------------------------------- | ----------------------------- | ------------------------------------------------ |
-| `src/app/pages/showcase/api-reference.generated.ts`      | `generate-api-reference.mjs`  | `@checkworkrights/ui-angular` typings and bundle |
-| `src/app/library-version.generated.ts`                   | `generate-api-reference.mjs`  | `@checkworkrights/ui-angular/package.json`       |
-| `src/app/pages/design-tokens/design-tokens.generated.ts` | `generate-design-tokens.mjs`  | `@checkworkrights/design-tokens/dist/dark.css`   |
-| `src/styles/dark-scoped.generated.css`                   | `generate-design-tokens.mjs`  | `@checkworkrights/design-tokens/dist/dark.css`   |
+| File                                                     | Generator                    | Reads from                                       |
+| -------------------------------------------------------- | ---------------------------- | ------------------------------------------------ |
+| `src/app/pages/showcase/api-reference.generated.ts`      | `generate-api-reference.mjs` | `@checkworkrights/ui-angular` typings and bundle |
+| `src/app/library-version.generated.ts`                   | `generate-api-reference.mjs` | `@checkworkrights/ui-angular/package.json`       |
+| `src/app/pages/changelog/changelog.generated.ts`         | `generate-changelog.mjs`     | `@checkworkrights/ui-angular/CHANGELOG.md`       |
+| `src/app/pages/design-tokens/design-tokens.generated.ts` | `generate-design-tokens.mjs` | `@checkworkrights/design-tokens/dist/dark.css`   |
+| `src/styles/dark-scoped.generated.css`                   | `generate-design-tokens.mjs` | `@checkworkrights/design-tokens/dist/dark.css`   |
 
 After you upgrade either library, run `npm run generate` (or restart `npm start`) and commit the regenerated files.
 
@@ -72,8 +74,10 @@ src/
     app.routes.ts             Routes built from showcase-pages.ts, plus the 404 page
     components/
       sidebar/                Side navigation
-      global-search/          Search dialog for pages
+      global-search/          Search dialog: pages, selectors, inputs and design tokens
+      page-footer/            Edit/source links and previous/next under every page
     pages/
+      changelog/              Library changelog, generated from the installed package
       design-tokens/          Design-tokens browser
       showcase/               One page per component, plus shared building blocks
   styles/                     Global and generated styles
@@ -88,7 +92,10 @@ src/
    - `ComponentReference` for the generated API table
 
    See `title-block.showcase.ts` for an example.
-2. Add an entry to the matching group in `src/app/showcase-pages.ts`. The routes, the sidebar and the global search are all built from this list. Set `addedIn` to the library release that introduced the component (for example `'1.0.33'`). The page shows a **NEW** badge while the installed library is on that release, and the badge disappears automatically after the next release.
+
+2. Add an entry to the matching group in `src/app/showcase-pages.ts`. The routes, the sidebar and the global search are all built from this list. Set `addedIn` to the library release that introduced the component (for example `'1.0.33'`). The page shows a **NEW** badge while the installed library is on that release, and the badge disappears automatically after the next release. Also set:
+   - `file`: the page's path under `src/app/pages/`, without `.ts`. The "Edit this page" link uses it.
+   - `selectors`: the library selectors the page documents. Search matches them, and the first one sets the "View source" link (`cwr-menu` → `src/lib/menu` in the library repo).
 3. Run `npm run generate:api` if the component is new in the library.
 
 ## Testing against a local library build

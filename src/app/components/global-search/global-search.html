@@ -1,8 +1,8 @@
 @if (open()) {
   <cwr-dialog
     class="global-search-dialog"
-    title="Search components"
-    introText="Jump to any component, instantly."
+    title="Search"
+    introText="Find components, inputs and design tokens."
     (dismiss)="close()"
   >
   <div class="dialog-wrapper">
@@ -11,8 +11,8 @@
         class="global-search-input"
         [value]="searchTerm()"
         (valueChange)="onSearchTermChange($event)"
-        placeholder="Search components…"
-        aria-label="Search components"
+        placeholder="Try cwr-button, disabled or --color-bg…"
+        aria-label="Search components, inputs and design tokens"
       />
     </div>
 
@@ -20,7 +20,7 @@
       @if (resultGroups().length === 0) {
         <div class="global-search-empty">
           <cwr-icon icon="icon.ui.search" size="lg" />
-          <p>No components match "{{ searchTerm() }}"</p>
+          <p>Nothing matches "{{ searchTerm() }}"</p>
         </div>
       } @else {
         @for (group of resultGroups(); track trackByGroup($index, group)) {
@@ -34,7 +34,12 @@
                 (mouseenter)="setActive(item)"
                 (click)="selectResult(item)"
               >
-                <span class="global-search-result-label">{{ item.label }}</span>
+                <span class="global-search-result-text">
+                  <span class="global-search-result-label">{{ item.label }}</span>
+                  @if (item.detail) {
+                    <span class="global-search-result-detail">{{ item.detail }}</span>
+                  }
+                </span>
                 <cwr-icon class="global-search-result-arrow" icon="icon.ui.arrow-right" size="sm" />
               </button>
             }

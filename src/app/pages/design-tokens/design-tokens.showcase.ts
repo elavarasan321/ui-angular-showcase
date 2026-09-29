@@ -10,6 +10,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   IconComponent,
@@ -791,6 +792,15 @@ export class DesignTokensShowcase implements AfterViewInit, OnDestroy {
   readonly categories = CATEGORIES;
   readonly totalTokens = TOTAL_TOKENS;
   readonly term = signal('');
+
+  constructor() {
+    // Global search links here with ?q=<token> to open the page pre-filtered. Subscribing (not
+    // reading the snapshot) keeps it working when the page is already open.
+    this.route.queryParamMap.pipe(takeUntilDestroyed()).subscribe((params) => {
+      const q = params.get('q');
+      if (q !== null) this.term.set(q);
+    });
+  }
   readonly stuck = signal(false);
   readonly activeSection = signal(ALL_SECTIONS[0].id);
 
