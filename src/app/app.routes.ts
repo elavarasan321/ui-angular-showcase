@@ -326,4 +326,10 @@ export const routes: Routes = [
       import('./pages/showcase/skeleton-loader.showcase').then((m) => m.SkeletonLoaderShowcase),
     title: 'Skeleton Loader',
   },
+  // Must stay last: matches any path not claimed above.
+  {
+    path: '**',
+    loadComponent: () => import('./pages/not-found/not-found').then((m) => m.NotFound),
+    title: 'Page Not Found',
+  },
 ];

@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, computed, inject, signal } from '@angular/core';
+import { Component, HostListener, computed, inject, input, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogComponent, IconComponent, NavbarNavItem, SearchInputComponent, ScrollbarComponent } from '@checkworkrights/ui-angular';
 import { SidebarNavGroup } from '../sidebar/sidebar';
@@ -24,8 +24,8 @@ interface SearchResultGroup {
   styleUrl: './global-search.scss',
 })
 export class GlobalSearch {
-  @Input() topItems: NavbarNavItem[] = [];
-  @Input() groups: SidebarNavGroup[] = [];
+  readonly topItems = input<NavbarNavItem[]>([]);
+  readonly groups = input<SidebarNavGroup[]>([]);
 
   private readonly router = inject(Router);
   private readonly searchService = inject(GlobalSearchService);
@@ -35,8 +35,8 @@ export class GlobalSearch {
   private readonly rawActiveIndex = signal(0);
 
   private readonly allItems = computed<SearchResultItem[]>(() => [
-    ...this.topItems.map((item) => this.toResultItem(item, 'General')),
-    ...this.groups.flatMap((group) => group.items.map((item) => this.toResultItem(item, group.label))),
+    ...this.topItems().map((item) => this.toResultItem(item, 'General')),
+    ...this.groups().flatMap((group) => group.items.map((item) => this.toResultItem(item, group.label))),
   ]);
 
   protected readonly resultGroups = computed<SearchResultGroup[]>(() => {
