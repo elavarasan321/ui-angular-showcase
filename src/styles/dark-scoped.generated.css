@@ -1024,7 +1024,6 @@
   --icon-check-reference-check: fa-regular fa-comments-question; /** comments-question */
   --icon-check-rsa: fa-kit fa-icon-wine-bottle-glass; /** icon-wine-bottle-glass */
   --icon-check-study-entitlement: fa-regular fa-graduation-cap; /** graduation-cap */
-  --icon-check-vaccination: fa-regular fa-syringe; /** syringe */
   --icon-check-right-to-work: fa-kit fa-icon-briefcase-check-double; /** icon-briefcase-check-double */
   --icon-check-vevo: fa-regular fa-passport; /** passport */
   --icon-check-working-with-children: fa-regular fa-children; /** children */
@@ -1041,11 +1040,6 @@
   --icon-status-check-incomplete: fa-kit fa-icon-badge-xmark; /** icon-badge-xmark */
   --icon-status-check-resubmit: fa-kit fa-icon-badge-sync; /** icon-badge-sync */
   --icon-status-check-unverified: fa-kit fa-icon-badge-question; /** icon-badge-question */
-  --icon-status-check-vaccinated-booster: fa-kit fa-icon-syringe-circle-plus; /** icon-syringe-circle-plus */
-  --icon-status-check-vaccinated-full: fa-kit fa-icon-syringe-shield-check-double; /** icon-syringe-shield-check-double */
-  --icon-status-check-vaccinated-partial: fa-kit fa-icon-syringe-halved-shield; /** icon-syringe-halved-shield */
-  --icon-status-check-vaccine-exemption-medical: fa-regular fa-user-doctor-message; /** user-doctor-message */
-  --icon-status-check-vaccine-exemption-personal: fa-regular fa-hand; /** hand */
   --icon-status-check-verified: fa-kit fa-icon-badge-check-double; /** icon-badge-check-double */
   --icon-status-danger: fa-regular fa-triangle-exclamation; /** triangle-exclamation */
   --icon-status-fail: fa-regular fa-circle-xmark; /** circle-xmark */
