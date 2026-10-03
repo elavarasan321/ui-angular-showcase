@@ -16,6 +16,15 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    "version": "Unreleased",
+    "sections": [
+      {
+        "title": "Changed",
+        "html": "<ul><li><strong>Breaking:</strong> <code>AgGrid</code> (<code>&lt;cwr-ag-grid&gt;</code>) moved to the secondary entry point <code>@checkworkrights/ui-angular/ag-grid</code> and was removed from <code>UIComponentsModule</code> and the root <code>@checkworkrights/ui-angular</code> export. Importing <code>UIComponentsModule</code> no longer pulls AG Grid into a consumer's initial bundle. Migrate by importing <code>AgGrid</code> from <code>@checkworkrights/ui-angular/ag-grid</code> in the component or lazy-loaded module that renders the grid.</li></ul>"
+      }
+    ]
+  },
+  {
     "version": "1.0.32",
     "date": "2026-09-30",
     "sections": [

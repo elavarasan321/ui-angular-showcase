@@ -1387,6 +1387,24 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
         "type": "'left' | 'right'",
         "required": false,
         "default": "'right'"
+      },
+      {
+        "name": "justifyFixed",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "placement",
+        "type": "'below' | 'above'",
+        "required": false,
+        "default": "'below'"
+      },
+      {
+        "name": "placementFixed",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
       }
     ],
     "outputs": []
@@ -1432,6 +1450,12 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
         "type": "boolean",
         "required": false,
         "default": "true"
+      },
+      {
+        "name": "hideLabel",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
       }
     ],
     "outputs": [
@@ -2401,55 +2425,6 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       }
     ]
   },
-  "cwr-ag-grid": {
-    "className": "AgGrid",
-    "inputs": [
-      {
-        "name": "columnDefs",
-        "type": "ColDef<any, any>[]",
-        "required": false,
-        "default": "[]"
-      },
-      {
-        "name": "rowData",
-        "type": "unknown[] | null",
-        "required": false,
-        "default": "null"
-      },
-      {
-        "name": "gridOptions",
-        "type": "GridOptions<any> | undefined",
-        "required": false
-      },
-      {
-        "name": "theme",
-        "type": "Theme",
-        "required": false,
-        "default": "cwrAgGridTheme",
-        "description": "AG Grid theme applied to the grid. Defaults to `cwrAgGridTheme`, generated from CWR's design tokens so the grid tracks light/dark automatically — see `../ag-grid-theme`."
-      },
-      {
-        "name": "masterDetail",
-        "type": "boolean",
-        "required": false,
-        "default": "false",
-        "description": "Enables the master/detail expandable row layout. Requires an AG Grid Enterprise licence — call `registerAgGridEnterprise()` (or add `provideAgGridEnterprise()` to your app's providers) from `@checkworkrights/ui-angular` before rendering a grid with this enabled."
-      },
-      {
-        "name": "detailCellRendererParams",
-        "type": "any",
-        "required": false,
-        "description": "Configuration for the detail row rendered beneath an expanded master row. Owned by the consumer, since only they know the shape of a detail record."
-      },
-      {
-        "name": "detailCellRenderer",
-        "type": "any",
-        "required": false,
-        "description": "Replaces AG Grid's default detail grid with a component of the consumer's own, for detail panels that need more than a grid"
-      }
-    ],
-    "outputs": []
-  },
   "cwr-snackbar": {
     "className": "SnackbarComponent",
     "inputs": [
@@ -3195,5 +3170,292 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
         "type": "void"
       }
     ]
+  },
+  "cwr-list-table-column": {
+    "className": "ListTableColumnComponent",
+    "inputs": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "header",
+        "type": "string",
+        "required": false,
+        "default": "''"
+      },
+      {
+        "name": "primary",
+        "type": "unknown",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "width",
+        "type": "string",
+        "required": false,
+        "default": "'1fr'"
+      },
+      {
+        "name": "minWidth",
+        "type": "string",
+        "required": false,
+        "default": "''"
+      },
+      {
+        "name": "pinned",
+        "type": "unknown",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "sortable",
+        "type": "unknown",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "firstSortDirection",
+        "type": "'desc' | 'asc'",
+        "required": false,
+        "default": "'asc'"
+      },
+      {
+        "name": "sortValue",
+        "type": "ListTableSortValueFn<unknown> | undefined",
+        "required": false,
+        "default": "undefined"
+      },
+      {
+        "name": "align",
+        "type": "'center' | 'start' | 'end'",
+        "required": false,
+        "default": "'start'"
+      },
+      {
+        "name": "truncateHeader",
+        "type": "unknown",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "truncateCells",
+        "type": "unknown",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "maxLines",
+        "type": "number",
+        "required": false,
+        "default": "1"
+      },
+      {
+        "name": "hideHeaderLabel",
+        "type": "unknown",
+        "required": false,
+        "default": "false"
+      }
+    ],
+    "outputs": []
+  },
+  "cwr-list-table": {
+    "className": "ListTableComponent",
+    "inputs": [
+      {
+        "name": "rows",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]"
+      },
+      {
+        "name": "rowKey",
+        "type": "ListTableRowKeyFn<unknown> | undefined",
+        "required": false,
+        "default": "undefined"
+      },
+      {
+        "name": "rowLabel",
+        "type": "ListTableRowLabelFn<unknown> | undefined",
+        "required": false,
+        "default": "undefined"
+      },
+      {
+        "name": "isRowSelectable",
+        "type": "ListTableRowSelectableFn<unknown> | undefined",
+        "required": false,
+        "default": "undefined"
+      },
+      {
+        "name": "state",
+        "type": "'error' | 'loading' | 'ready' | 'empty'",
+        "required": false,
+        "default": "'ready'"
+      },
+      {
+        "name": "loadingLabel",
+        "type": "string",
+        "required": false,
+        "default": "'Loading'"
+      },
+      {
+        "name": "aria-label",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "selectionMode",
+        "type": "'none' | 'multiple'",
+        "required": false,
+        "default": "'none'"
+      },
+      {
+        "name": "selection",
+        "type": "ListTableRowKey[]",
+        "required": false,
+        "default": "[]"
+      },
+      {
+        "name": "persistSelection",
+        "type": "unknown",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "allPagesSelected",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "excludedSelection",
+        "type": "ListTableRowKey[]",
+        "required": false,
+        "default": "[]"
+      },
+      {
+        "name": "striped",
+        "type": "unknown",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "sortColumn",
+        "type": "string | null",
+        "required": false,
+        "default": "null"
+      },
+      {
+        "name": "sortDirection",
+        "type": "ListTableSortDirection",
+        "required": false,
+        "default": "null"
+      },
+      {
+        "name": "clientSideSort",
+        "type": "unknown",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "hasPagination",
+        "type": "unknown",
+        "required": false,
+        "default": "true"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "default": "1"
+      },
+      {
+        "name": "pageSize",
+        "type": "number",
+        "required": false,
+        "default": "10"
+      },
+      {
+        "name": "pageSizeOptions",
+        "type": "number[]",
+        "required": false,
+        "default": "Array.from(LIST_TABLE_PAGE_SIZE_OPTIONS)"
+      },
+      {
+        "name": "totalRecordCount",
+        "type": "number",
+        "required": false,
+        "default": "0"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "selectionChange",
+        "type": "ListTableRowKey[]"
+      },
+      {
+        "name": "allPagesSelectedChange",
+        "type": "boolean"
+      },
+      {
+        "name": "excludedSelectionChange",
+        "type": "ListTableRowKey[]"
+      },
+      {
+        "name": "sortChange",
+        "type": "ListTableSortChangeEvent"
+      },
+      {
+        "name": "pageChange",
+        "type": "number"
+      },
+      {
+        "name": "pageSizeChange",
+        "type": "number"
+      }
+    ]
+  },
+  "cwr-popup": {
+    "className": "PopupComponent",
+    "inputs": [
+      {
+        "name": "width",
+        "type": "'content' | 'trigger'",
+        "required": false,
+        "default": "'content'"
+      },
+      {
+        "name": "align",
+        "type": "'start' | 'end'",
+        "required": false,
+        "default": "'start'"
+      },
+      {
+        "name": "alignFixed",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "placement",
+        "type": "'below' | 'above'",
+        "required": false,
+        "default": "'below'"
+      },
+      {
+        "name": "placementFixed",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "offset",
+        "type": "string",
+        "required": false,
+        "default": "'var(--space-2xs)'"
+      }
+    ],
+    "outputs": []
   }
 };

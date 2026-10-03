@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { AgGrid, FormFieldComponent, PickerInputComponent } from '@checkworkrights/ui-angular';
+import { AgGrid } from '@checkworkrights/ui-angular/ag-grid';
+import { FormFieldComponent, PickerInputComponent } from '@checkworkrights/ui-angular';
 import type { ColDef } from 'ag-grid-community';
 import { Playground } from './playground';
 import { playgroundState } from './playground-state';

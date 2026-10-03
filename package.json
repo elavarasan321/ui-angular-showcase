@@ -24,7 +24,7 @@
     "@angular/platform-browser": "^21.2.15",
     "@angular/router": "^21.2.15",
     "@checkworkrights/design-tokens": "0.2.14-dev.13b5d29",
-    "@checkworkrights/ui-angular": "1.0.32-dev.13b5d29",
+    "@checkworkrights/ui-angular": "1.0.32-dev.1b9b617",
     "ag-grid-angular": "^36.0.2",
     "ag-grid-community": "^36.0.2",
     "ngx-highlightjs": "^14.0.1",

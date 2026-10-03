@@ -15,7 +15,7 @@ export interface AccessibilityNotes {
 }
 
 /** Library version these notes were checked against; the page flags a mismatch. */
-export const ACCESSIBILITY_NOTES_VERSION = '1.0.32-dev.13b5d29';
+export const ACCESSIBILITY_NOTES_VERSION = '1.0.32-dev.1b9b617';
 
 export const ACCESSIBILITY_NOTES: Record<string, AccessibilityNotes> = {
   "cwr-ag-grid": {

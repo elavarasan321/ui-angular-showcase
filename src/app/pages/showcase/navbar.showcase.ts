@@ -3,13 +3,15 @@ import { IconComponent, Navbar, NavbarNavItem, WhatsNewItem } from '@checkworkri
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
 import { ComponentReference } from './component-reference';
+import { NavbarPlayground } from './navbar-playground';
 
 @Component({
   selector: 'app-navbar-showcase',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Navbar, ExampleBlock, ShowcaseHeader, ComponentReference],
+  imports: [Navbar, ExampleBlock, ShowcaseHeader, NavbarPlayground, ComponentReference],
   template: `
     <app-showcase-header title="Navbar" selector="cwr-navbar"></app-showcase-header>
+    <app-navbar-playground></app-navbar-playground>
 
     <app-example-block title="Default" [code]="usageCode">
       <div class="navbar-preview-frame">

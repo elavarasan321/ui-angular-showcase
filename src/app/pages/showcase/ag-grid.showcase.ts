@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { AgGrid } from '@checkworkrights/ui-angular';
+import { AgGrid } from '@checkworkrights/ui-angular/ag-grid';
 import type { ColDef } from 'ag-grid-community';
 import { ExampleBlock } from './example-block';
 import { ShowcaseHeader } from './showcase-header';
