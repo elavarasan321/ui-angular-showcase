@@ -1,15 +1,21 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   ListboxComponent,
+  ListboxFocusMode,
   ListboxGroup,
   ListboxOptionCheckedChange,
   ListboxOptionData,
   FormFieldComponent,
   TextInputComponent,
   CheckboxComponent,
+  PickerInputComponent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
 import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
+
+// Hardcoded to match the union, as with the other playgrounds.
+const LISTBOX_FOCUS_MODES: readonly ListboxFocusMode[] = ['roving', 'activedescendant'];
 
 const GROUPS: ListboxGroup[] = [
   {
@@ -32,16 +38,26 @@ const GROUPS: ListboxGroup[] = [
 @Component({
   selector: 'app-listbox-playground',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ListboxComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent],
+  imports: [
+    ListboxComponent,
+    Playground,
+    FormFieldComponent,
+    TextInputComponent,
+    CheckboxComponent,
+    PickerInputComponent,
+    PickerOptionsPipe,
+  ],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">
       <div playground-preview class="listbox-preview">
         <cwr-listbox
-          [groups]="groups"
+          [groups]="groups()"
           [showHeader]="showHeader()"
           [showFooter]="showFooter()"
           [allowVerticalScrolling]="allowVerticalScrolling()"
           [hasFocus]="hasFocus()"
+          [multiSelect]="multiSelect()"
+          [focusMode]="focusMode()"
           [searchValue]="searchValue()"
           (searchValueChange)="searchValue.set($event)"
           [searchPlaceholder]="searchPlaceholder()"
@@ -55,6 +71,17 @@ const GROUPS: ListboxGroup[] = [
       </div>
 
       <ng-container playground-controls>
+        <cwr-form-field
+          label="Focus mode"
+          hintText="activedescendant keeps focus in the search input; needs the header."
+        >
+          <cwr-picker-input
+            [options]="focusModes | pickerOptions"
+            [value]="focusMode()"
+            (valueChange)="focusMode.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
+
         <cwr-form-field label="Search placeholder">
           <cwr-text-input
             [value]="searchPlaceholder()"
@@ -88,6 +115,12 @@ const GROUPS: ListboxGroup[] = [
         ></cwr-checkbox>
 
         <cwr-checkbox
+          label="Multi-select"
+          [checked]="multiSelect()"
+          (checkedChange)="multiSelect.set($event)"
+        ></cwr-checkbox>
+
+        <cwr-checkbox
           label="Has focus (outline)"
           [checked]="hasFocus()"
           (checkedChange)="hasFocus.set($event)"
@@ -117,12 +150,16 @@ const GROUPS: ListboxGroup[] = [
   ],
 })
 export class ListboxPlayground {
-  groups = GROUPS;
+  // Holds the checked state while multi-select is on; an array, so it stays out of the URL.
+  groups = signal<ListboxGroup[]>(GROUPS);
+  focusModes = LISTBOX_FOCUS_MODES;
 
   showHeader = signal(true);
   showFooter = signal(true);
   allowVerticalScrolling = signal(false);
   hasFocus = signal(false);
+  multiSelect = signal(false);
+  focusMode = signal<ListboxFocusMode>('roving');
   searchValue = signal('');
   searchPlaceholder = signal('Search countries');
   footerLabel = signal('Add a country');
@@ -134,15 +171,25 @@ export class ListboxPlayground {
 
   onOptionCheckedChange(change: ListboxOptionCheckedChange): void {
     this.lastEvent.set(`optionCheckedChange: ${change.option.label} → ${change.checked}`);
+    this.groups.update((groups) =>
+      groups.map((group) => ({
+        ...group,
+        options: group.options.map((option) =>
+          option.id === change.option.id ? { ...option, checked: change.checked } : option,
+        ),
+      })),
+    );
   }
 
   generatedCode = computed(() => {
-    const groupsLiteral = JSON.stringify(this.groups, null, 2);
+    const groupsLiteral = JSON.stringify(GROUPS, null, 2);
     const attrs = [`[groups]="groups"`];
     if (!this.showHeader()) attrs.push(`[showHeader]="false"`);
     if (!this.showFooter()) attrs.push(`[showFooter]="false"`);
     if (this.allowVerticalScrolling()) attrs.push(`[allowVerticalScrolling]="true"`);
     if (this.hasFocus()) attrs.push(`[hasFocus]="true"`);
+    if (this.multiSelect()) attrs.push(`[multiSelect]="true"`);
+    if (this.focusMode() !== 'roving') attrs.push(`focusMode="${this.focusMode()}"`);
     attrs.push(`searchPlaceholder="${this.searchPlaceholder()}"`);
     attrs.push(`footerLabel="${this.footerLabel()}"`);
     return `groups = ${groupsLiteral};
