@@ -286,6 +286,16 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
           import('./pages/showcase/picker-input.showcase').then((m) => m.PickerInputShowcase),
       },
       {
+        id: 'showcase-filter',
+        label: 'Filter',
+        route: 'showcase/filter',
+        addedIn: '1.0.32',
+        file: 'showcase/filter.showcase',
+        selectors: ['cwr-filter'],
+        loadComponent: () =>
+          import('./pages/showcase/filter.showcase').then((m) => m.FilterShowcase),
+      },
+      {
         id: 'showcase-listbox',
         label: 'Listbox',
         route: 'showcase/listbox',
@@ -506,15 +516,6 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
           import('./pages/showcase/overlay-header-footer.showcase').then(
             (m) => m.OverlayHeaderFooterShowcase,
           ),
-      },
-      {
-        id: 'showcase-popup',
-        label: 'Popup',
-        route: 'showcase/popup',
-        addedIn: '1.0.32',
-        file: 'showcase/popup.showcase',
-        selectors: ['cwr-popup'],
-        loadComponent: () => import('./pages/showcase/popup.showcase').then((m) => m.PopupShowcase),
       },
     ],
   },

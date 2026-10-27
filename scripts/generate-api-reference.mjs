@@ -14,14 +14,21 @@ import ts from 'typescript';
 
 const APP_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const PKG_ROOT = resolve(APP_ROOT, 'node_modules/@checkworkrights/ui-angular');
-const DTS_PATH = resolve(PKG_ROOT, 'types/checkworkrights-ui-angular.d.ts');
-const MJS_PATH = resolve(PKG_ROOT, 'fesm2022/checkworkrights-ui-angular.mjs');
+// The main entry point, plus secondary ones (`@checkworkrights/ui-angular/ag-grid`) that keep
+// heavy peer dependencies out of the main bundle. A missing secondary entry point is skipped.
+const ENTRY_POINTS = ['checkworkrights-ui-angular', 'checkworkrights-ui-angular-ag-grid'].map(
+  (name, i) => ({
+    dtsPath: resolve(PKG_ROOT, `types/${name}.d.ts`),
+    mjsPath: resolve(PKG_ROOT, `fesm2022/${name}.mjs`),
+    optional: i > 0,
+  }),
+);
 const OUT_PATH = resolve(APP_ROOT, 'src/app/pages/showcase/api-reference.generated.ts');
 // Kept separate so the sidebar can show the version without pulling every table into the
 // initial bundle (the tables are only needed by the lazy-loaded showcase pages).
 const VERSION_OUT_PATH = resolve(APP_ROOT, 'src/app/library-version.generated.ts');
 
-for (const p of [DTS_PATH, MJS_PATH]) {
+for (const p of [ENTRY_POINTS[0].dtsPath, ENTRY_POINTS[0].mjsPath]) {
   if (!existsSync(p)) {
     console.error(`[generate-api-reference] ${p} not found. Install @checkworkrights/ui-angular first.`);
     process.exit(1);
@@ -35,11 +42,22 @@ const repoUrl = (pkg.repository?.url ?? '').replace(/^git\+/, '').replace(/\.git
 const sourceUrl = repoUrl
   ? `${repoUrl}/tree/main${pkg.repository?.directory ? `/${pkg.repository.directory}` : ''}`
   : '';
-const dts = ts.createSourceFile(DTS_PATH, readFileSync(DTS_PATH, 'utf8'), ts.ScriptTarget.Latest, true);
-const mjs = ts.createSourceFile(MJS_PATH, readFileSync(MJS_PATH, 'utf8'), ts.ScriptTarget.Latest, true);
+const parse = (path) => ts.createSourceFile(path, readFileSync(path, 'utf8'), ts.ScriptTarget.Latest, true);
+const entries = ENTRY_POINTS.filter((e) => !e.optional || (existsSync(e.dtsPath) && existsSync(e.mjsPath)));
+const dtsFiles = entries.map((e) => parse(e.dtsPath));
+const mjsFiles = entries.map((e) => parse(e.mjsPath));
+// Every top-level .d.ts statement across the entry points.
+const dtsStatements = dtsFiles.flatMap((file) => [...file.statements]);
 
 const memberName = (m) => (m.name && (ts.isIdentifier(m.name) || ts.isStringLiteral(m.name)) ? m.name.text : undefined);
-const clean = (text) => text.replace(/_angular_core\./g, '').replace(/\s+/g, ' ').trim();
+// Strips the namespace the .d.ts puts on Angular types (`_angular_core.`, `i0.`, or an inline
+// `import("@angular/core").`, depending on the build).
+const clean = (text) =>
+  text
+    .replace(/import\(["']@(angular\/core|checkworkrights\/ui-angular)["']\)\./g, '')
+    .replace(/\b(_angular_core|_checkworkrights_ui_angular|i0)\./g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 
 function jsDoc(node) {
   const docs = ts.getJSDocCommentsAndTags(node).filter(ts.isJSDoc);
@@ -79,9 +97,16 @@ function shortenType(typeNode) {
 // Unwraps InputSignal<T>, InputSignalWithTransform<T, W> (shows the write type W), ModelSignal<T>,
 // OutputEmitterRef<T>, EventEmitter<T>, OutputRef<T>.
 function unwrapSignalType(typeNode) {
-  if (typeNode && ts.isTypeReferenceNode(typeNode)) {
-    const name = clean(typeNode.typeName.getText());
-    const args = typeNode.typeArguments ?? [];
+  // `InputSignal<T>` / `_angular_core.InputSignal<T>`, or `import("@angular/core").InputSignal<T>`.
+  const ref =
+    typeNode && ts.isTypeReferenceNode(typeNode)
+      ? { name: typeNode.typeName.getText(), args: typeNode.typeArguments }
+      : typeNode && ts.isImportTypeNode(typeNode) && typeNode.qualifier
+        ? { name: typeNode.qualifier.getText(), args: typeNode.typeArguments }
+        : undefined;
+  if (ref) {
+    const name = clean(ref.name).replace(/^.*\./, '');
+    const args = ref.args ?? [];
     if (name === 'InputSignalWithTransform' && args[1]) return args[1];
     if (['InputSignal', 'ModelSignal', 'OutputEmitterRef', 'EventEmitter', 'OutputRef'].includes(name) && args[0]) {
       return args[0];
@@ -96,7 +121,7 @@ function unwrapSignalType(typeNode) {
 const MAX_VALUES = 12;
 const aliasNodes = new Map();
 const constTuples = new Map();
-for (const stmt of dts.statements) {
+for (const stmt of dtsStatements) {
   if (ts.isTypeAliasDeclaration(stmt)) aliasNodes.set(stmt.name.text, stmt.type);
   if (ts.isVariableStatement(stmt)) {
     for (const d of stmt.declarationList.declarations) {
@@ -145,7 +170,7 @@ function valuesFor(typeNode) {
 
 // ---- Props interfaces (for nicer type names + docs) ----
 const propsInterfaces = new Map();
-for (const stmt of dts.statements) {
+for (const stmt of dtsStatements) {
   if (ts.isInterfaceDeclaration(stmt) && stmt.name.text.endsWith('Props')) {
     const members = new Map();
     for (const m of stmt.members) if (memberName(m)) members.set(memberName(m), m);
@@ -156,35 +181,61 @@ for (const stmt of dts.statements) {
 // ---- Defaults from the bundle ----
 const bundleDefaults = new Map(); // className -> Map(prop -> default text | REQUIRED)
 const REQUIRED = Symbol('required');
+// Shown the way the library source writes it, whatever quote style the bundler picked:
+// `"md"` → `'md'`, and `void 0` (an explicit undefined) → no default.
+function defaultText(expr) {
+  if (ts.isStringLiteral(expr) || ts.isNoSubstitutionTemplateLiteral(expr)) {
+    return `'${expr.text.replace(/'/g, "\\'")}'`;
+  }
+  if (ts.isVoidExpression(expr)) return undefined;
+  return clean(expr.getText());
+}
 function visitBundle(node) {
-  if (ts.isClassDeclaration(node) && node.name) {
+  // Newer builds emit `var ButtonComponent = class ButtonComponent { … }`, a class expression.
+  if ((ts.isClassDeclaration(node) || ts.isClassExpression(node)) && node.name) {
     const map = new Map();
     for (const m of node.members) {
       if (!ts.isPropertyDeclaration(m) || !m.initializer || !memberName(m)) continue;
       const init = m.initializer;
       if (!ts.isCallExpression(init)) {
         // Decorator-style `@Input() collapsed = false;` keeps its initializer as a plain field.
-        map.set(memberName(m), clean(init.getText(mjs)));
+        const text = defaultText(init);
+        if (text !== undefined) map.set(memberName(m), text);
         continue;
       }
-      const callee = init.expression.getText(mjs);
+      const callee = init.expression.getText();
       if (callee === 'input.required' || callee === 'model.required') map.set(memberName(m), REQUIRED);
       else if (callee === 'input' || callee === 'model') {
         const first = init.arguments[0];
-        if (first && !ts.isSpreadElement(first)) map.set(memberName(m), clean(first.getText(mjs)));
+        const text = first && !ts.isSpreadElement(first) ? defaultText(first) : undefined;
+        if (text !== undefined) map.set(memberName(m), text);
       }
     }
     bundleDefaults.set(node.name.text, map);
   }
   ts.forEachChild(node, visitBundle);
 }
-visitBundle(mjs);
+mjsFiles.forEach(visitBundle);
+
+// ---- Public names ----
+// Internal building blocks (e.g. the bubble inside cwr-tooltip) are declared in the .d.ts too,
+// but only what the package exports belongs in the reference.
+const exportedNames = new Set();
+for (const stmt of dtsStatements) {
+  if (ts.isExportDeclaration(stmt) && stmt.exportClause && ts.isNamedExports(stmt.exportClause)) {
+    for (const el of stmt.exportClause.elements) exportedNames.add(el.name.text);
+  }
+  if (ts.isClassDeclaration(stmt) && stmt.name && stmt.modifiers?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword)) {
+    exportedNames.add(stmt.name.text);
+  }
+}
 
 // ---- Components/directives ----
 const reference = {};
-for (const stmt of dts.statements) {
+for (const stmt of dtsStatements) {
   if (!ts.isClassDeclaration(stmt) || !stmt.name) continue;
   const className = stmt.name.text;
+  if (!exportedNames.has(className)) continue;
   const decl = stmt.members.find(
     (m) => ts.isPropertyDeclaration(m) && ['ɵcmp', 'ɵdir'].includes(memberName(m)),
   );

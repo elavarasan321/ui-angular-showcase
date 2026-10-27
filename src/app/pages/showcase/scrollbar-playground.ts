@@ -4,6 +4,7 @@ import {
   ScrollbarOverflow,
   FormFieldComponent,
   PickerInputComponent,
+  CheckboxComponent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
 import { playgroundState } from './playground-state';
@@ -17,7 +18,14 @@ const SCROLLBAR_OVERFLOWS: readonly ScrollbarOverflow[] = ['vertical', 'horizont
 @Component({
   selector: 'app-scrollbar-playground',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ScrollbarComponent, Playground, FormFieldComponent, PickerInputComponent, PickerOptionsPipe],
+  imports: [
+    ScrollbarComponent,
+    Playground,
+    FormFieldComponent,
+    PickerInputComponent,
+    CheckboxComponent,
+    PickerOptionsPipe,
+  ],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">
       <div playground-preview>
@@ -30,7 +38,7 @@ const SCROLLBAR_OVERFLOWS: readonly ScrollbarOverflow[] = ['vertical', 'horizont
               <p>Qualification checks confirm certifications and study entitlements.</p>
               <p>Visa checks track work rights and expiry dates over time.</p>
             </div>
-            <cwr-scrollbar overflow="vertical"></cwr-scrollbar>
+            <cwr-scrollbar overflow="vertical" [containOverscroll]="containOverscroll()"></cwr-scrollbar>
           </div>
         } @else {
           <div style="position: relative; width: 260px;">
@@ -41,7 +49,7 @@ const SCROLLBAR_OVERFLOWS: readonly ScrollbarOverflow[] = ['vertical', 'horizont
               <span style="display: inline-block; width: 140px; margin-right: 0.75rem;">Qualification</span>
               <span style="display: inline-block; width: 140px;">Visa Check</span>
             </div>
-            <cwr-scrollbar overflow="horizontal"></cwr-scrollbar>
+            <cwr-scrollbar overflow="horizontal" [containOverscroll]="containOverscroll()"></cwr-scrollbar>
           </div>
         }
       </div>
@@ -54,6 +62,15 @@ const SCROLLBAR_OVERFLOWS: readonly ScrollbarOverflow[] = ['vertical', 'horizont
             (valueChange)="overflow.set($any($event))"
           ></cwr-picker-input>
         </cwr-form-field>
+
+        <cwr-checkbox
+          label="Contain overscroll"
+          [checked]="containOverscroll()"
+          (checkedChange)="containOverscroll.set($event)"
+        ></cwr-checkbox>
+        <p style="margin: 0; font: var(--text-style-caption); color: var(--color-text-surface-secondary);">
+          Scroll to the end of the content and keep going: when off, the page scrolls on.
+        </p>
       </ng-container>
     </app-playground>
   `
@@ -62,21 +79,23 @@ export class ScrollbarPlayground {
   overflows = SCROLLBAR_OVERFLOWS;
 
   overflow = signal<ScrollbarOverflow>('vertical');
+  containOverscroll = signal(true);
 
   generatedCode = computed(() => {
+    const contain = this.containOverscroll() ? '' : ' [containOverscroll]="false"';
     if (this.overflow() === 'vertical') {
       return `<div style="position: relative; height: 160px;">
   <div style="height: 160px; overflow: auto;">
     <!-- tall content -->
   </div>
-  <cwr-scrollbar overflow="vertical"></cwr-scrollbar>
+  <cwr-scrollbar overflow="vertical"${contain}></cwr-scrollbar>
 </div>`;
     }
     return `<div style="position: relative;">
   <div style="overflow: auto; white-space: nowrap;">
     <!-- wide content -->
   </div>
-  <cwr-scrollbar overflow="horizontal"></cwr-scrollbar>
+  <cwr-scrollbar overflow="horizontal"${contain}></cwr-scrollbar>
 </div>`;
   });
 

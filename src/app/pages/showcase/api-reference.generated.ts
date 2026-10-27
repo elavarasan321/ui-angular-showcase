@@ -338,7 +338,6 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
         "name": "focusTarget",
         "type": "HTMLElement | undefined",
         "required": false,
-        "default": "undefined",
         "description": "Element whose keyboard focus shows the hint. Defaults to the parent element."
       }
     ],
@@ -442,7 +441,7 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       },
       {
         "name": "arrowPosition",
-        "type": "_checkworkrights_ui_angular.HintArrowPosition",
+        "type": "HintArrowPosition",
         "required": false,
         "default": "'bottom'"
       }
@@ -632,14 +631,12 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       {
         "name": "hintText",
         "type": "string | undefined",
-        "required": false,
-        "default": "undefined"
+        "required": false
       },
       {
         "name": "errorText",
         "type": "string | undefined",
-        "required": false,
-        "default": "undefined"
+        "required": false
       },
       {
         "name": "labelFor",
@@ -688,8 +685,7 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       {
         "name": "hintText",
         "type": "string",
-        "required": false,
-        "default": "undefined"
+        "required": false
       },
       {
         "name": "hasError",
@@ -700,8 +696,7 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       {
         "name": "errorText",
         "type": "string",
-        "required": false,
-        "default": "undefined"
+        "required": false
       }
     ],
     "outputs": []
@@ -1034,8 +1029,7 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       {
         "name": "name",
         "type": "string | undefined",
-        "required": false,
-        "default": "undefined"
+        "required": false
       }
     ],
     "outputs": [
@@ -1091,14 +1085,12 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       {
         "name": "aria-label",
         "type": "string | undefined",
-        "required": false,
-        "default": "undefined"
+        "required": false
       },
       {
         "name": "aria-labelledby",
         "type": "string | undefined",
-        "required": false,
-        "default": "undefined"
+        "required": false
       },
       {
         "name": "focusRing",
@@ -1115,8 +1107,7 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       {
         "name": "tabIndex",
         "type": "number | undefined",
-        "required": false,
-        "default": "undefined"
+        "required": false
       }
     ],
     "outputs": [
@@ -1405,9 +1396,21 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
         "type": "boolean",
         "required": false,
         "default": "false"
+      },
+      {
+        "name": "closeOnActivate",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Closes the menu on Enter or Space inside it. Turn off for content that uses those keys to move between steps."
       }
     ],
-    "outputs": []
+    "outputs": [
+      {
+        "name": "openChange",
+        "type": "boolean"
+      }
+    ]
   },
   "cwr-radio-button": {
     "className": "RadioButtonComponent",
@@ -1442,8 +1445,7 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       {
         "name": "name",
         "type": "string | undefined",
-        "required": false,
-        "default": "undefined"
+        "required": false
       },
       {
         "name": "showFocusRing",
@@ -1938,6 +1940,16 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
         "default": "false"
       },
       {
+        "name": "focusMode",
+        "type": "ListboxFocusMode",
+        "values": [
+          "'roving'",
+          "'activedescendant'"
+        ],
+        "required": false,
+        "default": "'roving'"
+      },
+      {
         "name": "searchValue",
         "type": "string",
         "required": false,
@@ -1958,14 +1970,12 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       {
         "name": "footerLeadingIcon",
         "type": "IconKey",
-        "required": false,
-        "default": "undefined"
+        "required": false
       },
       {
         "name": "footerTrailingIcon",
         "type": "IconKey",
-        "required": false,
-        "default": "undefined"
+        "required": false
       }
     ],
     "outputs": [
@@ -2281,6 +2291,12 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
         ],
         "required": false,
         "default": "'vertical'"
+      },
+      {
+        "name": "containOverscroll",
+        "type": "boolean",
+        "required": false,
+        "default": "true"
       }
     ],
     "outputs": []
@@ -3091,8 +3107,7 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       {
         "name": "blocks",
         "type": "SkeletonLoaderBlock[]",
-        "required": false,
-        "default": "undefined"
+        "required": false
       },
       {
         "name": "loadingLabel",
@@ -3154,14 +3169,12 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       {
         "name": "showDelay",
         "type": "number",
-        "required": false,
-        "default": "undefined"
+        "required": false
       },
       {
         "name": "minVisibleDuration",
         "type": "number",
-        "required": false,
-        "default": "undefined"
+        "required": false
       }
     ],
     "outputs": [
@@ -3224,8 +3237,7 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       {
         "name": "sortValue",
         "type": "ListTableSortValueFn<unknown> | undefined",
-        "required": false,
-        "default": "undefined"
+        "required": false
       },
       {
         "name": "align",
@@ -3272,20 +3284,17 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       {
         "name": "rowKey",
         "type": "ListTableRowKeyFn<unknown> | undefined",
-        "required": false,
-        "default": "undefined"
+        "required": false
       },
       {
         "name": "rowLabel",
         "type": "ListTableRowLabelFn<unknown> | undefined",
-        "required": false,
-        "default": "undefined"
+        "required": false
       },
       {
         "name": "isRowSelectable",
         "type": "ListTableRowSelectableFn<unknown> | undefined",
-        "required": false,
-        "default": "undefined"
+        "required": false
       },
       {
         "name": "state",
@@ -3416,44 +3425,126 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
       }
     ]
   },
-  "cwr-popup": {
-    "className": "PopupComponent",
+  "cwr-filter": {
+    "className": "FilterComponent",
     "inputs": [
       {
-        "name": "width",
-        "type": "'content' | 'trigger'",
-        "required": false,
-        "default": "'content'"
+        "name": "fields",
+        "type": "FilterField[]",
+        "required": true
       },
       {
-        "name": "align",
-        "type": "'start' | 'end'",
+        "name": "expression",
+        "type": "FilterCondition[]",
         "required": false,
-        "default": "'start'"
+        "default": "[]"
       },
       {
-        "name": "alignFixed",
-        "type": "boolean",
-        "required": false,
-        "default": "false"
+        "name": "ariaLabel",
+        "type": "string",
+        "required": true
       },
       {
-        "name": "placement",
-        "type": "'below' | 'above'",
-        "required": false,
-        "default": "'below'"
-      },
-      {
-        "name": "placementFixed",
-        "type": "boolean",
-        "required": false,
-        "default": "false"
-      },
-      {
-        "name": "offset",
+        "name": "placeholder",
         "type": "string",
         "required": false,
-        "default": "'var(--space-2xs)'"
+        "default": "'Add a filter…'"
+      },
+      {
+        "name": "conjunction",
+        "type": "FilterConjunction",
+        "required": false,
+        "default": "'and'"
+      },
+      {
+        "name": "wrap",
+        "type": "boolean",
+        "required": false,
+        "default": "true"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "readonly",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "loadingFields",
+        "type": "string[]",
+        "required": false,
+        "default": "[]"
+      },
+      {
+        "name": "autoOpen",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "expressionChange",
+        "type": "FilterCondition[]"
+      }
+    ]
+  },
+  "cwr-ag-grid": {
+    "className": "AgGrid",
+    "inputs": [
+      {
+        "name": "columnDefs",
+        "type": "ColDef<any, any>[]",
+        "required": false,
+        "default": "[]"
+      },
+      {
+        "name": "rowData",
+        "type": "unknown[] | null",
+        "required": false,
+        "default": "null"
+      },
+      {
+        "name": "gridOptions",
+        "type": "GridOptions<any> | undefined",
+        "required": false
+      },
+      {
+        "name": "theme",
+        "type": "Theme",
+        "required": false,
+        "default": "cwrAgGridTheme",
+        "description": "AG Grid theme applied to the grid. Defaults to `cwrAgGridTheme`, generated from CWR's design tokens so the grid tracks light/dark automatically — see `../ag-grid-theme`."
+      },
+      {
+        "name": "masterDetail",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enables the master/detail expandable row layout. Requires an AG Grid Enterprise licence — call `registerAgGridEnterprise()` (or add `provideAgGridEnterprise()` to your app's providers) from `@checkworkrights/ui-angular` before rendering a grid with this enabled."
+      },
+      {
+        "name": "detailCellRendererParams",
+        "type": "any",
+        "required": false,
+        "description": "Configuration for the detail row rendered beneath an expanded master row. Owned by the consumer, since only they know the shape of a detail record."
+      },
+      {
+        "name": "detailCellRenderer",
+        "type": "any",
+        "required": false,
+        "description": "Replaces AG Grid's default detail grid with a component of the consumer's own, for detail panels that need more than a grid"
       }
     ],
     "outputs": []

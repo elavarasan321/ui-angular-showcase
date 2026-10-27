@@ -3,16 +3,40 @@ import {
   DrawerComponent,
   ButtonComponent,
   FormFieldComponent,
+  PickerInputComponent,
   TextInputComponent,
   CheckboxComponent,
+  IllustrationKey,
+  OverlayFooterJustifyContent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
 import { playgroundState } from './playground-state';
+import { PickerOptionsPipe } from './picker-options.pipe';
+
+// OverlayFooterJustifyContent is exported as a type only (OVERLAY_FOOTER_JUSTIFY_CONTENT is
+// declared but not exported), so the option list is hardcoded here to match the union.
+const FOOTER_JUSTIFY: readonly OverlayFooterJustifyContent[] = [
+  'space-between',
+  'flex-end',
+  'center',
+  'flex-start',
+];
+
+// A small sample of IllustrationKey values — the full set lives on the Illustration page.
+const ILLUSTRATIONS: readonly IllustrationKey[] = [
+  'illustration.document.awaiting-verification',
+  'illustration.document.complete',
+  'illustration.employee.configure',
+  'illustration.feature.checkintelligence-configure',
+  'illustration.ui.no-results',
+];
+// The picker treats '' as no value and would show a blank field, so "(none)" needs a real value.
+const NONE_ILLUSTRATION = '__none__';
 
 @Component({
   selector: 'app-drawer-playground',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DrawerComponent, ButtonComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent],
+  imports: [DrawerComponent, ButtonComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, CheckboxComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">
       <div playground-preview>
@@ -28,6 +52,8 @@ import { playgroundState } from './playground-state';
           <cwr-drawer
             [title]="title()"
             [introText]="introText() || undefined"
+            [illustration]="illustrationKey()"
+            [footerJustify]="footerJustify()"
             [dismissible]="dismissible()"
             (dismiss)="open.set(false)"
           >
@@ -67,6 +93,22 @@ import { playgroundState } from './playground-state';
           ></cwr-text-input>
         </cwr-form-field>
 
+        <cwr-form-field label="Illustration">
+          <cwr-picker-input
+            [options]="illustrations | pickerOptions: { label: '(none)', value: '${NONE_ILLUSTRATION}' }"
+            [value]="illustration()"
+            (valueChange)="illustration.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
+
+        <cwr-form-field label="Footer justify">
+          <cwr-picker-input
+            [options]="footerJustifyOptions | pickerOptions"
+            [value]="footerJustify()"
+            (valueChange)="footerJustify.set($any($event))"
+          ></cwr-picker-input>
+        </cwr-form-field>
+
         <cwr-checkbox
           label="Dismissible"
           [checked]="dismissible()"
@@ -77,14 +119,28 @@ import { playgroundState } from './playground-state';
   `
 })
 export class DrawerPlayground {
+  illustrations = ILLUSTRATIONS;
+  footerJustifyOptions = FOOTER_JUSTIFY;
+
   open = signal(false);
   title = signal('Edit applicant details');
   introText = signal('');
+  illustration = signal<IllustrationKey | typeof NONE_ILLUSTRATION>(NONE_ILLUSTRATION);
+  footerJustify = signal<OverlayFooterJustifyContent>('space-between');
+
+  illustrationKey = computed(() => {
+    const illustration = this.illustration();
+    return illustration === NONE_ILLUSTRATION ? undefined : illustration;
+  });
   dismissible = signal(true);
 
   generatedCode = computed(() => {
     const attrs = [`title="${this.title()}"`];
     if (this.introText()) attrs.push(`introText="${this.introText()}"`);
+    if (this.illustrationKey()) attrs.push(`illustration="${this.illustrationKey()}"`);
+    if (this.footerJustify() !== 'space-between') {
+      attrs.push(`footerJustify="${this.footerJustify()}"`);
+    }
     if (!this.dismissible()) attrs.push(`[dismissible]="false"`);
 
     return `<cwr-button label="Open drawer" (buttonClick)="open.set(true)"></cwr-button>

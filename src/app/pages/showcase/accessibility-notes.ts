@@ -15,7 +15,7 @@ export interface AccessibilityNotes {
 }
 
 /** Library version these notes were checked against; the page flags a mismatch. */
-export const ACCESSIBILITY_NOTES_VERSION = '1.0.32-dev.1b9b617';
+export const ACCESSIBILITY_NOTES_VERSION = '1.0.32-dev.cc285a2';
 
 export const ACCESSIBILITY_NOTES: Record<string, AccessibilityNotes> = {
   "cwr-ag-grid": {
@@ -304,6 +304,50 @@ export const ACCESSIBILITY_NOTES: Record<string, AccessibilityNotes> = {
       "description has no effect unless legend is set."
     ]
   },
+  "cwr-filter": {
+    "keyboard": [
+      {
+        "keys": "F (on the Add filter button or a node)",
+        "action": "Opens the field list, when another field can still be added. Ignored with Ctrl, Cmd or Alt held."
+      },
+      {
+        "keys": "ArrowDown (on a node)",
+        "action": "Opens the node's value list or value panel."
+      },
+      {
+        "keys": "Delete / Backspace (on a node)",
+        "action": "Removes the node, unless its field is required or the Filter is read-only or disabled."
+      },
+      {
+        "keys": "Enter (in a date or number value panel)",
+        "action": "Commits the typed value; an invalid value is flagged and not committed."
+      },
+      {
+        "keys": "Escape (in a date or number value panel)",
+        "action": "Cancels the edit and closes the panel."
+      },
+      {
+        "keys": "Tab (leaving a date or number value panel)",
+        "action": "Commits the typed value and moves on; Shift+Tab discards it."
+      }
+    ],
+    "aria": [
+      "The host has role=group and is named by ariaLabel; aria-busy is set while loading.",
+      "Nodes are in a role=list, one role=listitem each.",
+      "Each node's trigger is named by its phrase (for example \"Location is Melbourne\"), has aria-haspopup=listbox (string and enum fields) or dialog (date and number fields), aria-expanded, and aria-controls while open.",
+      "Removable nodes get aria-keyshortcuts=\"Delete Backspace\" and an aria-describedby hint; the remove button is named \"Remove <phrase>\".",
+      "A node that's loading gets aria-busy and aria-disabled.",
+      "The Add filter button gets aria-label=\"Add filter\", aria-haspopup=listbox and aria-keyshortcuts=F.",
+      "Date and number value panels are role=dialog, named \"<field> value\".",
+      "Adds, changes and removals are announced through a visually hidden role=status region."
+    ],
+    "notes": [
+      "Every committed change updates expression straight away; there is no Apply step.",
+      "While loading, focus is held on the host and returned to the same node (or the Add filter button) when it finishes.",
+      "autoOpen only opens the field list on the first render with no removable nodes; use it only for a Filter shown by a direct user action.",
+      "Checked against the filter source in platform at bfb4e9c9, not the bundle."
+    ]
+  },
   "cwr-form": {
     "keyboard": [],
     "aria": [
@@ -461,7 +505,7 @@ export const ACCESSIBILITY_NOTES: Record<string, AccessibilityNotes> = {
       "Option checkboxes have tabindex=-1."
     ],
     "notes": [
-      "It uses roving tabindex with real focus, not aria-activedescendant.",
+      "By default (focusMode=\"roving\") it uses roving tabindex with real focus. With focusMode=\"activedescendant\" and showHeader on, focus stays in the search input (a combobox) and the arrow keys move aria-activedescendant instead.",
       "The initial active option is the selected one, otherwise the first enabled option (always the first enabled option in multi-select mode).",
       "The listbox has no accessible name; the consumer must provide one.",
       "Escape only emits closeRequested; the consumer must close the listbox and restore focus.",
@@ -547,7 +591,7 @@ export const ACCESSIBILITY_NOTES: Record<string, AccessibilityNotes> = {
       },
       {
         "keys": "Escape / Enter / Space (inside the open popup)",
-        "action": "Closes the menu and puts focus back on the trigger. The handler runs in the capture phase, so the item still activates."
+        "action": "Closes the menu and puts focus back on the trigger. The handler runs in the capture phase, so the item still activates. With closeOnActivate=false, only Escape closes it, so content can use Enter and Space to move between steps."
       },
       {
         "keys": "Tab (inside cwr-menu)",
@@ -563,6 +607,7 @@ export const ACCESSIBILITY_NOTES: Record<string, AccessibilityNotes> = {
       "The projected popup must carry #slotFocus and an aria-haspopup attribute (for example aria-haspopup=\"menu\" on cwr-menu). Otherwise focus placement and close wiring do not work, and a console warning is logged.",
       "Clicking outside the trigger and popup closes the menu without restoring focus.",
       "close(restoreFocus) is public for slotted content that has no closeRequested output.",
+      "openChange emits true or false whenever the menu opens or closes, however that happens.",
       "There is no focus trap."
     ]
   },
@@ -789,7 +834,8 @@ export const ACCESSIBILITY_NOTES: Record<string, AccessibilityNotes> = {
     ],
     "notes": [
       "The thumb can only be dragged with a pointer and has no keyboard handling.",
-      "It hides the native scrollbar of the element just before it but does not make that element focusable. Consumers should give the scroll container tabindex=\"0\" (and a label) so it can be scrolled with the keyboard."
+      "It hides the native scrollbar of the element just before it but does not make that element focusable. Consumers should give the scroll container tabindex=\"0\" (and a label) so it can be scrolled with the keyboard.",
+      "By default (containOverscroll=true) it sets overscroll-behavior-y (or -x when horizontal) to none on that element, so scrolling past its ends doesn't scroll the page behind it or bounce."
     ]
   },
   "cwr-search-input": {

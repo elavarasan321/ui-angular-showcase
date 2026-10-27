@@ -3,6 +3,7 @@ import {
   TooltipComponent,
   IconButtonComponent,
   HintArrowPosition,
+  IconKey,
   FormFieldComponent,
   PickerInputComponent,
   TextInputComponent,
@@ -26,6 +27,21 @@ const ARROW_POSITIONS: readonly HintArrowPosition[] = [
   'top right',
 ];
 
+// TOOLTIP_DEFAULT_LINK_LABEL is declared in the library's .d.ts but isn't exported from the
+// published bundle, so its value is mirrored here.
+const DEFAULT_LINK_LABEL = 'Find out more';
+
+// ICON_MAP has 150+ keys; a small curated subset of sensible link icons keeps the picker readable.
+const LINK_TRAILING_ICONS: readonly IconKey[] = [
+  'icon.ui.external-link',
+  'icon.ui.arrow-right',
+  'icon.ui.direction-right',
+  'icon.ui.circle-right',
+  'icon.ui.link',
+];
+
+const NONE_ICON = '__none__';
+
 @Component({
   selector: 'app-tooltip-playground',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,6 +54,8 @@ const ARROW_POSITIONS: readonly HintArrowPosition[] = [
           [label]="label()"
           [hintText]="showHintText() ? hintText() : ''"
           [linkHref]="showLink() ? linkHref() : null"
+          [linkLabel]="linkLabel() || defaultLinkLabel"
+          [linkTrailingIcon]="resolvedLinkTrailingIcon()"
           [arrowPosition]="arrowPosition()"
         ></cwr-tooltip>
       </span>
@@ -62,6 +80,21 @@ const ARROW_POSITIONS: readonly HintArrowPosition[] = [
             [value]="linkHref()"
             (valueChange)="linkHref.set($event)"
           ></cwr-text-input>
+        </cwr-form-field>
+
+        <cwr-form-field label="Link label">
+          <cwr-text-input
+            [value]="linkLabel()"
+            (valueChange)="linkLabel.set($event)"
+          ></cwr-text-input>
+        </cwr-form-field>
+
+        <cwr-form-field label="Link trailing icon">
+          <cwr-picker-input
+            [options]="linkTrailingIcons | pickerOptions: { label: '(none)', value: '${NONE_ICON}' }"
+            [value]="linkTrailingIcon()"
+            (valueChange)="linkTrailingIcon.set($any($event))"
+          ></cwr-picker-input>
         </cwr-form-field>
 
         <cwr-form-field label="Arrow position">
@@ -89,18 +122,35 @@ const ARROW_POSITIONS: readonly HintArrowPosition[] = [
 })
 export class TooltipPlayground {
   arrowPositions = ARROW_POSITIONS;
+  linkTrailingIcons = LINK_TRAILING_ICONS;
+  protected readonly defaultLinkLabel = DEFAULT_LINK_LABEL;
 
   label = signal('Visa status');
   hintText = signal('Explains what this check verifies');
   showHintText = signal(false);
   showLink = signal(false);
   linkHref = signal('https://immi.homeaffairs.gov.au/');
+  linkLabel = signal(DEFAULT_LINK_LABEL);
+  linkTrailingIcon = signal<IconKey | typeof NONE_ICON>(NONE_ICON);
   arrowPosition = signal<HintArrowPosition>('bottom');
+
+  resolvedLinkTrailingIcon = computed<IconKey | null>(() => {
+    const icon = this.linkTrailingIcon();
+    return icon === NONE_ICON ? null : icon;
+  });
 
   generatedCode = computed(() => {
     const attrs = [`label="${this.label()}"`];
     if (this.showHintText()) attrs.push(`hintText="${this.hintText()}"`);
-    if (this.showLink()) attrs.push(`linkHref="${this.linkHref()}"`);
+    if (this.showLink()) {
+      attrs.push(`linkHref="${this.linkHref()}"`);
+      if (this.linkLabel() && this.linkLabel() !== DEFAULT_LINK_LABEL) {
+        attrs.push(`linkLabel="${this.linkLabel()}"`);
+      }
+      if (this.linkTrailingIcon() !== NONE_ICON) {
+        attrs.push(`linkTrailingIcon="${this.linkTrailingIcon()}"`);
+      }
+    }
     attrs.push(`arrowPosition="${this.arrowPosition()}"`);
     return `<span style="position: relative; display: inline-flex;">
   <cwr-icon-button icon="icon.ui.info" label="${this.label()}" [hasHint]="false"></cwr-icon-button>

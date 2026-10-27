@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/c
 import {
   PickerInputComponent,
   PickerInputOption,
+  ButtonComponent,
   FormFieldComponent,
   TextInputComponent,
   CheckboxComponent,
@@ -19,7 +20,7 @@ const FREQUENCY_OPTIONS: PickerInputOption[] = [
 @Component({
   selector: 'app-picker-input-playground',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PickerInputComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent],
+  imports: [PickerInputComponent, ButtonComponent, Playground, FormFieldComponent, TextInputComponent, CheckboxComponent],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">
       <cwr-picker-input
@@ -29,7 +30,9 @@ const FREQUENCY_OPTIONS: PickerInputOption[] = [
         [value]="value()"
         (valueChange)="value.set($event)"
         [placeholderText]="placeholderText()"
+        [allowEmptyValue]="allowEmptyValue()"
         [disabled]="disabled()"
+        [readOnly]="readOnly()"
       ></cwr-picker-input>
 
       <ng-container playground-controls>
@@ -41,10 +44,33 @@ const FREQUENCY_OPTIONS: PickerInputOption[] = [
         </cwr-form-field>
 
         <cwr-checkbox
+          label="Allow empty value"
+          [checked]="allowEmptyValue()"
+          (checkedChange)="allowEmptyValue.set($event)"
+        ></cwr-checkbox>
+
+        <cwr-checkbox
           label="Disabled"
           [checked]="disabled()"
           (checkedChange)="disabled.set($event)"
         ></cwr-checkbox>
+
+        <cwr-checkbox
+          label="Read only"
+          [checked]="readOnly()"
+          (checkedChange)="readOnly.set($event)"
+        ></cwr-checkbox>
+
+        <!-- The picker has no built-in way to clear a selection, so this lets you see the
+             placeholder that allowEmptyValue reveals when the value is empty. -->
+        <cwr-button
+          variant="outline"
+          intent="neutral"
+          size="sm"
+          label="Clear value"
+          [disabled]="!value()"
+          (buttonClick)="value.set(null)"
+        ></cwr-button>
       </ng-container>
     </app-playground>
   `
@@ -54,11 +80,15 @@ export class PickerInputPlayground {
 
   value = signal<string | null>('monthly');
   placeholderText = signal('Select frequency');
+  allowEmptyValue = signal(false);
   disabled = signal(false);
+  readOnly = signal(false);
 
   generatedCode = computed(() => {
     const attrs = [`placeholderText="${this.placeholderText()}"`];
+    if (this.allowEmptyValue()) attrs.push(`[allowEmptyValue]="true"`);
     if (this.disabled()) attrs.push(`[disabled]="true"`);
+    if (this.readOnly()) attrs.push(`[readOnly]="true"`);
 
     return `<cwr-picker-input
   [options]="frequencyOptions"
