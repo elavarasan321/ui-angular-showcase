@@ -35,8 +35,10 @@ const ALL_OPTIONS: SelectInputOption[] = [
         (valueChange)="value.set($event)"
         (searchChange)="searchTerm.set($event)"
         [placeholderText]="placeholderText()"
+        [allowEmptyValue]="allowEmptyValue()"
         [loading]="loading()"
         [disabled]="disabled()"
+        [readOnly]="readOnly()"
       ></cwr-select-input>
 
       <ng-container playground-controls>
@@ -46,6 +48,12 @@ const ALL_OPTIONS: SelectInputOption[] = [
             (valueChange)="placeholderText.set($event)"
           ></cwr-text-input>
         </cwr-form-field>
+
+        <cwr-checkbox
+          label="Allow empty value"
+          [checked]="allowEmptyValue()"
+          (checkedChange)="allowEmptyValue.set($event)"
+        ></cwr-checkbox>
 
         <cwr-checkbox
           label="Loading"
@@ -58,6 +66,12 @@ const ALL_OPTIONS: SelectInputOption[] = [
           [checked]="disabled()"
           (checkedChange)="disabled.set($event)"
         ></cwr-checkbox>
+
+        <cwr-checkbox
+          label="Read only"
+          [checked]="readOnly()"
+          (checkedChange)="readOnly.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
   `
@@ -65,8 +79,10 @@ const ALL_OPTIONS: SelectInputOption[] = [
 export class SelectInputPlayground {
   value = signal<string | null>('AU');
   placeholderText = signal('Search & select');
+  allowEmptyValue = signal(false);
   loading = signal(false);
   disabled = signal(false);
+  readOnly = signal(false);
   searchTerm = signal('');
 
   filteredOptions = computed(() => {
@@ -77,8 +93,10 @@ export class SelectInputPlayground {
 
   generatedCode = computed(() => {
     const attrs = [`placeholderText="${this.placeholderText()}"`];
+    if (this.allowEmptyValue()) attrs.push(`[allowEmptyValue]="true"`);
     if (this.loading()) attrs.push(`[loading]="true"`);
     if (this.disabled()) attrs.push(`[disabled]="true"`);
+    if (this.readOnly()) attrs.push(`[readOnly]="true"`);
 
     return `<cwr-select-input
   [options]="countryOptions()"
