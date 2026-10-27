@@ -30,6 +30,8 @@ const ILLUSTRATIONS: readonly IllustrationKey[] = [
   'illustration.feature.checkintelligence-configure',
   'illustration.ui.no-results',
 ];
+// The picker treats '' as no value and would show a blank field, so "(none)" needs a real value.
+const NONE_ILLUSTRATION = '__none__';
 
 @Component({
   selector: 'app-drawer-playground',
@@ -50,7 +52,7 @@ const ILLUSTRATIONS: readonly IllustrationKey[] = [
           <cwr-drawer
             [title]="title()"
             [introText]="introText() || undefined"
-            [illustration]="illustration() || undefined"
+            [illustration]="illustrationKey()"
             [footerJustify]="footerJustify()"
             [dismissible]="dismissible()"
             (dismiss)="open.set(false)"
@@ -93,7 +95,7 @@ const ILLUSTRATIONS: readonly IllustrationKey[] = [
 
         <cwr-form-field label="Illustration">
           <cwr-picker-input
-            [options]="illustrations | pickerOptions: { label: '(none)', value: '' }"
+            [options]="illustrations | pickerOptions: { label: '(none)', value: '${NONE_ILLUSTRATION}' }"
             [value]="illustration()"
             (valueChange)="illustration.set($any($event))"
           ></cwr-picker-input>
@@ -123,15 +125,19 @@ export class DrawerPlayground {
   open = signal(false);
   title = signal('Edit applicant details');
   introText = signal('');
-  // '' is the "(none)" sentinel so the control stays a primitive that syncs to the URL.
-  illustration = signal<IllustrationKey | ''>('');
+  illustration = signal<IllustrationKey | typeof NONE_ILLUSTRATION>(NONE_ILLUSTRATION);
   footerJustify = signal<OverlayFooterJustifyContent>('space-between');
+
+  illustrationKey = computed(() => {
+    const illustration = this.illustration();
+    return illustration === NONE_ILLUSTRATION ? undefined : illustration;
+  });
   dismissible = signal(true);
 
   generatedCode = computed(() => {
     const attrs = [`title="${this.title()}"`];
     if (this.introText()) attrs.push(`introText="${this.introText()}"`);
-    if (this.illustration()) attrs.push(`illustration="${this.illustration()}"`);
+    if (this.illustrationKey()) attrs.push(`illustration="${this.illustrationKey()}"`);
     if (this.footerJustify() !== 'space-between') {
       attrs.push(`footerJustify="${this.footerJustify()}"`);
     }
