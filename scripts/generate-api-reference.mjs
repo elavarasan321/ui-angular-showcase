@@ -39,7 +39,14 @@ const dts = ts.createSourceFile(DTS_PATH, readFileSync(DTS_PATH, 'utf8'), ts.Scr
 const mjs = ts.createSourceFile(MJS_PATH, readFileSync(MJS_PATH, 'utf8'), ts.ScriptTarget.Latest, true);
 
 const memberName = (m) => (m.name && (ts.isIdentifier(m.name) || ts.isStringLiteral(m.name)) ? m.name.text : undefined);
-const clean = (text) => text.replace(/_angular_core\./g, '').replace(/\s+/g, ' ').trim();
+// Strips the namespace the .d.ts puts on Angular types (`_angular_core.`, `i0.`, or an inline
+// `import("@angular/core").`, depending on the build).
+const clean = (text) =>
+  text
+    .replace(/import\(["']@(angular\/core|checkworkrights\/ui-angular)["']\)\./g, '')
+    .replace(/\b(_angular_core|_checkworkrights_ui_angular|i0)\./g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 
 function jsDoc(node) {
   const docs = ts.getJSDocCommentsAndTags(node).filter(ts.isJSDoc);
@@ -79,9 +86,16 @@ function shortenType(typeNode) {
 // Unwraps InputSignal<T>, InputSignalWithTransform<T, W> (shows the write type W), ModelSignal<T>,
 // OutputEmitterRef<T>, EventEmitter<T>, OutputRef<T>.
 function unwrapSignalType(typeNode) {
-  if (typeNode && ts.isTypeReferenceNode(typeNode)) {
-    const name = clean(typeNode.typeName.getText());
-    const args = typeNode.typeArguments ?? [];
+  // `InputSignal<T>` / `_angular_core.InputSignal<T>`, or `import("@angular/core").InputSignal<T>`.
+  const ref =
+    typeNode && ts.isTypeReferenceNode(typeNode)
+      ? { name: typeNode.typeName.getText(), args: typeNode.typeArguments }
+      : typeNode && ts.isImportTypeNode(typeNode) && typeNode.qualifier
+        ? { name: typeNode.qualifier.getText(), args: typeNode.typeArguments }
+        : undefined;
+  if (ref) {
+    const name = clean(ref.name).replace(/^.*\./, '');
+    const args = ref.args ?? [];
     if (name === 'InputSignalWithTransform' && args[1]) return args[1];
     if (['InputSignal', 'ModelSignal', 'OutputEmitterRef', 'EventEmitter', 'OutputRef'].includes(name) && args[0]) {
       return args[0];
@@ -156,22 +170,34 @@ for (const stmt of dts.statements) {
 // ---- Defaults from the bundle ----
 const bundleDefaults = new Map(); // className -> Map(prop -> default text | REQUIRED)
 const REQUIRED = Symbol('required');
+// Shown the way the library source writes it, whatever quote style the bundler picked:
+// `"md"` → `'md'`, and `void 0` (an explicit undefined) → no default.
+function defaultText(expr) {
+  if (ts.isStringLiteral(expr) || ts.isNoSubstitutionTemplateLiteral(expr)) {
+    return `'${expr.text.replace(/'/g, "\\'")}'`;
+  }
+  if (ts.isVoidExpression(expr)) return undefined;
+  return clean(expr.getText(mjs));
+}
 function visitBundle(node) {
-  if (ts.isClassDeclaration(node) && node.name) {
+  // Newer builds emit `var ButtonComponent = class ButtonComponent { … }`, a class expression.
+  if ((ts.isClassDeclaration(node) || ts.isClassExpression(node)) && node.name) {
     const map = new Map();
     for (const m of node.members) {
       if (!ts.isPropertyDeclaration(m) || !m.initializer || !memberName(m)) continue;
       const init = m.initializer;
       if (!ts.isCallExpression(init)) {
         // Decorator-style `@Input() collapsed = false;` keeps its initializer as a plain field.
-        map.set(memberName(m), clean(init.getText(mjs)));
+        const text = defaultText(init);
+        if (text !== undefined) map.set(memberName(m), text);
         continue;
       }
       const callee = init.expression.getText(mjs);
       if (callee === 'input.required' || callee === 'model.required') map.set(memberName(m), REQUIRED);
       else if (callee === 'input' || callee === 'model') {
         const first = init.arguments[0];
-        if (first && !ts.isSpreadElement(first)) map.set(memberName(m), clean(first.getText(mjs)));
+        const text = first && !ts.isSpreadElement(first) ? defaultText(first) : undefined;
+        if (text !== undefined) map.set(memberName(m), text);
       }
     }
     bundleDefaults.set(node.name.text, map);
@@ -180,11 +206,25 @@ function visitBundle(node) {
 }
 visitBundle(mjs);
 
+// ---- Public names ----
+// Internal building blocks (e.g. the bubble inside cwr-tooltip) are declared in the .d.ts too,
+// but only what the package exports belongs in the reference.
+const exportedNames = new Set();
+for (const stmt of dts.statements) {
+  if (ts.isExportDeclaration(stmt) && stmt.exportClause && ts.isNamedExports(stmt.exportClause)) {
+    for (const el of stmt.exportClause.elements) exportedNames.add(el.name.text);
+  }
+  if (ts.isClassDeclaration(stmt) && stmt.name && stmt.modifiers?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword)) {
+    exportedNames.add(stmt.name.text);
+  }
+}
+
 // ---- Components/directives ----
 const reference = {};
 for (const stmt of dts.statements) {
   if (!ts.isClassDeclaration(stmt) || !stmt.name) continue;
   const className = stmt.name.text;
+  if (!exportedNames.has(className)) continue;
   const decl = stmt.members.find(
     (m) => ts.isPropertyDeclaration(m) && ['ɵcmp', 'ɵdir'].includes(memberName(m)),
   );
