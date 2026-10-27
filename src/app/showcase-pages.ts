@@ -507,15 +507,6 @@ export const SHOWCASE_PAGE_GROUPS: ShowcasePageGroup[] = [
             (m) => m.OverlayHeaderFooterShowcase,
           ),
       },
-      {
-        id: 'showcase-popup',
-        label: 'Popup',
-        route: 'showcase/popup',
-        addedIn: '1.0.32',
-        file: 'showcase/popup.showcase',
-        selectors: ['cwr-popup'],
-        loadComponent: () => import('./pages/showcase/popup.showcase').then((m) => m.PopupShowcase),
-      },
     ],
   },
   {
