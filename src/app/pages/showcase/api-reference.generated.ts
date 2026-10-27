@@ -3499,5 +3499,54 @@ export const API_REFERENCE: Record<string, ApiEntry> = {
         "type": "FilterCondition[]"
       }
     ]
+  },
+  "cwr-ag-grid": {
+    "className": "AgGrid",
+    "inputs": [
+      {
+        "name": "columnDefs",
+        "type": "ColDef<any, any>[]",
+        "required": false,
+        "default": "[]"
+      },
+      {
+        "name": "rowData",
+        "type": "unknown[] | null",
+        "required": false,
+        "default": "null"
+      },
+      {
+        "name": "gridOptions",
+        "type": "GridOptions<any> | undefined",
+        "required": false
+      },
+      {
+        "name": "theme",
+        "type": "Theme",
+        "required": false,
+        "default": "cwrAgGridTheme",
+        "description": "AG Grid theme applied to the grid. Defaults to `cwrAgGridTheme`, generated from CWR's design tokens so the grid tracks light/dark automatically — see `../ag-grid-theme`."
+      },
+      {
+        "name": "masterDetail",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enables the master/detail expandable row layout. Requires an AG Grid Enterprise licence — call `registerAgGridEnterprise()` (or add `provideAgGridEnterprise()` to your app's providers) from `@checkworkrights/ui-angular` before rendering a grid with this enabled."
+      },
+      {
+        "name": "detailCellRendererParams",
+        "type": "any",
+        "required": false,
+        "description": "Configuration for the detail row rendered beneath an expanded master row. Owned by the consumer, since only they know the shape of a detail record."
+      },
+      {
+        "name": "detailCellRenderer",
+        "type": "any",
+        "required": false,
+        "description": "Replaces AG Grid's default detail grid with a component of the consumer's own, for detail panels that need more than a grid"
+      }
+    ],
+    "outputs": []
   }
 };

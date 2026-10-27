@@ -14,14 +14,21 @@ import ts from 'typescript';
 
 const APP_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const PKG_ROOT = resolve(APP_ROOT, 'node_modules/@checkworkrights/ui-angular');
-const DTS_PATH = resolve(PKG_ROOT, 'types/checkworkrights-ui-angular.d.ts');
-const MJS_PATH = resolve(PKG_ROOT, 'fesm2022/checkworkrights-ui-angular.mjs');
+// The main entry point, plus secondary ones (`@checkworkrights/ui-angular/ag-grid`) that keep
+// heavy peer dependencies out of the main bundle. A missing secondary entry point is skipped.
+const ENTRY_POINTS = ['checkworkrights-ui-angular', 'checkworkrights-ui-angular-ag-grid'].map(
+  (name, i) => ({
+    dtsPath: resolve(PKG_ROOT, `types/${name}.d.ts`),
+    mjsPath: resolve(PKG_ROOT, `fesm2022/${name}.mjs`),
+    optional: i > 0,
+  }),
+);
 const OUT_PATH = resolve(APP_ROOT, 'src/app/pages/showcase/api-reference.generated.ts');
 // Kept separate so the sidebar can show the version without pulling every table into the
 // initial bundle (the tables are only needed by the lazy-loaded showcase pages).
 const VERSION_OUT_PATH = resolve(APP_ROOT, 'src/app/library-version.generated.ts');
 
-for (const p of [DTS_PATH, MJS_PATH]) {
+for (const p of [ENTRY_POINTS[0].dtsPath, ENTRY_POINTS[0].mjsPath]) {
   if (!existsSync(p)) {
     console.error(`[generate-api-reference] ${p} not found. Install @checkworkrights/ui-angular first.`);
     process.exit(1);
@@ -35,8 +42,12 @@ const repoUrl = (pkg.repository?.url ?? '').replace(/^git\+/, '').replace(/\.git
 const sourceUrl = repoUrl
   ? `${repoUrl}/tree/main${pkg.repository?.directory ? `/${pkg.repository.directory}` : ''}`
   : '';
-const dts = ts.createSourceFile(DTS_PATH, readFileSync(DTS_PATH, 'utf8'), ts.ScriptTarget.Latest, true);
-const mjs = ts.createSourceFile(MJS_PATH, readFileSync(MJS_PATH, 'utf8'), ts.ScriptTarget.Latest, true);
+const parse = (path) => ts.createSourceFile(path, readFileSync(path, 'utf8'), ts.ScriptTarget.Latest, true);
+const entries = ENTRY_POINTS.filter((e) => !e.optional || (existsSync(e.dtsPath) && existsSync(e.mjsPath)));
+const dtsFiles = entries.map((e) => parse(e.dtsPath));
+const mjsFiles = entries.map((e) => parse(e.mjsPath));
+// Every top-level .d.ts statement across the entry points.
+const dtsStatements = dtsFiles.flatMap((file) => [...file.statements]);
 
 const memberName = (m) => (m.name && (ts.isIdentifier(m.name) || ts.isStringLiteral(m.name)) ? m.name.text : undefined);
 // Strips the namespace the .d.ts puts on Angular types (`_angular_core.`, `i0.`, or an inline
@@ -110,7 +121,7 @@ function unwrapSignalType(typeNode) {
 const MAX_VALUES = 12;
 const aliasNodes = new Map();
 const constTuples = new Map();
-for (const stmt of dts.statements) {
+for (const stmt of dtsStatements) {
   if (ts.isTypeAliasDeclaration(stmt)) aliasNodes.set(stmt.name.text, stmt.type);
   if (ts.isVariableStatement(stmt)) {
     for (const d of stmt.declarationList.declarations) {
@@ -159,7 +170,7 @@ function valuesFor(typeNode) {
 
 // ---- Props interfaces (for nicer type names + docs) ----
 const propsInterfaces = new Map();
-for (const stmt of dts.statements) {
+for (const stmt of dtsStatements) {
   if (ts.isInterfaceDeclaration(stmt) && stmt.name.text.endsWith('Props')) {
     const members = new Map();
     for (const m of stmt.members) if (memberName(m)) members.set(memberName(m), m);
@@ -177,7 +188,7 @@ function defaultText(expr) {
     return `'${expr.text.replace(/'/g, "\\'")}'`;
   }
   if (ts.isVoidExpression(expr)) return undefined;
-  return clean(expr.getText(mjs));
+  return clean(expr.getText());
 }
 function visitBundle(node) {
   // Newer builds emit `var ButtonComponent = class ButtonComponent { … }`, a class expression.
@@ -192,7 +203,7 @@ function visitBundle(node) {
         if (text !== undefined) map.set(memberName(m), text);
         continue;
       }
-      const callee = init.expression.getText(mjs);
+      const callee = init.expression.getText();
       if (callee === 'input.required' || callee === 'model.required') map.set(memberName(m), REQUIRED);
       else if (callee === 'input' || callee === 'model') {
         const first = init.arguments[0];
@@ -204,13 +215,13 @@ function visitBundle(node) {
   }
   ts.forEachChild(node, visitBundle);
 }
-visitBundle(mjs);
+mjsFiles.forEach(visitBundle);
 
 // ---- Public names ----
 // Internal building blocks (e.g. the bubble inside cwr-tooltip) are declared in the .d.ts too,
 // but only what the package exports belongs in the reference.
 const exportedNames = new Set();
-for (const stmt of dts.statements) {
+for (const stmt of dtsStatements) {
   if (ts.isExportDeclaration(stmt) && stmt.exportClause && ts.isNamedExports(stmt.exportClause)) {
     for (const el of stmt.exportClause.elements) exportedNames.add(el.name.text);
   }
@@ -221,7 +232,7 @@ for (const stmt of dts.statements) {
 
 // ---- Components/directives ----
 const reference = {};
-for (const stmt of dts.statements) {
+for (const stmt of dtsStatements) {
   if (!ts.isClassDeclaration(stmt) || !stmt.name) continue;
   const className = stmt.name.text;
   if (!exportedNames.has(className)) continue;
