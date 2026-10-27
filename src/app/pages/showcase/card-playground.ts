@@ -5,6 +5,7 @@ import {
   CardSurface,
   CardEdge,
   CardLayout,
+  CardHeading,
   FormFieldComponent,
   PickerInputComponent,
   TextInputComponent,
@@ -17,6 +18,10 @@ import { PickerOptionsPipe } from './picker-options.pipe';
 const CARD_SURFACES: readonly CardSurface[] = ['surface', 'raised-surface', 'lowered-surface'];
 const CARD_EDGES: readonly CardEdge[] = ['inset', 'bleed'];
 const CARD_LAYOUTS: readonly CardLayout[] = ['auto', 'inline', 'stacked'];
+const CARD_HEADINGS: readonly CardHeading[] = ['h1', 'h2', 'h3', 'h4'];
+
+// `heading` has no fixed default: when unset the card picks h2 on 'surface' and h3 otherwise.
+const AUTO_HEADING = '__none__';
 
 @Component({
   selector: 'app-card-playground',
@@ -29,6 +34,7 @@ const CARD_LAYOUTS: readonly CardLayout[] = ['auto', 'inline', 'stacked'];
         style="width: 100%;"
         [title]="title()"
         [description]="description()"
+        [heading]="resolvedHeading()"
         [surface]="surface()"
         [edge]="edge()"
         [layout]="layout()"
@@ -53,6 +59,14 @@ const CARD_LAYOUTS: readonly CardLayout[] = ['auto', 'inline', 'stacked'];
             [value]="description()"
             (valueChange)="description.set($event)"
           ></cwr-text-input>
+        </cwr-form-field>
+
+        <cwr-form-field label="Heading level">
+          <cwr-picker-input
+            [options]="headings | pickerOptions: { label: '(auto)', value: '${AUTO_HEADING}' }"
+            [value]="heading()"
+            (valueChange)="heading.set($any($event))"
+          ></cwr-picker-input>
         </cwr-form-field>
 
         <cwr-form-field label="Surface">
@@ -92,13 +106,20 @@ export class CardPlayground {
   surfaces = CARD_SURFACES;
   edges = CARD_EDGES;
   layouts = CARD_LAYOUTS;
+  headings = CARD_HEADINGS;
 
   title = signal('Verification summary');
   description = signal('Everything we checked for this applicant');
+  heading = signal<CardHeading | typeof AUTO_HEADING>(AUTO_HEADING);
   surface = signal<CardSurface>('surface');
   edge = signal<CardEdge>('inset');
   layout = signal<CardLayout>('auto');
   fill = signal(false);
+
+  resolvedHeading = computed<CardHeading | undefined>(() => {
+    const heading = this.heading();
+    return heading === AUTO_HEADING ? undefined : heading;
+  });
 
   generatedCode = computed(() => {
     const attrs = [
@@ -108,6 +129,7 @@ export class CardPlayground {
       `layout="${this.layout()}"`,
     ];
     if (this.description()) attrs.push(`description="${this.description()}"`);
+    if (this.heading() !== AUTO_HEADING) attrs.push(`heading="${this.heading()}"`);
     if (this.fill()) attrs.push(`[fill]="true"`);
 
     return `<cwr-card ${attrs.join(' ')}>

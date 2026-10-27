@@ -30,6 +30,7 @@ const RADIO_BUTTON_STATES: readonly RadioButtonState[] = ['idle', 'error'];
         [state]="state()"
         [disabled]="disabled()"
         [showFocusRing]="showFocusRing()"
+        [hideLabel]="hideLabel()"
       ></cwr-radio-button>
 
       <ng-container playground-controls>
@@ -65,6 +66,12 @@ const RADIO_BUTTON_STATES: readonly RadioButtonState[] = ['idle', 'error'];
           [checked]="showFocusRing()"
           (checkedChange)="showFocusRing.set($event)"
         ></cwr-checkbox>
+
+        <cwr-checkbox
+          label="Hide label"
+          [checked]="hideLabel()"
+          (checkedChange)="hideLabel.set($event)"
+        ></cwr-checkbox>
       </ng-container>
     </app-playground>
   `
@@ -77,6 +84,7 @@ export class RadioButtonPlayground {
   state = signal<RadioButtonState>('idle');
   disabled = signal(false);
   showFocusRing = signal(false);
+  hideLabel = signal(false);
 
   generatedCode = computed(() => {
     const attrs = [`label="${this.label()}"`];
@@ -84,6 +92,7 @@ export class RadioButtonPlayground {
     if (this.checked()) attrs.push(`[checked]="true"`);
     if (this.disabled()) attrs.push(`[disabled]="true"`);
     if (this.showFocusRing()) attrs.push(`[showFocusRing]="true"`);
+    if (this.hideLabel()) attrs.push(`[hideLabel]="true"`);
     return `<cwr-radio-button ${attrs.join(' ')}></cwr-radio-button>`;
   });
 

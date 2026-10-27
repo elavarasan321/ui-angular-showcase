@@ -6,6 +6,7 @@ import {
   FormFieldComponent,
   PickerInputComponent,
   TextInputComponent,
+  NumericInputComponent,
 } from '@checkworkrights/ui-angular';
 import { Playground } from './playground';
 import { playgroundState } from './playground-state';
@@ -20,7 +21,7 @@ const POSITIONS: readonly TextOverflowPosition[] = ['top', 'bottom'];
 @Component({
   selector: 'app-text-overflow-playground',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TextOverflowComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, PickerOptionsPipe],
+  imports: [TextOverflowComponent, Playground, FormFieldComponent, PickerInputComponent, TextInputComponent, NumericInputComponent, PickerOptionsPipe],
   template: `
     <app-playground [state]="playground" [code]="generatedCode()">
       <div playground-preview style="width: 220px; display: inline-block;">
@@ -28,6 +29,7 @@ const POSITIONS: readonly TextOverflowPosition[] = ['top', 'bottom'];
           [text]="text()"
           [truncation]="truncation()"
           [position]="position()"
+          [maxLines]="maxLines()"
         ></cwr-text-overflow>
       </div>
 
@@ -54,6 +56,13 @@ const POSITIONS: readonly TextOverflowPosition[] = ['top', 'bottom'];
             (valueChange)="position.set($any($event))"
           ></cwr-picker-input>
         </cwr-form-field>
+
+        <cwr-form-field label="Max lines">
+          <cwr-numeric-input
+            [value]="maxLines()"
+            (valueChange)="maxLines.set($event != null && $event >= 1 ? $event : 1)"
+          ></cwr-numeric-input>
+        </cwr-form-field>
       </ng-container>
     </app-playground>
   `
@@ -65,10 +74,17 @@ export class TextOverflowPlayground {
   text = signal('A very long piece of text that will not fit in the available space');
   truncation = signal<TextOverflowTruncation>('trailing');
   position = signal<TextOverflowPosition>('top');
+  maxLines = signal(1);
 
   generatedCode = computed(() => {
+    const attrs = [
+      `text="${this.text()}"`,
+      `truncation="${this.truncation()}"`,
+      `position="${this.position()}"`,
+    ];
+    if (this.maxLines() !== 1) attrs.push(`[maxLines]="${this.maxLines()}"`);
     return `<div style="width: 220px; display: inline-block;">
-  <cwr-text-overflow text="${this.text()}" truncation="${this.truncation()}" position="${this.position()}"></cwr-text-overflow>
+  <cwr-text-overflow ${attrs.join(' ')}></cwr-text-overflow>
 </div>`;
   });
 
