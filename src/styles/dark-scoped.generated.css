@@ -399,7 +399,7 @@
   --palette-neutral-dark-slate-25: #121923; /** Surface floor (dark). (OKLCh L=0.2128 C=0.0228 h=257.00°) */
   --palette-neutral-dark-slate-50: #161f2b; /** Navbar (dark). (OKLCh L=0.2354 C=0.0261 h=257.00°) */
   --palette-neutral-dark-slate-100: #1d2837; /** Canvas (dark). (OKLCh L=0.2727 C=0.0317 h=257.00°) */
-  --palette-neutral-dark-slate-200: #203146; /** Colour has been manually overriden to match existing card dusrface colours in the old parts of the app */
+  --palette-neutral-dark-slate-200: #203146; /** Colour has been manually overridden to match existing card surface colours in the old parts of the app */
   --palette-neutral-dark-slate-300: #2b394e; /** Nested hover (dark). Retuned to match live-app colour more closely — darkened, chroma unchanged from formula. (OKLCh L=0.3424 C=0.0414 h=257.00°) */
   --palette-neutral-dark-slate-400: #304056; /** Raised surface (dark). Retuned to match live-app colour more closely — darkened, chroma unchanged from formula. (OKLCh L=0.3669 C=0.0442 h=257.00°) */
   --palette-neutral-dark-slate-500: #35455d; /** Nested surface hover (dark). Retuned to match live-app colour more closely — darkened, chroma unchanged from formula. (OKLCh L=0.3878 C=0.0455 h=257.00°) */
@@ -513,12 +513,18 @@
   --scale-unitless-700: 7; /** Unitless 7 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
   --scale-unitless-800: 8; /** Unitless 8 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
   --scale-unitless-900: 9; /** Unitless 9 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
-  --scale-unitless-1000: 15; /** Unitless 15 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
-  --scale-unitless-1100: 30; /** Unitless 30 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
-  --scale-unitless-1200: 48; /** Unitless 48 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
-  --scale-unitless-1300: 60; /** Unitless 60 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
-  --scale-unitless-1400: 90; /** Unitless 90 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
-  --scale-unitless-1500: 120; /** Unitless 120 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
+  --scale-unitless-1000: 10; /** Unitless 10 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
+  --scale-unitless-1100: 11; /** Unitless 11 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
+  --scale-unitless-1200: 12; /** Unitless 12 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
+  --scale-unitless-1300: 13; /** Unitless 13 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
+  --scale-unitless-1400: 14; /** Unitless 14 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
+  --scale-unitless-1500: 15; /** Unitless 15 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
+  --scale-unitless-2000: 20; /** Unitless 20 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
+  --scale-unitless-3000: 30; /** Unitless 30 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
+  --scale-unitless-4800: 48; /** Unitless 48 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
+  --scale-unitless-6000: 60; /** Unitless 60 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
+  --scale-unitless-9000: 90; /** Unitless 90 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
+  --scale-unitless-12000: 120; /** Unitless 120 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
   --scale-unitless-neg-6: -0.0625; /** Unitless -0.0625 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
   --scale-unitless-neg-12: -0.125; /** Unitless -0.125 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
   --scale-unitless-neg-25: -0.25; /** Unitless -0.25 scale value. Use in math expressions where unit-bearing tokens cause calculation errors. */
@@ -557,12 +563,13 @@
   --dimensions-rem-700: 7rem; /** 7rem relative scale value used in size, spacing, typography, borders and shadows. */
   --dimensions-rem-800: 8rem; /** 8rem relative scale value used in size, spacing, typography, borders and shadows. */
   --dimensions-rem-900: 9rem; /** 9rem relative scale value used in size, spacing, typography, borders and shadows. */
-  --dimensions-rem-1000: 15rem; /** 15rem relative scale value used for responsive container and layout dimensions. */
-  --dimensions-rem-1100: 30rem; /** 30rem relative scale value used for responsive container and layout dimensions. */
-  --dimensions-rem-1200: 48rem; /** 48rem relative scale value used for responsive container and layout dimensions. */
-  --dimensions-rem-1300: 60rem; /** 60rem relative scale value used for responsive container and layout dimensions. */
-  --dimensions-rem-1400: 90rem; /** 90rem relative scale value used for responsive container and layout dimensions. */
-  --dimensions-rem-1500: 120rem; /** 120rem relative scale value used for responsive container and layout dimensions. */
+  --dimensions-rem-1500: 15rem; /** 15rem relative scale value used for responsive container and layout dimensions. */
+  --dimensions-rem-2000: 20rem; /** 20rem relative scale value used for responsive container and layout dimensions. */
+  --dimensions-rem-3000: 30rem; /** 30rem relative scale value used for responsive container and layout dimensions. */
+  --dimensions-rem-4800: 48rem; /** 48rem relative scale value used for responsive container and layout dimensions. */
+  --dimensions-rem-6000: 60rem; /** 60rem relative scale value used for responsive container and layout dimensions. */
+  --dimensions-rem-9000: 90rem; /** 90rem relative scale value used for responsive container and layout dimensions. */
+  --dimensions-rem-12000: 120rem; /** 120rem relative scale value used for responsive container and layout dimensions. */
   --dimensions-rem-neg-6: -0.0625rem; /** Negative 0.0625rem relative scale value used in size, spacing, typography, borders and shadows. */
   --dimensions-rem-neg-12: -0.125rem; /** Negative 0.125rem relative scale value used in size, spacing, typography, borders and shadows. */
   --dimensions-rem-neg-25: -0.25rem; /** Negative 0.25rem relative scale value used in size, spacing, typography, borders and shadows. */
@@ -587,14 +594,16 @@
   --dimensions-fixed-40: 40px; /** 40px fixed value used in size, spacing, typography, borders and shadows */
   --dimensions-fixed-44: 44px; /** 44px fixed value used in size, spacing, typography, borders and shadows */
   --dimensions-fixed-48: 48px; /** 48px fixed value used in size, spacing, typography, borders and shadows */
-  --dimensions-fixed-56: 48px; /** 56px fixed value used in size, spacing, typography, borders and shadows */
-  --dimensions-fixed-60: 48px; /** 60px fixed value used in size, spacing, typography, borders and shadows */
+  --dimensions-fixed-56: 56px; /** 56px fixed value used in size, spacing, typography, borders and shadows */
+  --dimensions-fixed-60: 60px; /** 60px fixed value used in size, spacing, typography, borders and shadows */
   --dimensions-fixed-64: 64px; /** 64px fixed value used in size, spacing, typography, borders and shadows */
   --dimensions-fixed-80: 80px; /** 80px fixed value used in size, spacing, typography, borders and shadows */
   --dimensions-fixed-96: 96px; /** 96px fixed value used in size, spacing, typography, borders and shadows */
   --dimensions-fixed-112: 112px; /** 112px fixed value used in size, spacing, typography, borders and shadows */
   --dimensions-fixed-128: 128px; /** 128px fixed value used in size, spacing, typography, borders and shadows */
   --dimensions-fixed-144: 144px; /** 144px fixed value used in size, spacing, typography, borders and shadows */
+  --dimensions-fixed-196: 196px; /** 196px fixed value used in size, spacing, typography, borders and shadows */
+  --dimensions-fixed-960: 960px; /** 960px fixed value used in specific cases for container and component widths */
   --dimensions-fixed-neg-1: -1px; /** Negative 1px fixed scale value */
   --breakpoint-3xs: 375px; /** Minimum supported viewport width. Targets standard size smartphones. */
   --breakpoint-2xs: 640px; /** Targets large phones and small tablet devices. Also maximum content size for emails */
@@ -603,6 +612,7 @@
   --breakpoint-md: 1440px; /** Targets standard laptops at default OS scaling. */
   --breakpoint-lg: 1920px; /** Targets 1080p desktop monitors and laptops at 100% OS scaling. */
   --breakpoint-xl: 2560px; /** Targets 1440p monitors and ultrawide displays. Layouts at this breakpoint should apply a max-width constraint rather than stretching full-bleed. */
+  --breakpoint-email: 768px; /** Sets the breakpoint for all CWR emails */
   --font-family-display: Inter; /** Font Family for display text */
   --font-family-header: Inter; /** Font Family for headers */
   --font-family-body: Inter; /** Font Family for body content */
@@ -663,9 +673,9 @@
   --color-bg-surface-hover: #4c5c7352; /** Default background color for surface containers when in a hover state */
   --color-bg-surface-raised: #4c5c733d; /** Background color for raised surface containers. */
   --color-bg-surface-lowered: #12192352; /** Background color for lowered surface containers. */
-  --color-bg-surface-input: #12192314; /** Background color for text and select input containers. */
+  --color-bg-surface-input: #1219231f; /** Background color for text and select input containers. */
   --color-bg-surface-input-hover: #12192352; /** Background color for text and select input containers when in the hover state. */
-  --color-bg-surface-input-readonly: #121923b8; /** Background color for text and select input containers when in the readonly state. */
+  --color-bg-surface-input-readonly: #1219237a; /** Background color for text and select input containers when in the readonly state. */
   --color-bg-surface-popover: #121923; /** Default background color for popovers (listbox & menu). */
   --color-bg-surface-popover-hover: #4c5c7352; /** Default background color for popovers (listbox & menu) when in the hover state. */
   --color-bg-surface-overlay: #1d2837; /** Default background color for overlays (modal, drawer & dialog). */
@@ -888,6 +898,7 @@
   --size-divider-default: 1px; /** Default divider height or width */
   --size-divider-thick: 2px; /** Thick divider height or width */
   --size-divider-thickest: 4px; /** Thickest divider height or width */
+  --size-email-max-width: 960px; /** Fixed maximum width for containers and components in email templates used in breakpoints greater than breakpoint.email */
   --size-empty-state-content-max-width: 48rem; /** Empty State Content Block maxWidth */
   --size-hint-min-width: 2.5rem; /** Hint component minWidth */
   --size-hint-max-width: 9rem; /** Hint component maxWidth */
@@ -902,10 +913,13 @@
   --size-illustration-lg: 7rem; /** Large illustration width and height. */
   --size-listbox-option-min-width: 15rem; /** Listbox Option minWidth */
   --size-listbox-option-max-width: 30rem; /** Listbox Option maxWidth */
+  --size-logo-fixed-height: 20px; /** Fixed height for CWR logo */
+  --size-logo-fixed-width: 196px; /** Fixed width for CWR logo */
+  --size-logo-height: 1.25rem; /** Fixed height for CWR logo */
   --size-menu-item-min-width: 15rem; /** Menu Item minWidth */
   --size-menu-item-max-width: 30rem; /** Menu Item maxWidth */
-  --size-navbar-min-width: 15rem; /** Sidebar component minWidth for all breakpoints. */
-  --size-navbar-max-width: 30rem; /** Sidebar component maxWidth for breakpoints greater than breakpoint-xs. */
+  --size-navbar-min-width: 15rem; /** Navbar component minWidth for all breakpoints. */
+  --size-navbar-max-width: 30rem; /** Navbar component maxWidth for breakpoints greater than breakpoint-xs. */
   --size-scrollbar-track: 10px; /** Scrollbar track height or width depending on scrollbar orientation */
   --size-scrollbar-thumb: 6px; /** Scrollbar thumb height or width depending on scrollbar orientation */
   --size-snackbar-width: 480px; /** Snackbar default width */
@@ -913,7 +927,7 @@
   --size-textarea-input-min-height: 4rem; /** Textarea Input minHeight */
   --size-toggle-width: 2.25rem; /** Toggle component width */
   --size-tooltip-min-width: 15rem; /** Tooltip component minWidth */
-  --size-tooltip-max-width: 30rem; /** Tooltip component maxWidth */
+  --size-tooltip-max-width: 20rem; /** Tooltip component maxWidth */
   --layout-flex-auto: 1 1 auto; /** Starts at content size, then grows to absorb extra space and shrinks when crowded. */
   --layout-flex-fixed: 0 0 auto; /** Does not grow or shrink. Takes its content size or an explicit width/height. For items that must hold their size — icons, avatars, fixed controls. */
   --layout-flex-grow-fill: 1 0 0; /** Flex shorthand: grows to fill available space, does not shrink below its content size. Use for items that should expand to occupy remaining space in a flex container. */
@@ -928,7 +942,7 @@
   --border-surface-overlay: 1px solid #4c5c7352; /** Border color, width and style used for layout dividers on or around overlays */
   --border-surface-navbar: 1px solid #4c5c7352; /** Border color, width and style used for borders on the Navbar component */
   --border-surface-canvas: 1px solid #4c5c7352; /** Border color, width and style used for borders on the Canvas */
-  --border-surface-static: 1px solid #35455d; /** Border color, width and style used for layout dividers on or around static surfaces. It is static because in the value is the same across color modes. */
+  --border-surface-static: 1px solid #35455d; /** Border color, width and style used for layout dividers on or around static surfaces. It is static because the value is the same across color modes. */
   --border-focus: 2px solid #c4c4c4; /** Default border color, width and style when component has focus. */
   --border-focus-error: 2px solid #ff7d8e; /** Default border color, width and style when component has focus and has an error. */
   --border-brand: 1px solid #00b68b; /** Brand border color, width and style for static or interactive components. */
@@ -962,8 +976,8 @@
   --border-caution-inverse: 1px solid #2f0d05; /** Inverse Caution border color, width and style for static or interactive components. */
   --border-caution-inverse-hover: 1px solid #46180b; /** Inverse Caution border color, width and style for interactive components when in the hover state. */
   --border-negative: 1px solid #f56374; /** Negative border color, width and style for static or interactive components. */
-  --border-negative-hover: 1px solid #ff7d8e; /** Negative border color, width and style for static or interactive components when in the hover state. */
   --border-negative-subtle: 1px solid #c64e5c; /** Subtle Negative border color, width and style for static or interactive components. */
+  --border-negative-hover: 1px solid #ff7d8e; /** Negative border color, width and style for static or interactive components when in the hover state. */
   --border-negative-subtle-hover: 1px solid #f56374; /** Subtle Negative border color, width and style for interactive components when in the hover state. */
   --border-negative-inverse: 1px solid #300a11; /** Inverse Negative border color, width and style for static or interactive components. */
   --border-negative-inverse-hover: 1px solid #47141c; /** Inverse Negative border color, width and style for interactive components when in the hover state. */
@@ -982,8 +996,8 @@
   --border-width-md: 1px; /** Medium Border Width */
   --border-width-lg: 2px; /** Large Border Width */
   --border-width-xl: 4px; /** X-Large Border Width */
-  --box-shadow-elevation-xs: 0rem 0rem 0.25rem 0rem #12192314, 0rem 0.25rem 0.5rem 0rem #1219230a; /** Very low elevation shadow providing minimal depth and subtle separation between layers. */
   --box-shadow-elevation-sm: 0rem 0.25rem 0.25rem 0rem #12192314, 0rem 0.5rem 0.75rem 0rem #1219230a; /** Low elevation shadow that introduces gentle depth while maintaining a soft visual presence. */
+  --box-shadow-elevation-xs: 0rem 0rem 0.25rem 0rem #12192314, 0rem 0.25rem 0.5rem 0rem #1219230a; /** Very low elevation shadow providing minimal depth and subtle separation between layers. */
   --box-shadow-elevation-md: 0rem 0.5rem 0.75rem 0rem #12192314, 0rem 0.75rem 1rem 0rem #1219230a; /** Medium elevation shadow that increases perceived depth and visual prominence. */
   --box-shadow-elevation-lg: 0rem 0.5rem 0.75rem 0rem #12192329, 0rem 0.75rem 1rem 0rem #12192314; /** High elevation shadow that clearly defines separation between layers. */
   --box-shadow-elevation-xl: 0rem 1.25rem 1.25rem 0rem #12192329, 0rem 1.5rem 1.5rem 0rem #12192314; /** Very high elevation shadow that emphasises strong layering and spatial distinction. */
@@ -1024,6 +1038,7 @@
   --icon-check-reference-check: fa-regular fa-comments-question; /** comments-question */
   --icon-check-rsa: fa-kit fa-icon-wine-bottle-glass; /** icon-wine-bottle-glass */
   --icon-check-study-entitlement: fa-regular fa-graduation-cap; /** graduation-cap */
+  --icon-check-vaccination: fa-regular fa-syringe; /** syringe */
   --icon-check-right-to-work: fa-kit fa-icon-briefcase-check-double; /** icon-briefcase-check-double */
   --icon-check-vevo: fa-regular fa-passport; /** passport */
   --icon-check-working-with-children: fa-regular fa-children; /** children */
@@ -1040,6 +1055,11 @@
   --icon-status-check-incomplete: fa-kit fa-icon-badge-xmark; /** icon-badge-xmark */
   --icon-status-check-resubmit: fa-kit fa-icon-badge-sync; /** icon-badge-sync */
   --icon-status-check-unverified: fa-kit fa-icon-badge-question; /** icon-badge-question */
+  --icon-status-check-vaccinated-booster: fa-kit fa-icon-syringe-circle-plus; /** icon-syringe-circle-plus */
+  --icon-status-check-vaccinated-full: fa-kit fa-icon-syringe-shield-check-double; /** icon-syringe-shield-check-double */
+  --icon-status-check-vaccinated-partial: fa-kit fa-icon-syringe-halved-shield; /** icon-syringe-halved-shield */
+  --icon-status-check-vaccine-exemption-medical: fa-regular fa-user-doctor-message; /** user-doctor-message */
+  --icon-status-check-vaccine-exemption-personal: fa-regular fa-hand; /** hand */
   --icon-status-check-verified: fa-kit fa-icon-badge-check-double; /** icon-badge-check-double */
   --icon-status-danger: fa-regular fa-triangle-exclamation; /** triangle-exclamation */
   --icon-status-fail: fa-regular fa-circle-xmark; /** circle-xmark */
@@ -1152,7 +1172,7 @@
   --illustration-bulk-action-passport: fa-kit fa-illustration-file-spreadsheet-passport; /** illustration-file-spreadsheet-passport */
   --illustration-bulk-action-police: fa-kit fa-illustration-file-spreadsheet-police; /** illustration-file-spreadsheet-police */
   --illustration-bulk-action-upload: fa-kit fa-illustration-file-spreadsheet-upload; /** illustration-file-spreadsheet-upload */
-  --illustration-document-awaiting-verification: fa-kit illustration-document-badge-clock-dashed; /** illustration-document-badge-clock-dashed */
+  --illustration-document-awaiting-verification: fa-kit fa-illustration-document-badge-clock-dashed; /** illustration-document-badge-clock-dashed */
   --illustration-document-complete: fa-kit fa-illustration-document-circle-check; /** illustration-document-circle-check */
   --illustration-document-configure: fa-kit fa-illustration-document-gear; /** illustration-document-gear */
   --illustration-document-download: fa-kit fa-illustration-document-download; /** illustration-document-download */
@@ -1256,7 +1276,7 @@
   --ag-wrapper-border: 1px solid #4c5c7352; /** Borders around the outside of the grid */
   --ag-border-radius: 0.5rem; /** Default corner radius for many UI elements such as menus, dialogs and form widgets. */
   --ag-button-border-radius: 0.5rem; /** Corner radius of standard action buttons (e.g. "Reset" and "Apply") */
-  --ag-checkbox-border-radius: 0.25rem; /** Border radius for checkboxes */
+  --ag-checkbox-border-radius: 0.125rem; /** Border radius for checkboxes */
   --ag-color-picker-color-border-radius: 9999px; /** Border radius of selected/recent colors in color picker */
   --ag-color-picker-track-border-radius: 9999px; /** Border radius of track in color picker popup */
   --ag-icon-button-border-radius: 0.125rem; /** Corner radius of clickable icon background */
@@ -1339,7 +1359,7 @@
   --ag-checkbox-checked-shape-color: #002015; /** The color of the check mark on checked checkboxes. */
   --ag-checkbox-indeterminate-background-color: #0032227a; /** Background color of an indeterminate checkbox */
   --ag-checkbox-indeterminate-border-color: #00936f; /** Border color of an indeterminate checkbox */
-  --ag-checkbox-indeterminate-shape-color: #002015; /** The color of the dash mark on indeterminate checkboxes */
+  --ag-checkbox-indeterminate-shape-color: #00b68b; /** The color of the dash mark on indeterminate checkboxes */
   --ag-checkbox-unchecked-background-color: #12192352; /** Background color of an unchecked checkbox */
   --ag-checkbox-unchecked-border-color: #6e7a89; /** Border color of an unchecked checkbox */
   --ag-chrome-background-color: #1d2837; /** Background color for non-data areas of the grid. Headers, tool panels and menus use this color by default. */
@@ -1369,7 +1389,7 @@
   --ag-footer-row-border-color: #4c5c7352;
   --ag-foreground-color: #e2e2e2; /** Default color for neutral UI elements. Most text, borders and backgrounds are defined as semi-transparent versions of this color, resulting in a blend between the background and foreground colours. */
   --ag-formula-token1-background-color: #47141c33; /** The background color of the 1st formula field token associated range */
-  --ag-formula-token1-color: #8d6ae9; /** The color of the 1st formula field token */
+  --ag-formula-token1-color: #f56374; /** The color of the 1st formula field token */
   --ag-formula-token2-background-color: #46180b33; /** The background color of the 2nd formula field token associated range */
   --ag-formula-token2-color: #ef6f47; /** The color of the 2nd formula field token */
   --ag-formula-token3-background-color: #481d0c33; /** The background color of the 3rd formula field token associated range */
@@ -1398,7 +1418,7 @@
   --ag-icon-button-hover-background-color: #1219237a; /** Background color for clickable icons when hovered */
   --ag-icon-button-hover-color: #d9d9d9; /** Color of clickable icons when hovered */
   --ag-icon-color: #e2e2e2; /** Color for icons, or `inherit` to take on the text color of the containing component */
-  --ag-input-background-color: #12192314; /** Background color for text inputs */
+  --ag-input-background-color: #1219231f; /** Background color for text inputs */
   --ag-input-border-color: #6e7a89;
   --ag-input-disabled-background-color: #12192300; /** Background color for disabled text inputs */
   --ag-input-disabled-border-color: #3c4d64;
@@ -1574,9 +1594,6 @@
   --ag-widget-horizontal-spacing: 0.75rem; /** The spacing between widgets in containers arrange widgets horizontally */
   --ag-widget-vertical-spacing: 0.5rem; /** The spacing between widgets in containers arrange widgets vertically */
   --ag-browser-color-scheme: dark; /** The CSS color-scheme to apply to the grid, which affects the default appearance of browser scrollbars form inputs unless these have been styled with CSS. */
-  --ag-checkbox-checked-shape-image: #002015; /** An image defining the shape of the check mark on checked checkboxes. */
-  --ag-checkbox-indeterminate-shape-image: #002015; /** An image defining the shape of the dash mark on indeterminate checkboxes */
-  --ag-radio-checked-shape-image: #002015; /** An image defining the shape of the mark on checked radio buttons */
   --ag-range-selection-border-style: solid; /** Border style around range selections. */
   --ag-internal-internal-content-line-height: 63px; /** Derived (not an AG Grid parameter). Mirrors --ag-internal-content-line-height = rowHeight - rowBorderWidth - (2 * borderWidth.md, the cell's transparent top+bottom border). Pixel value; drives data cell value text line-height. Omits the min(rowHeight, lineHeight) branch as CWR does not set the optional lineHeight parameter. */
   --ag-internal-internal-cell-border-inset: 1px; /** Derived (not an AG Grid parameter). Width of the transparent inset border applied to all 4 sides of data cells. Creates structural padding that reduces visible content height to internalContentLineHeight. */
